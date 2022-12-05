@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php require_once('db/koneksi.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,8 +9,14 @@
     <title>Aplikasi E-Rapot</title>
     <link rel="shortcut icon" href="assets/images/favicon.png" />
 
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/light.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .td-fit {
+            width: 1%;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,100 +25,39 @@
         <div class="main">
             <?php include_once('templates/navbar.php'); ?>
             <?php
-            if (isset($_GET['page'])) {
-                switch ($_GET['page']) {
-                    case "buku_tamu":
-                        include_once "halaman_buku_tamu.php";
+            if (isset($_GET['h'])) {
+                switch ($_GET['h']) {
+                        // Tampil
+                    case "kelas":
+                        include_once "halaman/tampil/kelas.php";
                         break;
-                    case "buku_tamu_keluar":
-                        include_once "halaman_buku_tamu/halaman_buku_tamu_keluar.php";
+                    case "mata_pelajaran":
+                        include_once "halaman/tampil/mata_pelajaran.php";
                         break;
-                    case "tambah_user":
-                        include_once "halaman_tambah_data/halaman_tambah_user.php";
+                        // Tampil
+                    case "lihat_kelas":
+                        include_once "halaman/lihat/kelas.php";
                         break;
-                    case "tambah_divisi":
-                        include_once "halaman_tambah_data/halaman_tambah_divisi.php";
+                        // Tambah
+                    case "tambah_kelas":
+                        include_once "halaman/tambah/kelas.php";
                         break;
-                    case "tambah_pegawai":
-                        include_once "halaman_tambah_data/halaman_tambah_pegawai.php";
+                    case "tambah_mata_pelajaran":
+                        include_once "halaman/tambah/mata_pelajaran.php";
                         break;
-                    case "tambah_user_tamu":
-                        include_once "halaman_tambah_data/halaman_tambah_user_tamu.php";
+                        // Edit
+                    case "edit_kelas":
+                        include_once "halaman/edit/kelas.php";
                         break;
-                    case "data_tamu":
-                        include_once "halaman_tampil_data/halaman_data_tamu.php";
+                    case "edit_mata_pelajaran":
+                        include_once "halaman/edit/mata_pelajaran.php";
                         break;
-                    case "data_user":
-                        include_once "halaman_tampil_data/halaman_data_user.php";
+                        // Hapous
+                    case "hapus_kelas":
+                        include_once "halaman/hapus/kelas.php";
                         break;
-                    case "data_divisi":
-                        include_once "halaman_tampil_data/halaman_data_divisi.php";
-                        break;
-                    case "data_pegawai":
-                        include_once "halaman_tampil_data/halaman_data_pegawai.php";
-                        break;
-                    case "data_user_tamu":
-                        include_once "halaman_tampil_data/halaman_data_user_tamu.php";
-                        break;
-                    case "data_pendaftar":
-                        include_once "halaman_tampil_data/halaman_data_pendaftar.php";
-                        break;
-                    case "data_user_lupa_password":
-                        include_once "halaman_tampil_data/halaman_data_user_lupa_password.php";
-                        break;
-                    case "edit_tamu":
-                        include_once "halaman_edit_data/halaman_edit_tamu.php";
-                        break;
-                    case "detail_tamu":
-                        include_once "halaman_detail_data/halaman_detail_tamu.php";
-                        break;
-                    case "detail_user_tamu":
-                        include_once "halaman_detail_data/halaman_detail_user_tamu.php";
-                        break;
-                    case "detail_pendaftar":
-                        include_once "halaman_detail_data/halaman_detail_pendaftar.php";
-                        break;
-                    case "detail_user_lupa_password":
-                        include_once "halaman_detail_data/halaman_detail_user_lupa_password.php";
-                        break;
-                    case "edit_user":
-                        include_once "halaman_edit_data/halaman_edit_user.php";
-                        break;
-                    case "edit_divisi":
-                        include_once "halaman_edit_data/halaman_edit_divisi.php";
-                        break;
-                    case "edit_pegawai":
-                        include_once "halaman_edit_data/halaman_edit_pegawai.php";
-                        break;
-                    case "edit_user_tamu":
-                        include_once "halaman_edit_data/halaman_edit_user_tamu.php";
-                        break;
-                    case "delete_tamu":
-                        include_once "halaman_delete_data/halaman_delete_tamu.php";
-                        break;
-                    case "delete_user":
-                        include_once "halaman_delete_data/halaman_delete_user.php";
-                        break;
-                    case "delete_divisi":
-                        include_once "halaman_delete_data/halaman_delete_divisi.php";
-                        break;
-                    case "delete_pegawai":
-                        include_once "halaman_delete_data/halaman_delete_pegawai.php";
-                        break;
-                    case "delete_user_tamu":
-                        include_once "halaman_delete_data/halaman_delete_user_tamu.php";
-                        break;
-                    case "ganti_password":
-                        include_once "halaman_auth/halaman_ganti_password.php";
-                        break;
-                    case "edit_profile":
-                        include_once "halaman_profile/halaman_edit_profile.php";
-                        break;
-                    case "logout":
-                        include_once "halaman_auth/halaman_logout.php";
-                        break;
-                    case "laporan":
-                        include_once "halaman_laporan/halaman_laporan.php";
+                    case "hapus_mata_pelajaran":
+                        include_once "halaman/hapus/mata_pelajaran.php";
                         break;
                     default:
                         include_once "beranda.php";
@@ -121,6 +67,20 @@
         </div>
     </div>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/datatables.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Datatables Responsive
+            $("#datatables-reponsive").DataTable({
+                responsive: true
+            });
+        });
+    </script>
+    <script>
+        setTimeout(() => {
+            document.querySelector('.alert.delete').parentElement.remove()
+        }, 5000);
+    </script>
 </body>
 
 </html>
