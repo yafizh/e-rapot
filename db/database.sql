@@ -6,20 +6,27 @@ CREATE TABLE `user` (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL COMMENT 'ADMIN ATAU GURU',
     PRIMARY KEY (id)
+);
+
+CREATE TABLE `user_guru` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    id_guru INT NOT NULL,
+    status VARCHAR(255) NOT NULL COMMENT 'GURU ATAU WALI KELAS',
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE,
+    FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
 );
 
 CREATE TABLE `guru` (
     id INT NOT NULL AUTO_INCREMENT,
-    id_user INT NOT NULL,
     nama VARCHAR(255) NOT NULL,
     tempat_lahir VARCHAR(255) NOT NULL,
     tanggal_lahir DATE NOT NULL,
     jenis_kelamin VARCHAR(255) NOT NULL,
     foto VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE `kelas` (
