@@ -12,7 +12,27 @@
             </li>
 
             <li class="sidebar-header">
-                Data Master
+                Data User
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="?h=admin">
+                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Admin</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Data Sekolah
+            </li>
+            <li class="sidebar-item <?php 
+             if (isset($_GET['h'])) {
+                if ($_GET['h'] == "guru") echo "active";
+                else if ($_GET['h'] == "tambah_guru") echo "active";
+                else if ($_GET['h'] == "edit_guru") echo "active";
+            }
+            ?>">
+                <a class="sidebar-link" href="?h=guru">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Guru</span>
+                </a>
             </li>
             <li class="sidebar-item <?php 
              if (isset($_GET['h'])) {
@@ -28,34 +48,9 @@
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelas</span>
                 </a>
             </li>
-
             <li class="sidebar-item">
                 <a class="sidebar-link" href="?h=mata_pelajaran">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Mata Pelajaran</span>
-                </a>
-            </li>
-
-            <li class="sidebar-header">
-                Data User
-            </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="?h=admin">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Admin</span>
-                </a>
-            </li>
-
-            <li class="sidebar-header">
-                Data Guru & Siswa
-            </li>
-            <li class="sidebar-item <?php 
-             if (isset($_GET['h'])) {
-                if ($_GET['h'] == "guru") echo "active";
-                else if ($_GET['h'] == "tambah_guru") echo "active";
-                else if ($_GET['h'] == "edit_guru") echo "active";
-            }
-            ?>">
-                <a class="sidebar-link" href="?h=guru">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Guru</span>
                 </a>
             </li>
             <li class="sidebar-item">
