@@ -13,11 +13,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Tambah Data Berhasil</h4>
-                            <p>Berhasil menambah data guru.</p>
+                            <p>Berhasil menambah data guru dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
                             <hr>
                             <div class="btn-list">
                                 <button class="btn btn-secondary" type="button" data-bs-dismiss="alert" aria-label="Close">Tutup</button>
-                                <a href="?h=lihat_guru&id=<?= $_SESSION['tambah_data']; ?>" class="btn btn-info">Lihat</a>
+                                <a href="?h=lihat_guru&id=<?= $_SESSION['tambah_data']['id']; ?>" class="btn btn-info">Lihat</a>
                             </div>
                         </div>
                     </div>
@@ -29,11 +29,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui data guru.</p>
+                            <p>Berhasil memperbaharui data guru dengan nama <strong><?= $_SESSION['edit_data']['nama']; ?></strong>.</p>
                             <hr>
                             <div class="btn-list">
                                 <button class="btn btn-secondary" type="button" data-bs-dismiss="alert" aria-label="Close">Tutup</button>
-                                <a href="?h=lihat_guru&id=<?= $_SESSION['edit_data']; ?>" class="btn btn-info">Lihat</a>
+                                <a href="?h=lihat_guru&id=<?= $_SESSION['edit_data']['id']; ?>" class="btn btn-info">Lihat</a>
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data guru <strong><?= $_SESSION['hapus_data']; ?></strong>.</p>
+                            <p>Berhasil menghapus data guru dengan nama <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>

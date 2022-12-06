@@ -57,7 +57,8 @@ if (isset($_POST['submit'])) {
             ";
 
         if ($mysqli->query($q)) {
-            $_SESSION['edit_data'] =  $mysqli->insert_id;
+            $_SESSION['edit_data']['id'] =  $data['id'];
+            $_SESSION['edit_data']['nama'] =  $data['nama'];
             echo "<script>location.href = '?h=guru';</script>";
         } else {
             echo "<script>alert('Edit Data Gagal!')</script>";
@@ -94,11 +95,11 @@ if (isset($_POST['submit'])) {
                                 <label class="form-label">Jenis Kelamin</label>
                                 <div class="row ps-3">
                                     <label class="form-check col-auto">
-                                        <input name="jenis_kelamin" type="radio" class="form-check-input" <?= isset($_SESSION['old']['jenis_kelamin']) ? (($_SESSION['old']['jenis_kelamin'] === 'Laki - Laki') ? 'checked' : '') : ( $data['jenis_kelamin'] === 'Laki - Laki' ? 'checked' : ''); ?> value="Laki - Laki">
+                                        <input name="jenis_kelamin" type="radio" class="form-check-input" <?= isset($_SESSION['old']['jenis_kelamin']) ? (($_SESSION['old']['jenis_kelamin'] === 'Laki - Laki') ? 'checked' : '') : ($data['jenis_kelamin'] === 'Laki - Laki' ? 'checked' : ''); ?> value="Laki - Laki">
                                         <span class="form-check-label">Laki - Laki</span>
                                     </label>
                                     <label class="form-check col">
-                                        <input name="jenis_kelamin" type="radio" class="form-check-input" <?= isset($_SESSION['old']['jenis_kelamin']) ? (($_SESSION['old']['jenis_kelamin'] === 'Perempuan') ? 'checked' : '') : ( $data['jenis_kelamin'] === 'Perempuan' ? 'checked' : ''); ?> value="Perempuan">
+                                        <input name="jenis_kelamin" type="radio" class="form-check-input" <?= isset($_SESSION['old']['jenis_kelamin']) ? (($_SESSION['old']['jenis_kelamin'] === 'Perempuan') ? 'checked' : '') : ($data['jenis_kelamin'] === 'Perempuan' ? 'checked' : ''); ?> value="Perempuan">
                                         <span class="form-check-label">Perempuan</span>
                                     </label>
                                 </div>

@@ -19,7 +19,7 @@ $data = $mysqli->query("SELECT * FROM kelas WHERE id=" . $_GET['id'])->fetch_ass
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Tambah Data Berhasil</h4>
-                            <p>Berhasil menambah sub kelas <strong><?= $_SESSION['tambah_data']; ?></strong> pada kelas <strong><?= $data['nama']; ?></strong>.</p>
+                            <p>Berhasil menambah sub kelas dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong> pada kelas <strong><?= $data['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -31,7 +31,7 @@ $data = $mysqli->query("SELECT * FROM kelas WHERE id=" . $_GET['id'])->fetch_ass
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui sub kelas <strong><?= $_SESSION['edit_data_before']; ?></strong> menjadi <strong><?= $_SESSION['edit_data']; ?></strong> pada kelas <strong><?= $data['nama']; ?></strong>.</p>
+                            <p>Berhasil memperbaharui sub kelas dengan nama <strong><?= $_SESSION['edit_data']['nama']['before']; ?></strong> menjadi <strong><?= $_SESSION['edit_data']['nama']['after'] ?></strong> pada kelas <strong><?= $data['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ $data = $mysqli->query("SELECT * FROM kelas WHERE id=" . $_GET['id'])->fetch_ass
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data sub kelas <strong><?= $_SESSION['hapus_data']; ?></strong> pada kelas <strong><?= $data['nama']; ?></strong>.</p>
+                            <p>Berhasil menghapus data sub kelas dengan nama <strong><?= $_SESSION['hapus_data']['nama']; ?></strong> pada kelas <strong><?= $data['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>

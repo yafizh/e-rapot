@@ -2,8 +2,8 @@
     <div class="container-fluid p-0">
 
         <div class="mb-3 d-flex justify-content-between">
-            <h1 class="h3 d-inline align-middle">Data Kelas</h1>
-            <a href="?h=tambah_kelas" class="btn btn-primary">Tambah</a>
+            <h1 class="h3 d-inline align-middle">Data Mata Pelajaran</h1>
+            <a href="?h=tambah_mata_pelajaran" class="btn btn-primary">Tambah</a>
         </div>
 
         <div class="row">
@@ -13,12 +13,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Tambah Data Berhasil</h4>
-                            <p>Berhasil menambah data kelas dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menambah data mata pelajaran dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
                             <hr>
-                            <div class="btn-list">
-                                <button class="btn btn-secondary" type="button" data-bs-dismiss="alert" aria-label="Close">Tutup</button>
-                                <a href="?h=lihat_kelas&id=<?= $_SESSION['tambah_data']['id']; ?>" class="btn btn-info">Lihat</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -29,15 +25,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui data kelas dengan nama <strong><?= $_SESSION['edit_data']['nama']['before']; ?></strong> menjadi <strong><?= $_SESSION['edit_data']['nama']['after']; ?></strong>.</p>
+                            <p>Berhasil memperbaharui data mata pelajaran dengan nama <strong><?= $_SESSION['edit_data']['nama']['before']; ?></strong> menjadi <strong><?= $_SESSION['edit_data']['nama']['after']; ?></strong>.</p>
                             <hr>
-                            <div class="btn-list">
-                                <button class="btn btn-secondary" type="button" data-bs-dismiss="alert" aria-label="Close">Tutup</button>
-                                <a href="?h=lihat_kelas&id=<?= $_SESSION['edit_data']['id']; ?>" class="btn btn-info">Lihat</a>
-                            </div>
                         </div>
                     </div>
                 </div>
+                <?php unset($_SESSION['edit_data_before']); ?>
                 <?php unset($_SESSION['edit_data']); ?>
             <?php elseif (isset($_SESSION['hapus_data'])) : ?>
                 <div class="col-12">
@@ -45,7 +38,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data kelas dengan nama <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menghapus data mata pelajaran dengan nama <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -59,12 +52,12 @@
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">No</th>
-                                    <th class="text-center">Nama Kelas</th>
+                                    <th class="text-center">Nama Mata Pelajaran</th>
                                     <th class="text-center td-fit">Aksi</th>
                                 </tr>
                             </thead>
                             <?php
-                            $result = $mysqli->query("SELECT * FROM kelas ORDER BY nama");
+                            $result = $mysqli->query("SELECT * FROM mata_pelajaran ORDER BY nama");
                             $no = 1;
                             ?>
                             <tbody>
@@ -73,9 +66,8 @@
                                         <td class="text-center td-fit"><?= $no++; ?></td>
                                         <td class="text-center"><?= $row['nama']; ?></td>
                                         <td class="text-center td-fit">
-                                            <a href="?h=lihat_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat</a>
-                                            <a href="?h=edit_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="?h=hapus_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                            <a href="?h=edit_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="?h=hapus_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

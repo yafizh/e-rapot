@@ -6,8 +6,8 @@ if (isset($_POST['submit'])) {
     $q = "UPDATE sub_kelas SET nama='$nama' WHERE id=" . $_GET['id'];
 
     if ($mysqli->query($q)) {
-        $_SESSION['edit_data_before'] = $data['nama'];
-        $_SESSION['edit_data'] =  $nama;
+        $_SESSION['edit_data']['nama']['before'] = $data['nama'];
+        $_SESSION['edit_data']['nama']['after'] =  $nama;
         echo "<script>location.href = '?h=lihat_kelas&id=" . $data['id_kelas'] . "';</script>";
     } else {
         echo "<script>alert('Edit Data Gagal!')</script>";

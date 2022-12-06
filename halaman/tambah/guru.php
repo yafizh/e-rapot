@@ -55,7 +55,8 @@ if (isset($_POST['submit'])) {
             )";
 
             if ($mysqli->query($q)) {
-                $_SESSION['tambah_data'] =  $mysqli->insert_id;
+                $_SESSION['tambah_data']['id'] = $mysqli->insert_id;
+                $_SESSION['tambah_data']['nama'] = $nama;
                 echo "<script>location.href = '?h=guru';</script>";
             } else {
                 echo "<script>alert('Tambah Data Gagal!')</script>";

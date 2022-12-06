@@ -5,7 +5,8 @@ if (isset($_POST['submit'])) {
     $q = "INSERT INTO kelas (nama) VALUES ('$nama')";
 
     if ($mysqli->query($q)) {
-        $_SESSION['tambah_data'] =  $mysqli->insert_id;
+        $_SESSION['tambah_data']['nama'] =  $nama;
+        $_SESSION['tambah_data']['id'] =  $mysqli->insert_id;
         echo "<script>location.href = '?h=kelas';</script>";
     } else {
         echo "<script>alert('Tambah Data Gagal!')</script>";
