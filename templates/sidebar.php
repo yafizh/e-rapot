@@ -5,7 +5,7 @@
         </a>
 
         <ul class="sidebar-nav">
-            <li class="sidebar-item active">
+            <li class="sidebar-item <?= isset($_GET['h']) ? (($_GET['h'] == "") ? "active" : "")  : "active" ?>">
                 <a class="sidebar-link" href="index.html">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                 </a>
@@ -14,7 +14,16 @@
             <li class="sidebar-header">
                 Data Master
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item <?php 
+             if (isset($_GET['h'])) {
+                if ($_GET['h'] == "kelas") echo "active";
+                else if ($_GET['h'] == "lihat_kelas") echo "active";
+                else if ($_GET['h'] == "tambah_kelas") echo "active";
+                else if ($_GET['h'] == "edit_kelas") echo "active";
+                else if ($_GET['h'] == "tambah_sub_kelas") echo "active";
+                else if ($_GET['h'] == "edit_sub_kelas") echo "active";
+            }
+            ?>">
                 <a class="sidebar-link" href="?h=kelas">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelas</span>
                 </a>
@@ -38,7 +47,13 @@
             <li class="sidebar-header">
                 Data Guru & Siswa
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item <?php 
+             if (isset($_GET['h'])) {
+                if ($_GET['h'] == "guru") echo "active";
+                else if ($_GET['h'] == "tambah_guru") echo "active";
+                else if ($_GET['h'] == "edit_guru") echo "active";
+            }
+            ?>">
                 <a class="sidebar-link" href="?h=guru">
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Guru</span>
                 </a>

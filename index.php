@@ -1,4 +1,8 @@
 <?php session_start(); ?>
+<?php
+$_SESSION['error'] = [];
+$_SESSION['old'] = []; 
+?>
 <?php require_once('db/koneksi.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,30 +38,54 @@
                     case "mata_pelajaran":
                         include_once "halaman/tampil/mata_pelajaran.php";
                         break;
-                        // Tampil
+                    case "guru":
+                        include_once "halaman/tampil/guru.php";
+                        break;
+                        // Lihat
                     case "lihat_kelas":
-                        include_once "halaman/lihat/kelas.php";
+                        include_once "halaman/tampil/sub_kelas.php";
+                        break;
+                    case "lihat_guru":
+                        include_once "halaman/tampil/guru.php";
                         break;
                         // Tambah
                     case "tambah_kelas":
                         include_once "halaman/tambah/kelas.php";
                         break;
+                    case "tambah_sub_kelas":
+                        include_once "halaman/tambah/sub_kelas.php";
+                        break;
                     case "tambah_mata_pelajaran":
                         include_once "halaman/tambah/mata_pelajaran.php";
+                        break;
+                    case "tambah_guru":
+                        include_once "halaman/tambah/guru.php";
                         break;
                         // Edit
                     case "edit_kelas":
                         include_once "halaman/edit/kelas.php";
                         break;
+                    case "edit_sub_kelas":
+                        include_once "halaman/edit/sub_kelas.php";
+                        break;
                     case "edit_mata_pelajaran":
                         include_once "halaman/edit/mata_pelajaran.php";
                         break;
-                        // Hapous
+                    case "edit_guru":
+                        include_once "halaman/edit/guru.php";
+                        break;
+                        // Hapus
                     case "hapus_kelas":
                         include_once "halaman/hapus/kelas.php";
                         break;
+                    case "hapus_sub_kelas":
+                        include_once "halaman/hapus/sub_kelas.php";
+                        break;
                     case "hapus_mata_pelajaran":
                         include_once "halaman/hapus/mata_pelajaran.php";
+                        break;
+                    case "hapus_guru":
+                        include_once "halaman/hapus/guru.php";
                         break;
                     default:
                         include_once "beranda.php";
