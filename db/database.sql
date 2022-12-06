@@ -9,16 +9,6 @@ CREATE TABLE `user` (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE `user_guru` (
-    id INT NOT NULL AUTO_INCREMENT,
-    id_user INT NOT NULL,
-    id_guru INT NOT NULL,
-    status VARCHAR(255) NOT NULL COMMENT 'GURU ATAU WALI KELAS',
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE,
-    FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
-);
-
 CREATE TABLE `guru` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
@@ -27,6 +17,16 @@ CREATE TABLE `guru` (
     jenis_kelamin VARCHAR(255) NOT NULL,
     foto VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE `user_guru` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    id_guru INT NOT NULL,
+    status VARCHAR(255) NOT NULL COMMENT 'GURU ATAU WALI KELAS',
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE,
+    FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
 );
 
 CREATE TABLE `kelas` (
@@ -38,8 +38,15 @@ CREATE TABLE `kelas` (
 CREATE TABLE `sub_kelas` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas INT NOT NULL,
-    id_guru INT NOT NULL COMMENT 'Wali Kelas',
     nama VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_kelas) REFERENCES kelas (id) ON DELETE CASCADE
+);
+
+CREATE TABLE `wali_kelas` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_kelas INT NOT NULL,
+    id_guru INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_kelas) REFERENCES kelas (id) ON DELETE CASCADE,
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
