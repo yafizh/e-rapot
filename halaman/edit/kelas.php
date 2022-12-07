@@ -12,7 +12,6 @@ if (isset($_POST['submit'])) {
         $q = "UPDATE kelas SET nama='$nama', tingkat='$tingkat' WHERE id=" . $_GET['id'];
 
         if ($mysqli->query($q)) {
-            $_SESSION['edit_data']['id'] =  $data['id'];
             $_SESSION['edit_data']['nama'] =  $data['nama'];
             echo "<script>location.href = '?h=kelas';</script>";
         } else {

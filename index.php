@@ -42,18 +42,12 @@ $_SESSION['old'] = [];
                         include_once "halaman/tampil/guru.php";
                         break;
                         // Lihat
-                    case "lihat_kelas":
-                        include_once "halaman/tampil/sub_kelas.php";
-                        break;
                     case "lihat_guru":
                         include_once "halaman/tampil/guru.php";
                         break;
                         // Tambah
                     case "tambah_kelas":
                         include_once "halaman/tambah/kelas.php";
-                        break;
-                    case "tambah_sub_kelas":
-                        include_once "halaman/tambah/sub_kelas.php";
                         break;
                     case "tambah_mata_pelajaran":
                         include_once "halaman/tambah/mata_pelajaran.php";
@@ -65,9 +59,6 @@ $_SESSION['old'] = [];
                     case "edit_kelas":
                         include_once "halaman/edit/kelas.php";
                         break;
-                    case "edit_sub_kelas":
-                        include_once "halaman/edit/sub_kelas.php";
-                        break;
                     case "edit_mata_pelajaran":
                         include_once "halaman/edit/mata_pelajaran.php";
                         break;
@@ -77,9 +68,6 @@ $_SESSION['old'] = [];
                         // Hapus
                     case "hapus_kelas":
                         include_once "halaman/hapus/kelas.php";
-                        break;
-                    case "hapus_sub_kelas":
-                        include_once "halaman/hapus/sub_kelas.php";
                         break;
                     case "hapus_mata_pelajaran":
                         include_once "halaman/hapus/mata_pelajaran.php";

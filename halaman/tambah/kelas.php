@@ -13,7 +13,6 @@ if (isset($_POST['submit'])) {
 
         if ($mysqli->query($q)) {
             $_SESSION['tambah_data']['nama'] =  $nama;
-            $_SESSION['tambah_data']['id'] =  $mysqli->insert_id;
             echo "<script>location.href = '?h=kelas';</script>";
         } else {
             echo "<script>alert('Tambah Data Gagal!')</script>";

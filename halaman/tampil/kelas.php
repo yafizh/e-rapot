@@ -15,10 +15,6 @@
                             <h4 class="alert-heading">Tambah Data Berhasil</h4>
                             <p>Berhasil menambah data kelas dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
                             <hr>
-                            <div class="btn-list">
-                                <button class="btn btn-secondary" type="button" data-bs-dismiss="alert" aria-label="Close">Tutup</button>
-                                <a href="?h=lihat_kelas&id=<?= $_SESSION['tambah_data']['id']; ?>" class="btn btn-info">Lihat</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -31,10 +27,6 @@
                             <h4 class="alert-heading">Edit Data Berhasil</h4>
                             <p>Berhasil memperbaharui data kelas <strong><?= $_SESSION['edit_data']['nama']; ?>.</p>
                             <hr>
-                            <div class="btn-list">
-                                <button class="btn btn-secondary" type="button" data-bs-dismiss="alert" aria-label="Close">Tutup</button>
-                                <a href="?h=lihat_kelas&id=<?= $_SESSION['edit_data']['id']; ?>" class="btn btn-info">Lihat</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,7 +67,6 @@
                                         <td class="text-center"><?= $row['nama']; ?></td>
                                         <td class="text-center"><?= $row['tingkat']; ?></td>
                                         <td class="text-center td-fit">
-                                            <a href="?h=lihat_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat</a>
                                             <a href="?h=edit_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                                             <a href="?h=hapus_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                         </td>

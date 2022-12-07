@@ -19,6 +19,17 @@ CREATE TABLE `guru` (
     PRIMARY KEY (id)
 );
 
+INSERT INTO `guru` (
+    nama,
+    tempat_lahir,
+    tanggal_lahir,
+    jenis_kelamin,
+    foto
+) VALUES 
+('Nurcholis', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
+('Habibi', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
+('Arif', 'Martapura', '2000-01-01', 'Laki - Laki', '');
+
 CREATE TABLE `user_guru` (
     id INT NOT NULL AUTO_INCREMENT,
     id_user INT NOT NULL,
@@ -36,23 +47,24 @@ CREATE TABLE `kelas` (
     PRIMARY KEY (id) 
 );
 
-CREATE TABLE `sub_kelas` (
-    id INT NOT NULL AUTO_INCREMENT,
-    id_kelas INT NOT NULL,
-    nama VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_kelas) REFERENCES kelas (id) ON DELETE CASCADE
-);
+INSERT INTO `kelas` (
+    nama,
+    tingkat
+) VALUES 
+('1', 1),
+('2', 2),
+('3', 3);
 
 CREATE TABLE `kelas_aktif` (
     id INT NOT NULL AUTO_INCREMENT,
-    id_sub_kelas INT NOT NULL,
+    id_kelas INT NOT NULL,
     id_guru INT NOT NULL,
+    nama VARCHAR(255),
     status VARCHAR(255),
     tanggal_mulai DATE,
     tanggal_selesai DATE,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_sub_kelas) REFERENCES sub_kelas (id) ON DELETE CASCADE,
+    FOREIGN KEY (id_kelas) REFERENCES kelas (id) ON DELETE CASCADE,
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
 );
 

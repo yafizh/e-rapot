@@ -65,6 +65,17 @@
             </li>
             <li class="sidebar-item <?php 
              if (isset($_GET['h'])) {
+                if ($_GET['h'] == "kelas_aktif") echo "active";
+                else if ($_GET['h'] == "tambah_kelas_aktif") echo "active";
+                else if ($_GET['h'] == "edit_kelas_aktif") echo "active";
+            }
+            ?>">
+                <a class="sidebar-link" href="?h=kelas_aktif">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelas Aktif</span>
+                </a>
+            </li>
+            <li class="sidebar-item <?php 
+             if (isset($_GET['h'])) {
                 if ($_GET['h'] == "wali_kelas") echo "active";
                 else if ($_GET['h'] == "tambah_wali_kelas") echo "active";
                 else if ($_GET['h'] == "edit_wali_kelas") echo "active";
