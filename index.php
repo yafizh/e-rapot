@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
 $_SESSION['error'] = [];
-$_SESSION['old'] = []; 
+$_SESSION['old'] = [];
 ?>
 <?php require_once('db/koneksi.php'); ?>
 <!DOCTYPE html>
@@ -41,9 +41,15 @@ $_SESSION['old'] = [];
                     case "guru":
                         include_once "halaman/tampil/guru.php";
                         break;
+                    case "siswa":
+                        include_once "halaman/tampil/siswa.php";
+                        break;
                         // Lihat
                     case "lihat_guru":
                         include_once "halaman/tampil/guru.php";
+                        break;
+                    case "lihat_siswa":
+                        include_once "halaman/tampil/siswa.php";
                         break;
                         // Tambah
                     case "tambah_kelas":
@@ -55,6 +61,9 @@ $_SESSION['old'] = [];
                     case "tambah_guru":
                         include_once "halaman/tambah/guru.php";
                         break;
+                    case "tambah_siswa":
+                        include_once "halaman/tambah/siswa.php";
+                        break;
                         // Edit
                     case "edit_kelas":
                         include_once "halaman/edit/kelas.php";
@@ -65,6 +74,9 @@ $_SESSION['old'] = [];
                     case "edit_guru":
                         include_once "halaman/edit/guru.php";
                         break;
+                    case "edit_siswa":
+                        include_once "halaman/edit/siswa.php";
+                        break;
                         // Hapus
                     case "hapus_kelas":
                         include_once "halaman/hapus/kelas.php";
@@ -74,6 +86,9 @@ $_SESSION['old'] = [];
                         break;
                     case "hapus_guru":
                         include_once "halaman/hapus/guru.php";
+                        break;
+                    case "hapus_siswa":
+                        include_once "halaman/hapus/siswa.php";
                         break;
                     default:
                         include_once "beranda.php";
