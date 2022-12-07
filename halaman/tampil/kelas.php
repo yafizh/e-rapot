@@ -29,7 +29,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui data kelas dengan nama <strong><?= $_SESSION['edit_data']['nama']['before']; ?></strong> menjadi <strong><?= $_SESSION['edit_data']['nama']['after']; ?></strong>.</p>
+                            <p>Berhasil memperbaharui data kelas <strong><?= $_SESSION['edit_data']['nama']; ?>.</p>
                             <hr>
                             <div class="btn-list">
                                 <button class="btn btn-secondary" type="button" data-bs-dismiss="alert" aria-label="Close">Tutup</button>
@@ -45,7 +45,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data kelas dengan nama <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menghapus data kelas <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -60,11 +60,12 @@
                                 <tr>
                                     <th class="text-center td-fit">No</th>
                                     <th class="text-center">Nama Kelas</th>
+                                    <th class="text-center">Tingkat</th>
                                     <th class="text-center td-fit">Aksi</th>
                                 </tr>
                             </thead>
                             <?php
-                            $result = $mysqli->query("SELECT * FROM kelas ORDER BY nama");
+                            $result = $mysqli->query("SELECT * FROM kelas ORDER BY tingkat");
                             $no = 1;
                             ?>
                             <tbody>
@@ -72,6 +73,7 @@
                                     <tr>
                                         <td class="text-center td-fit"><?= $no++; ?></td>
                                         <td class="text-center"><?= $row['nama']; ?></td>
+                                        <td class="text-center"><?= $row['tingkat']; ?></td>
                                         <td class="text-center td-fit">
                                             <a href="?h=lihat_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat</a>
                                             <a href="?h=edit_kelas&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>

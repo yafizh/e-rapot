@@ -25,7 +25,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui data mata pelajaran dengan nama <strong><?= $_SESSION['edit_data']['nama']['before']; ?></strong> menjadi <strong><?= $_SESSION['edit_data']['nama']['after']; ?></strong>.</p>
+                            <p>Berhasil memperbaharui data mata pelajaran <strong><?= $_SESSION['edit_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data mata pelajaran dengan nama <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menghapus data mata pelajaran <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -53,6 +53,7 @@
                                 <tr>
                                     <th class="text-center td-fit">No</th>
                                     <th class="text-center">Nama Mata Pelajaran</th>
+                                    <th class="text-center">KKM</th>
                                     <th class="text-center td-fit">Aksi</th>
                                 </tr>
                             </thead>
@@ -65,6 +66,7 @@
                                     <tr>
                                         <td class="text-center td-fit"><?= $no++; ?></td>
                                         <td class="text-center"><?= $row['nama']; ?></td>
+                                        <td class="text-center"><?= $row['kkm']; ?></td>
                                         <td class="text-center td-fit">
                                             <a href="?h=edit_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                                             <a href="?h=hapus_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>

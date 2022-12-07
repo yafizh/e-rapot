@@ -1,8 +1,9 @@
 <?php
 if (isset($_POST['submit'])) {
     $nama = $mysqli->real_escape_string($_POST['nama']);
+    $kkm = $mysqli->real_escape_string($_POST['kkm']);
 
-    $q = "INSERT INTO mata_pelajaran (nama) VALUES ('$nama')";
+    $q = "INSERT INTO mata_pelajaran (nama, kkm) VALUES ('$nama', '$kkm')";
 
     if ($mysqli->query($q)) {
         $_SESSION['tambah_data']['nama'] =  $nama;
@@ -27,7 +28,11 @@ if (isset($_POST['submit'])) {
                         <form action="" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">Nama Mata Pelajaran</label>
-                                <input type="text" class="form-control" name="nama" required autofocus autocomplete="off">
+                                <input type="text" class="form-control" name="nama" required autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">KKM</label>
+                                <input type="number" class="form-control" name="kkm" required autocomplete="off">
                             </div>
                             <a href="?h=mata_pelajaran" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>
