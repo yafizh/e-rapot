@@ -1,9 +1,13 @@
+<?php $kelas_aktif = $mysqli->query("SELECT * FROM kelas_aktif WHERE id=" . $_GET['id_kelas_aktif'])->fetch_assoc(); ?>
 <main class="content">
     <div class="container-fluid p-0">
 
         <div class="mb-3 d-flex justify-content-between">
-            <h1 class="h3 d-inline align-middle">Data Kelas Aktif</h1>
-            <a href="?h=tambah_kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>" class="btn btn-primary">Tambah</a>
+            <h1 class="h3 d-inline align-middle">Data Mata Pelajaran Kelas <?= $kelas_aktif['nama']; ?></h1>
+            <div>
+                <a href="?h=kelas_aktif&id_kelas=<?= $_GET['id_kelas'] ?>" class="btn btn-secondary">Kembali</a>
+                <a href="?h=tambah_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>" class="btn btn-primary">Tambah</a>
+            </div>
         </div>
 
         <div class="row">
@@ -47,54 +51,43 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatables-reponsive" class="table table-striped" style="width:100%">
+                        <table class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Tahun Pelajaran</th>
-                                    <th class="text-center">Nama Kelas</th>
-                                    <th class="text-center">Wali Kelas</th>
-                                    <th class="text-center">Jumlah Siswa</th>
+                                    <th class="text-center td-fit">No</th>
+                                    <th class="text-center">Mata Pelajaran</th>
+                                    <th class="text-center">KKM</th>
                                     <th class="text-center td-fit">Aksi</th>
                                 </tr>
                             </thead>
                             <?php
                             $query = "
                                 SELECT 
-                                    ka.id,
-                                    k.nama AS kelas,
-                                    ka.nama,
-                                    ka.tahun_pelajaran,
-                                    g.nama AS wali_kelas,
-                                    (SELECT COUNT(id) FROM kelas_siswa AS ks WHERE ks.id_kelas_aktif=ka.id) AS jumlah_siswa 
+                                    mpk.id,
+                                    mpk.kkm,
+                                    mp.nama
                                 FROM 
-                                    kelas_aktif AS ka 
+                                    mata_pelajaran_kelas AS mpk 
                                 INNER JOIN 
-                                    kelas AS k 
+                                    mata_pelajaran AS mp 
                                 ON 
-                                    k.id=ka.id_kelas 
-                                INNER JOIN 
-                                    guru AS g 
-                                ON 
-                                    g.id=ka.id_guru 
+                                    mp.id=mpk.id_mata_pelajaran 
                                 WHERE 
-                                    k.id=" . $_GET['id_kelas'] . "
+                                    mpk.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
                                 ORDER BY 
-                                    ka.tahun_pelajaran, ka.nama";
+                                    mp.nama 
+                            ";
                             $result = $mysqli->query($query);
-                            $kelas_before = '';
+                            $no = 1;
                             ?>
                             <tbody>
                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                     <tr>
-                                        <td class="text-center"><?= $row['tahun_pelajaran']; ?></td>
+                                        <td class="text-center td-fit"><?= $no++; ?></td>
                                         <td class="text-center"><?= $row['nama']; ?></td>
-                                        <td class="text-center"><?= $row['wali_kelas']; ?></td>
-                                        <td class="text-center"><?= $row['jumlah_siswa']; ?></td>
+                                        <td class="text-center"><?= $row['kkm']; ?></td>
                                         <td class="text-center td-fit">
-                                            <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-success">Lihat Siswa</a>
-                                            <a href="?h=lihat_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat Mata Pelajaran</a>
-                                            <a href="?h=edit_kelas_aktif&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="?h=hapus_kelas_aktif&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                            <a href="?h=hapus_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

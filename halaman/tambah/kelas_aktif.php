@@ -1,6 +1,6 @@
 <?php
+$kelas = $mysqli->query("SELECT * FROM kelas WHERE id=" . $_GET['id_kelas'])->fetch_assoc();
 if (isset($_POST['submit'])) {
-    $id_kelas = $mysqli->real_escape_string($_POST['id_kelas']);
     $id_guru = $mysqli->real_escape_string($_POST['id_guru']);
     $nama = $mysqli->real_escape_string($_POST['nama']);
     $tahun_pelajaran = $mysqli->real_escape_string($_POST['tahun_pelajaran']);
@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
             tahun_pelajaran, 
             status
         ) VALUES (
-            '$id_kelas',
+            '" . $_GET['id_kelas'] . "',
             '$id_guru',
             '$nama', 
             '$tahun_pelajaran', 
@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 
     if ($mysqli->query($q)) {
         $_SESSION['tambah_data']['nama'] =  $nama;
-        echo "<script>location.href = '?h=kelas_aktif';</script>";
+        echo "<script>location.href = '?h=kelas_aktif&id_kelas=" . $_GET['id_kelas'] . "';</script>";
     } else {
         echo "<script>alert('Tambah Data Gagal!')</script>";
         die($mysqli->error);
@@ -43,13 +43,7 @@ if (isset($_POST['submit'])) {
                         <form action="" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">Kelas</label>
-                                <?php $kelas = $mysqli->query("SELECT * FROM kelas"); ?>
-                                <select name="id_kelas" required class="form-control">
-                                    <option value="" selected disabled>Pilih Kelas</option>
-                                    <?php while ($row = $kelas->fetch_assoc()) : ?>
-                                        <option value="<?= $row['id']; ?>">Kelas <?= $row['nama'] ?> Tingkat <?= $row['tingkat'] ?></option>
-                                    <?php endwhile; ?>
-                                </select>
+                                <input type="text" class="form-control" disabled value="Kelas <?= $kelas['nama']; ?>">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Wali Kelas</label>
@@ -67,9 +61,9 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Tahun Pelajaran</label>
-                                <input type="number" class="form-control" name="tahun_pelajaran" required autocomplete="off" value="<?= Date("Y"); ?>">
+                                <input type="text" class="form-control" name="tahun_pelajaran" required autocomplete="off" value="<?= Date("Y"); ?>/<?= Date('Y', strtotime('+1 year')); ?>">
                             </div>
-                            <a href="?h=kelas_aktif" class="btn btn-secondary float-start">Kembali</a>
+                            <a href="?h=kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>
                         </form>
                     </div>
