@@ -44,12 +44,18 @@ $_SESSION['old'] = [];
                     case "siswa":
                         include_once "halaman/tampil/siswa.php";
                         break;
+                    case "kelas_aktif":
+                        include_once "halaman/tampil/kelas_aktif.php";
+                        break;
                         // Lihat
                     case "lihat_guru":
                         include_once "halaman/tampil/guru.php";
                         break;
                     case "lihat_siswa":
                         include_once "halaman/tampil/siswa.php";
+                        break;
+                    case "lihat_kelas_aktif-siswa":
+                        include_once "halaman/tampil/kelas_aktif-siswa.php";
                         break;
                         // Tambah
                     case "tambah_kelas":
@@ -63,6 +69,12 @@ $_SESSION['old'] = [];
                         break;
                     case "tambah_siswa":
                         include_once "halaman/tambah/siswa.php";
+                        break;
+                    case "tambah_kelas_aktif":
+                        include_once "halaman/tambah/kelas_aktif.php";
+                        break;
+                    case "tambah_kelas_aktif-siswa":
+                        include_once "halaman/tambah/kelas_aktif-siswa.php";
                         break;
                         // Edit
                     case "edit_kelas":
@@ -89,6 +101,9 @@ $_SESSION['old'] = [];
                         break;
                     case "hapus_siswa":
                         include_once "halaman/hapus/siswa.php";
+                        break;
+                    case "hapus_kelas_aktif":
+                        include_once "halaman/hapus/kelas_aktif.php";
                         break;
                     default:
                         include_once "beranda.php";
