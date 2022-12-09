@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Tingkat</label>
-                                <input type="number" class="form-control" name="tingkat" required autocomplete="off" value="<?= $_SESSION['old']['tingkat'] ?? (($kelas['tingkat'] ?? 0) + 1); ?>">
+                                <input type="number" class="form-control" name="tingkat" min="1" required autocomplete="off" value="<?= $_SESSION['old']['tingkat'] ?? (($kelas['tingkat'] ?? 0) + 1); ?>">
                             </div>
                             <a href="?h=kelas" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>

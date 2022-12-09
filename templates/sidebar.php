@@ -26,15 +26,23 @@
             <li class="sidebar-item <?php
                                     if (isset($_GET['h'])) {
                                         if ($_GET['h'] == "kelas") echo "active";
-                                        else if ($_GET['h'] == "lihat_kelas") echo "active";
                                         else if ($_GET['h'] == "tambah_kelas") echo "active";
                                         else if ($_GET['h'] == "edit_kelas") echo "active";
-                                        else if ($_GET['h'] == "tambah_sub_kelas") echo "active";
-                                        else if ($_GET['h'] == "edit_sub_kelas") echo "active";
                                     }
                                     ?>">
                 <a class="sidebar-link" href="?h=kelas">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelas</span>
+                </a>
+            </li>
+            <li class="sidebar-item <?php
+                                    if (isset($_GET['h'])) {
+                                        if ($_GET['h'] == "semester") echo "active";
+                                        else if ($_GET['h'] == "tambah_semester") echo "active";
+                                        else if ($_GET['h'] == "edit_semester") echo "active";
+                                    }
+                                    ?>">
+                <a class="sidebar-link" href="?h=semester">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Semester</span>
                 </a>
             </li>
             <li class="sidebar-item <?php
