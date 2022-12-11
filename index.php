@@ -20,6 +20,15 @@ $_SESSION['old'] = [];
             width: 1%;
             white-space: nowrap;
         }
+
+        .choices[data-type*="select-one"] select.choices__input {
+            display: block !important;
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
     </style>
 </head>
 
@@ -91,6 +100,9 @@ $_SESSION['old'] = [];
                     case "tambah_kelas_aktif-siswa-nilai":
                         include_once "halaman/tambah/kelas_aktif-siswa-nilai.php";
                         break;
+                    case "tambah_kelas_aktif-semester_kelas":
+                        include_once "halaman/tambah/kelas_aktif-semester_kelas.php";
+                        break;
                         // Edit
                     case "edit_kelas":
                         include_once "halaman/edit/kelas.php";
@@ -106,6 +118,9 @@ $_SESSION['old'] = [];
                         break;
                     case "edit_siswa":
                         include_once "halaman/edit/siswa.php";
+                        break;
+                    case "edit_kelas_aktif":
+                        include_once "halaman/edit/kelas_aktif.php";
                         break;
                         // Hapus
                     case "hapus_kelas":
@@ -144,9 +159,20 @@ $_SESSION['old'] = [];
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Datatables Responsive
-            $("#datatables-reponsive").DataTable({
+            $(".datatables-reponsive").DataTable({
                 responsive: true
             });
+            // Choices.js
+            if (document.querySelector(".choices-single"))
+                new Choices(document.querySelector(".choices-single"));
+            if (document.querySelector(".choices-multiple"))
+                new Choices(document.querySelector(".choices-multiple"), {
+                    removeItems: true,
+                    removeItemButton: true,
+                    placeholder: true,
+                    placeholderValue: 'Pilih Siswa',
+                    searchPlaceholderValue: 'Pilih Siswa',
+                });
         });
     </script>
     <script>

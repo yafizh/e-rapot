@@ -19,36 +19,36 @@ $q = "
         ka.id=" . $_GET['id_kelas_aktif'];
 $kelas_aktif = $mysqli->query($q)->fetch_assoc();
 if (isset($_POST['submit'])) {
-    $id_siswa = $mysqli->real_escape_string($_POST['id_siswa']);
+    $id_siswa = $_POST['id_siswa'];
 
-    $q = "
+    foreach ($id_siswa as $key => $value) {
+        $q = "
         INSERT INTO kelas_siswa (
             id_kelas_aktif,
             id_siswa,
             status 
         ) VALUES (
             '" . $kelas_aktif['id'] . "',
-            '$id_siswa',
+            '$value',
             'Sedang Berjalan' 
         )";
 
-    if ($mysqli->query($q)) {
-        $q = "INSERT INTO semester_kelas (id_kelas_siswa, id_semester) VALUES (" . $mysqli->insert_id . ", " . $_GET['id_semester'] . ")";
         if ($mysqli->query($q)) {
-            $_SESSION['tambah_data']['nama'] =  'ISI NANTI';
-            echo "<script>location.href = '?h=lihat_kelas_aktif-siswa&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "';</script>";
-        } else die($mysqli->error);
-    } else {
-        echo "<script>alert('Tambah Data Gagal!')</script>";
-        die($mysqli->error);
+            $q = "INSERT INTO semester_kelas (id_kelas_siswa, id_semester) VALUES (" . $mysqli->insert_id . ", " . $_GET['id_semester'] . ")";
+            if (!$mysqli->query($q)) die($mysqli->error);
+        } else
+            die($mysqli->error);
     }
+
+    $_SESSION['tambah_data'] =  true;
+    echo "<script>location.href = '?h=lihat_kelas_aktif-siswa&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "';</script>";
 }
 ?>
 <main class="content">
     <div class="container-fluid p-0">
 
         <div class="mb-3 text-center">
-            <h1 class="h3 d-inline align-middle">Tambah Siswa Kelas <?= $kelas_aktif['kelas']; ?> <?= $kelas_aktif['nama_kelas']; ?></h1>
+            <h1 class="h3 d-inline align-middle">Tambah Siswa <?= $kelas_aktif['kelas']; ?> <?= $kelas_aktif['nama_kelas']; ?></h1>
         </div>
 
         <div class="row justify-content-center">
@@ -77,8 +77,7 @@ if (isset($_POST['submit'])) {
                                     ORDER BY 
                                         nama";
                                 $siswa = $mysqli->query($query); ?>
-                                <select name="id_siswa" required class="form-control">
-                                    <option value="" selected disabled>Pilih Siswa</option>
+                                <select name="id_siswa[]" required class="form-control choices-multiple" multiple>
                                     <?php while ($row = $siswa->fetch_assoc()) : ?>
                                         <option value="<?= $row['id']; ?>"><?= $row['nama'] ?></option>
                                     <?php endwhile; ?>
