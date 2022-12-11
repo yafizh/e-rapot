@@ -1,6 +1,5 @@
 <main class="content">
     <div class="container-fluid p-0">
-
         <div class="mb-3 d-flex justify-content-between">
             <h1 class="h3 d-inline align-middle">Data Kelas</h1>
             <a href="?h=tambah_kelas" class="btn btn-primary">Tambah</a>

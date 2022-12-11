@@ -3,11 +3,17 @@
     <div class="container-fluid p-0">
 
         <div class="mb-3 d-flex justify-content-between">
-            <h1 class="h3 d-inline align-middle">Data Mata Pelajaran Kelas <?= $kelas_aktif['nama']; ?></h1>
-            <div>
-                <a href="?h=kelas_aktif&id_kelas=<?= $_GET['id_kelas'] ?>" class="btn btn-secondary">Kembali</a>
-                <a href="?h=tambah_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>" class="btn btn-primary">Tambah</a>
-            </div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <h1 class="h3 d-inline"><a href="?h=kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>">Kelas Aktif</a></h1>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <h1 class="h3 d-inline">Mata Pelajaran <?= $kelas_aktif['nama']; ?></h1>
+                    </li>
+                </ol>
+            </nav>
+            <a href="?h=tambah_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>" class="btn btn-primary">Tambah</a>
         </div>
 
         <div class="row">

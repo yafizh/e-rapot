@@ -1,9 +1,15 @@
 <main class="content">
     <div class="container-fluid p-0">
 
-        <div class="mb-3 d-flex justify-content-between">
-            <h1 class="h3 d-inline align-middle">Data Kelas Aktif</h1>
-            <a href="?h=tambah_kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>" class="btn btn-primary">Tambah</a>
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item active">
+                        <h1 class="h3 d-inline">Kelas Aktif</h1>
+                    </li>
+                </ol>
+            </nav>
+            <a href="?h=tambah_kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>" class="btn btn-primary align-self-start">Tambah</a>
         </div>
 
         <div class="row">
@@ -13,7 +19,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Tambah Data Berhasil</h4>
-                            <p>Berhasil menambah data kelas aktif dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menambah kelas aktif dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -25,7 +31,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui data kelas aktif <strong><?= $_SESSION['edit_data']['nama']; ?>.</p>
+                            <p>Berhasil memperbaharui kelas aktif <strong><?= $_SESSION['edit_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -37,7 +43,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data kelas aktif <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menghapus kelas aktif <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
@@ -47,7 +53,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatables-reponsive" class="table table-striped" style="width:100%">
+                        <table class="table table-striped datatables-reponsive" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center">Tahun Pelajaran</th>
@@ -93,8 +99,8 @@
                                         <td class="text-center td-fit">
                                             <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-success">Lihat Siswa</a>
                                             <a href="?h=lihat_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat Mata Pelajaran</a>
-                                            <a href="?h=edit_kelas_aktif&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="?h=hapus_kelas_aktif&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                            <a href="?h=edit_kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="?h=hapus_kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

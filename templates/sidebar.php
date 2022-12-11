@@ -87,7 +87,7 @@
             </li>
             <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['kelas_aktif', 'tambah_kelas_aktif', 'edit_kelas_aktif', 'lihat_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa-nilai', 'lihat_kelas_aktif-mata_pelajaran']) ? 'active' : '' ?>">
                 <a data-bs-target="#kelas_aktif" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['kelas_aktif', 'tambah_kelas_aktif', 'edit_kelas_aktif', 'lihat_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa-nilai', 'lihat_kelas_aktif-mata_pelajaran']) ? '' : 'collapsed' ?>">
-                    <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Kelas</span>
+                    <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Kelas Aktif</span>
                 </a>
                 <ul id="kelas_aktif" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['kelas_aktif', 'tambah_kelas_aktif', 'edit_kelas_aktif', 'lihat_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa-nilai', 'lihat_kelas_aktif-mata_pelajaran']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
                     <?php $result = $mysqli->query("SELECT * FROM kelas ORDER BY tingkat"); ?>

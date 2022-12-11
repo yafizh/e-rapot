@@ -1,4 +1,6 @@
 <?php
+$siswa = $mysqli->query("SELECT * FROM siswa WHERE id=".$_GET['id_siswa'])->fetch_assoc();
+$semester = $mysqli->query("SELECT semester.nama FROM semester_kelas INNER JOIN semester ON semester.id=semester_kelas.id_semester WHERE semester_kelas.id=".$_GET['id_semester_kelas'])->fetch_assoc();
 if (isset($_POST['submit'])) {
     $mata_pelajaran_kelas = $_POST['mata_pelajaran_kelas'];
     $nilai = $_POST['nilai'];
@@ -34,7 +36,6 @@ if (isset($_POST['submit'])) {
             $mysqli->query($q);
         }
         $_SESSION['tambah_data']['nama'] =  'ISI NANTI';
-        // echo "<script>location.href = '?h=lihat_kelas_aktif-siswa&id_kelas=" . $_GET['id_kelas'] . "&id=" . $kelas_aktif['id'] . "';</script>";
     } else {
         echo "<script>alert('Tambah Data Gagal!')</script>";
         die($mysqli->error);
@@ -45,7 +46,7 @@ if (isset($_POST['submit'])) {
     <div class="container-fluid p-0">
 
         <div class="mb-3 text-center">
-            <h1 class="h3 d-inline align-middle">Nilai Siswa</h1>
+            <h1 class="h3 d-inline align-middle">Rapot <?= $siswa['nama']; ?> <?= $semester['nama']; ?></h1>
         </div>
 
         <div class="row justify-content-center">
