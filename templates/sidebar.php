@@ -65,6 +65,7 @@
                                         if ($_GET['h'] == "guru") echo "active";
                                         else if ($_GET['h'] == "tambah_guru") echo "active";
                                         else if ($_GET['h'] == "edit_guru") echo "active";
+                                        else if ($_GET['h'] == "lihat_guru") echo "active";
                                     }
                                     ?>">
                 <a class="sidebar-link" href="?h=guru">

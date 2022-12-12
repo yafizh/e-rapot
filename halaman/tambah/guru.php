@@ -36,7 +36,6 @@ if (isset($_POST['submit'])) {
     }
 
     if ($uploadOk) {
-
         if (!is_dir($target_dir)) mkdir($target_dir, 0700, true);
         if (move_uploaded_file($foto["tmp_name"], $target_file)) {
             $q = "
@@ -62,9 +61,8 @@ if (isset($_POST['submit'])) {
                 echo "<script>alert('Tambah Data Gagal!')</script>";
                 die($mysqli->error);
             }
-        } else {
+        } else 
             echo "Sorry, there was an error uploading your file.";
-        }
     }
 }
 ?>
@@ -118,8 +116,6 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3">
                                 <label class="form-label w-100">Foto</label>
                                 <input type="file" name="foto" required>
-                                <small class="form-text text-muted">Example block-level help text
-                                    here.</small>
                             </div>
                             <a href="?h=guru" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>

@@ -76,7 +76,7 @@
                                         <td class="text-center td-fit"><?= $no++; ?></td>
                                         <td class="text-center"><?= $row['nama']; ?></td>
                                         <td class="text-center"><?= $row['tempat_lahir']; ?></td>
-                                        <td class="text-center"><?= $row['tanggal_lahir']; ?></td>
+                                        <td class="text-center"><?= indonesiaDate($row['tanggal_lahir']); ?></td>
                                         <td class="text-center"><?= $row['jenis_kelamin']; ?></td>
                                         <td class="text-center td-fit">
                                             <a href="?h=lihat_guru&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat</a>

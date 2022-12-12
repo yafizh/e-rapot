@@ -3,6 +3,7 @@
 $_SESSION['error'] = [];
 $_SESSION['old'] = [];
 ?>
+<?php require_once('functions/date.php'); ?>
 <?php require_once('db/koneksi.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,10 +62,10 @@ $_SESSION['old'] = [];
                         break;
                         // Lihat
                     case "lihat_guru":
-                        include_once "halaman/tampil/guru.php";
+                        include_once "halaman/lihat/guru.php";
                         break;
                     case "lihat_siswa":
-                        include_once "halaman/tampil/siswa.php";
+                        include_once "halaman/lihat/siswa.php";
                         break;
                     case "lihat_kelas_aktif-siswa":
                         include_once "halaman/tampil/kelas_aktif-siswa.php";
