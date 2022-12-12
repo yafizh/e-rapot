@@ -51,9 +51,9 @@ INSERT INTO `kelas` (
     nama,
     tingkat
 ) VALUES 
-('Kelas 1', 1),
-('Kelas 2', 2),
-('Kelas 3', 3);
+('1', 1),
+('2', 2),
+('3', 3);
 
 CREATE TABLE `semester` (
     id INT NOT NULL AUTO_INCREMENT,
@@ -66,8 +66,8 @@ INSERT INTO `semester` (
     nama,
     tingkat
 ) VALUES 
-('Semester 1', 1),
-('Semester 2', 2);
+('1', 1),
+('2', 2);
 
 CREATE TABLE `mata_pelajaran` (
     id INT NOT NULL AUTO_INCREMENT,

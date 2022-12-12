@@ -71,7 +71,7 @@
                                     ka.nama,
                                     ka.tahun_pelajaran,
                                     g.nama AS wali_kelas,
-                                    (SELECT COUNT(id) FROM kelas_siswa AS ks WHERE ks.id_kelas_aktif=ka.id) AS jumlah_siswa 
+                                    (SELECT COUNT(id) FROM kelas_siswa AS ks WHERE ks.id_kelas_aktif=ka.id AND status!='Tidak Aktif') AS jumlah_siswa 
                                 FROM 
                                     kelas_aktif AS ka 
                                 INNER JOIN 
