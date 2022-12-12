@@ -1,5 +1,37 @@
 <?php $semester = $mysqli->query("SELECT * FROM semester ORDER BY tingkat DESC")->fetch_all(MYSQLI_ASSOC); ?>
 <?php $kelas_aktif = $mysqli->query("SELECT * FROM kelas_aktif WHERE id=" . $_GET['id_kelas_aktif'])->fetch_assoc(); ?>
+<?php
+$data = [];
+$latest_semester = true;
+foreach ($semester as $key => $value) {
+    $query = "
+            SELECT 
+                sk.id AS id_semester_kelas,
+                ks.id,
+                ks.status,
+                s.id AS id_siswa,
+                s.nama 
+            FROM 
+                kelas_siswa AS ks 
+            INNER JOIN 
+                siswa AS s 
+            ON 
+                s.id=ks.id_siswa 
+            INNER JOIN 
+                semester_kelas AS sk 
+            ON 
+                sk.id_kelas_siswa=ks.id  
+            WHERE 
+                ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
+                AND 
+                sk.id_semester=" . $value['id'] . "
+            ORDER BY 
+                s.nama 
+        ";
+    $data[] = $mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
+}
+?>
+
 <main class="content">
     <div class="container-fluid p-0">
 
@@ -42,46 +74,23 @@
                 </div>
                 <?php unset($_SESSION['hapus_data']); ?>
             <?php endif; ?>
-            <?php foreach ($semester as $key => $value) : ?>
-                <?php
-                $query = "
-                    SELECT 
-                        sk.id AS id_semester_kelas,
-                        ks.id,
-                        ks.status,
-                        s.id AS id_siswa,
-                        s.nama 
-                    FROM 
-                        kelas_siswa AS ks 
-                    INNER JOIN 
-                        siswa AS s 
-                    ON 
-                        s.id=ks.id_siswa 
-                    INNER JOIN 
-                        semester_kelas AS sk 
-                    ON 
-                        sk.id_kelas_siswa=ks.id  
-                    WHERE 
-                        ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
-                        AND 
-                        sk.id_semester=" . $value['id'] . "
-                    ORDER BY 
-                        s.nama 
-                ";
-                $result = $mysqli->query($query);
-                $no = 1;
-                ?>
-                <?php if (!$result->num_rows && $key < (count($semester) - 1)) : ?>
+            <?php if ($kelas_aktif['status'] == 'Aktif') : ?>
+            <?php endif; ?>
+            <?php foreach ($data as $key => $value) : ?>
+                <?php if (!count($value) && $key < (count($data) - 1)) : ?>
                     <?php continue; ?>
                 <?php endif; ?>
                 <div class="col-12 col-md-6">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title mb-0 align-self-center"><?= $value['nama']; ?></h5>
+                            <h5 class="card-title mb-0 align-self-center"><?= $semester[$key]['nama']; ?></h5>
                             <div>
                                 <a href="#" class="btn btn-info">Lihat Peringkat</a>
-                                <a href="?h=tambah_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>&id_semester=<?= $value['id']; ?>" class="btn btn-primary">Tambah Siswa</a>
-                                <a href="?h=tambah_kelas_aktif-semester_kelas&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>&id_semester=<?= $value['id']; ?>" class="btn btn-success">Semester Selesai</a>
+                                <?php if ($latest_semester && $kelas_aktif['status'] == 'Aktif') : ?>
+                                    <a href="?h=tambah_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>&id_semester=<?= $semester[$key]['id']; ?>" class="btn btn-primary">Tambah Siswa</a>
+                                    <a href="?h=tambah_kelas_aktif-semester_kelas&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>&id_semester=<?= $semester[$key]['id']; ?>" class="btn btn-success">Semester Selesai</a>
+                                    <?php $latest_semester = false; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="card-body">
@@ -94,7 +103,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                    <?php $no = 1; ?>
+                                    <?php foreach ($value as $row) : ?>
                                         <tr>
                                             <td class="text-center td-fit"><?= $no++; ?></td>
                                             <td class="text-center"><?= $row['nama']; ?></td>
@@ -103,7 +113,7 @@
                                                 <a href="?h=hapus_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                             </td>
                                         </tr>
-                                    <?php endwhile; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -118,9 +128,9 @@
                                         <p class="mb-0">Dengan menyatakan <strong><?= $value['nama']; ?></strong> telah selesai, maka wali kelas tidak dapat lagi memberikan nilai kepada siswa yang berada di <strong><?= $value['nama']; ?></strong>.</p>
                                     </div>
                                     <div class="modal-footer">
-                                            <!-- <input type="text" name="id_semester" hidden value="<?= $value['id']; ?>"> -->
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" name="submit" class="btn btn-primary">Selesai</button>
+                                        <!-- <input type="text" name="id_semester" hidden value="<?= $value['id']; ?>"> -->
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" name="submit" class="btn btn-primary">Selesai</button>
                                     </div>
                                 </div>
                             </div>

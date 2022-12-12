@@ -18,26 +18,55 @@ $q = "
     WHERE 
         ka.id=" . $_GET['id_kelas_aktif'];
 $kelas_aktif = $mysqli->query($q)->fetch_assoc();
+
 if (isset($_POST['submit'])) {
     $id_siswa = $_POST['id_siswa'];
 
-    foreach ($id_siswa as $key => $value) {
-        $q = "
-        INSERT INTO kelas_siswa (
-            id_kelas_aktif,
-            id_siswa,
-            status 
-        ) VALUES (
-            '" . $kelas_aktif['id'] . "',
-            '$value',
-            'Sedang Berjalan' 
-        )";
+    $siswa_dalam_kelas['result'] = $mysqli->query("SELECT * FROM kelas_siswa WHERE id_kelas_aktif=" . $_GET['id_kelas_aktif']);
+    while ($row = $siswa_dalam_kelas['result']->fetch_assoc()) {
+        $siswa_dalam_kelas['data'][] = $row['id_siswa'];
+    }
 
-        if ($mysqli->query($q)) {
-            $q = "INSERT INTO semester_kelas (id_kelas_siswa, id_semester) VALUES (" . $mysqli->insert_id . ", " . $_GET['id_semester'] . ")";
-            if (!$mysqli->query($q)) die($mysqli->error);
-        } else
-            die($mysqli->error);
+    foreach ($id_siswa as $key => $value) {
+        if (!in_array($value, $siswa_dalam_kelas['data'])) {
+            $q = "
+            INSERT INTO kelas_siswa (
+                id_kelas_aktif,
+                id_siswa,
+                status 
+            ) VALUES (
+                '" . $kelas_aktif['id'] . "',
+                '$value',
+                'Aktif' 
+            )";
+
+            if ($mysqli->query($q)) {
+                $q = "INSERT INTO semester_kelas (id_kelas_siswa, id_semester) VALUES (" . $mysqli->insert_id . ", " . $_GET['id_semester'] . ")";
+                if (!$mysqli->query($q)) die($mysqli->error);
+            } else
+                die($mysqli->error);
+        } else {
+            $q = "
+                UPDATE kelas_siswa SET
+                    status='Aktif' 
+                WHERE 
+                    id_kelas_aktif='" . $kelas_aktif['id'] . "' 
+                    AND 
+                    id_siswa='$value'";
+
+            if ($mysqli->query($q)) {
+                $q = "
+                    INSERT INTO semester_kelas (
+                        id_kelas_siswa, 
+                        id_semester
+                    ) VALUES (
+                        (SELECT id FROM kelas_siswa WHERE id_kelas_aktif=" . $kelas_aktif['id'] . " AND id_siswa=$value), 
+                        " . $_GET['id_semester'] . "
+                    )";
+                if (!$mysqli->query($q)) die($mysqli->error);
+            } else
+                die($mysqli->error);
+        }
     }
 
     $_SESSION['tambah_data'] =  true;
@@ -73,7 +102,9 @@ if (isset($_POST['submit'])) {
                                     FROM 
                                         siswa 
                                     WHERE 
-                                        id NOT IN (SELECT id_siswa FROM kelas_siswa AS ks INNER JOIN kelas_aktif AS ka ON ka.id=ks.id_kelas_aktif WHERE ka.status='Aktif') 
+                                        id NOT IN (SELECT id_siswa FROM kelas_siswa WHERE status='Aktif') 
+                                        AND 
+                                        id IN (SELECT id FROM siswa WHERE status='Aktif') 
                                     ORDER BY 
                                         nama";
                                 $siswa = $mysqli->query($query); ?>
