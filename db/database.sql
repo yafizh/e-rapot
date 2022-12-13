@@ -101,7 +101,6 @@ CREATE TABLE `siswa` (
     tanggal_lahir VARCHAR(255) NOT NULL,
     jenis_kelamin VARCHAR(255) NOT NULL,
     foto VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -110,12 +109,11 @@ INSERT INTO `siswa` (
     tempat_lahir,
     tanggal_lahir,
     jenis_kelamin,
-    foto,
-    status
+    foto
 ) VALUES 
-('Diki', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
-('Syafiq', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
-('Gusti', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif');
+('Diki', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
+('Syafiq', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
+('Gusti', 'Martapura', '2000-01-01', 'Laki - Laki', '');
 
 CREATE TABLE `kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,

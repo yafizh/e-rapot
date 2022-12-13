@@ -5,13 +5,11 @@ if (isset($_POST['submit'])) {
     $tempat_lahir = $mysqli->real_escape_string($_POST['tempat_lahir']);
     $tanggal_lahir = $mysqli->real_escape_string($_POST['tanggal_lahir']);
     $jenis_kelamin = $mysqli->real_escape_string($_POST['jenis_kelamin']);
-    $status = $mysqli->real_escape_string($_POST['status']);
 
     $_SESSION['old']['nama'] = $nama;
     $_SESSION['old']['tempat_lahir'] = $tempat_lahir;
     $_SESSION['old']['tanggal_lahir'] = $tanggal_lahir;
     $_SESSION['old']['jenis_kelamin'] = $jenis_kelamin;
-    $_SESSION['old']['status'] = $status;
 
     $foto = $_FILES['foto'];
     $uploadOk = 1;
@@ -24,12 +22,12 @@ if (isset($_POST['submit'])) {
 
         $check = getimagesize($foto["tmp_name"]);
         if (!$check) {
-            echo "File is not an image.";
+            $_SESSION['error'][] = "File yang diupload bukan gambar!";
             $uploadOk = 0;
         }
 
         if ($foto["size"] > 500000) {
-            echo "Sorry, your file is too large.";
+            $_SESSION['error'][] = "Gambar terlalu besar!";
             $uploadOk = 0;
         }
 
@@ -37,7 +35,7 @@ if (isset($_POST['submit'])) {
             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif"
         ) {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $_SESSION['error'][] = "Hanya menerima gambar dengan format jpg, png, jpeg, dan gif.";
             $uploadOk = 0;
         }
 
@@ -55,8 +53,9 @@ if (isset($_POST['submit'])) {
                 tempat_lahir='$tempat_lahir',
                 tanggal_lahir='$tanggal_lahir',
                 jenis_kelamin='$jenis_kelamin',
-                foto='$target_file',
-                status='$status' 
+                foto='$target_file' 
+            WHERE 
+                id=" . $_GET['id'] . "
             ";
 
         if ($mysqli->query($q)) {
@@ -79,6 +78,16 @@ if (isset($_POST['submit'])) {
 
         <div class="row justify-content-center">
             <div class="col-12 col-xl-6">
+                <?php if (count($_SESSION['error'])) : ?>
+                    <?php foreach ($_SESSION['error'] as $error) : ?>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div class="alert-message">
+                                <?= $error; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
                 <div class="card">
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data">
@@ -108,17 +117,8 @@ if (isset($_POST['submit'])) {
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Status</label>
-                                <select name="status" class="form-control">
-                                    <option <?= ($_SESSION['old']['status'] ?? $data['status']) === 'Aktif' ? 'selected' : ''; ?> value="Aktif">Aktif</option>
-                                    <option <?= ($_SESSION['old']['status'] ?? $data['status']) === 'Alumni' ? 'selected' : ''; ?> value="Alumni">Alumni</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
                                 <label class="form-label w-100">Foto</label>
                                 <input type="file" name="foto">
-                                <small class="form-text text-muted">Example block-level help text
-                                    here.</small>
                             </div>
                             <a href="?h=siswa" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Perbaharui</button>

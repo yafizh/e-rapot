@@ -4,13 +4,11 @@ if (isset($_POST['submit'])) {
     $tempat_lahir = $mysqli->real_escape_string($_POST['tempat_lahir']);
     $tanggal_lahir = $mysqli->real_escape_string($_POST['tanggal_lahir']);
     $jenis_kelamin = $mysqli->real_escape_string($_POST['jenis_kelamin']);
-    $status = $mysqli->real_escape_string($_POST['status']);
 
     $_SESSION['old']['nama'] = $nama;
     $_SESSION['old']['tempat_lahir'] = $tempat_lahir;
     $_SESSION['old']['tanggal_lahir'] = $tanggal_lahir;
     $_SESSION['old']['jenis_kelamin'] = $jenis_kelamin;
-    $_SESSION['old']['status'] = $status;
 
     // Foto
     $target_dir = "uploads/";
@@ -47,15 +45,13 @@ if (isset($_POST['submit'])) {
                 tempat_lahir,
                 tanggal_lahir,
                 jenis_kelamin,
-                foto,
-                status  
+                foto
             ) VALUES (
                 '$nama',
                 '$tempat_lahir',
                 '$tanggal_lahir',
                 '$jenis_kelamin',
-                '$target_file',
-                '$status' 
+                '$target_file'
             )";
 
             if ($mysqli->query($q)) {
@@ -66,9 +62,7 @@ if (isset($_POST['submit'])) {
                 echo "<script>alert('Tambah Data Gagal!')</script>";
                 die($mysqli->error);
             }
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-        }
+        } else echo "Sorry, there was an error uploading your file.";
     }
 }
 ?>
@@ -120,17 +114,8 @@ if (isset($_POST['submit'])) {
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Status</label>
-                                <select name="status" class="form-control">
-                                    <option <?= ($_SESSION['old']['status'] ?? 'Aktif') === 'Aktif' ? 'selected' : ''; ?> value="Aktif">Aktif</option>
-                                    <option <?= ($_SESSION['old']['status'] ?? '') === 'Alumni' ? 'selected' : ''; ?> value="Alumni">Alumni</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
                                 <label class="form-label w-100">Foto</label>
                                 <input type="file" name="foto" required>
-                                <small class="form-text text-muted">Example block-level help text
-                                    here.</small>
                             </div>
                             <a href="?h=siswa" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>
