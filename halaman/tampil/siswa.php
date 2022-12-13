@@ -57,7 +57,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatables-reponsive" class="table table-striped" style="width:100%">
+                        <table class="table table-striped datatables-reponsive" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">No</th>
@@ -69,7 +69,22 @@
                                 </tr>
                             </thead>
                             <?php
-                            $result = $mysqli->query("SELECT * FROM siswa ORDER BY nama");
+                            if (($_GET['status'] ?? '') == 'Alumni') {
+                                $q = "
+                                    SELECT DISTINCT
+                                        s.*  
+                                    FROM 
+                                        siswa AS s 
+                                    INNER JOIN 
+                                        kelas_siswa AS ks 
+                                    ON 
+                                        ks.id_siswa=s.id 
+                                    WHERE 
+                                        ks.status='Lulus'
+                                ";
+                                $result = $mysqli->query($q);
+                            } else
+                                $result = $mysqli->query("SELECT * FROM siswa ORDER BY nama");
                             $no = 1;
                             ?>
                             <tbody>

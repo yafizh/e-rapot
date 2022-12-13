@@ -82,7 +82,7 @@
                         <a href="?h=siswa" class="sidebar-link">Aktif</a>
                     </li>
                     <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa']) && ($_GET['status'] ?? '') == 'Alumni') ? 'active' : '' ?>">
-                        <a href="?h=siswa&status=Alumni" class="sidebar-link">Alumni</a>
+                        <a href="?h=siswa&status=Alumni" class="sidebar-link">Telah Lulus</a>
                     </li>
                 </ul>
             </li>
