@@ -18,9 +18,8 @@ if (isset($_POST['submit'])) {
             echo "<script>alert('Edit Data Gagal!')</script>";
             die($mysqli->error);
         }
-    } else {
+    } else 
         $_SESSION['error'][] = "Tingkat $tingkat telah ditambahkan sebelumnya, data tingkat tidak dapat sama dengan semester yang lain.";
-    }
 }
 ?>
 <main class="content">

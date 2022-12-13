@@ -69,10 +69,7 @@
                                 </tr>
                             </thead>
                             <?php
-                            if (($_GET['status'] ?? '') == 'Alumni') {
-                                $result = $mysqli->query("SELECT * FROM siswa WHERE status='Alumni' ORDER BY nama");
-                            } else
-                                $result = $mysqli->query("SELECT * FROM siswa WHERE status='Aktif' ORDER BY nama");
+                            $result = $mysqli->query("SELECT * FROM siswa WHERE status='" . (isset($_GET['status']) ? 'Alumni' : 'Aktif') . "' ORDER BY nama");
                             $no = 1;
                             ?>
                             <tbody>
@@ -84,7 +81,7 @@
                                         <td class="text-center"><?= indonesiaDate($row['tanggal_lahir']); ?></td>
                                         <td class="text-center"><?= $row['jenis_kelamin']; ?></td>
                                         <td class="text-center td-fit">
-                                            <a href="?h=lihat_siswa&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat</a>
+                                            <a href="?h=lihat_siswa&id=<?= $row['id']; ?><?= (isset($_GET['status']) ? '&status=Alumni' : '') ?>" class="btn btn-sm btn-info">Lihat</a>
                                             <a href="?h=edit_siswa&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                                             <a href="?h=hapus_siswa&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                         </td>

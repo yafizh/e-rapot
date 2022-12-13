@@ -30,7 +30,6 @@
                         </div>
                     </div>
                 </div>
-                <?php unset($_SESSION['edit_data_before']); ?>
                 <?php unset($_SESSION['edit_data']); ?>
             <?php elseif (isset($_SESSION['hapus_data'])) : ?>
                 <div class="col-12">

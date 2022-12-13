@@ -82,7 +82,7 @@ $data = $mysqli->query($query)->fetch_assoc(); ?>
                             <input type="text" class="form-control" value="<?= $data['jenis_kelamin']; ?>" disabled>
                         </div>
                         <div class="d-flex gap-1">
-                            <a href="?h=siswa" class="btn btn-secondary">Kembali</a>
+                            <a href="?h=siswa<?= (isset($_GET['status']) ? '&status=Alumni' : '') ?>" class="btn btn-secondary">Kembali</a>
                             <a href="?h=edit_siswa&id=<?= $data['id']; ?>" class="btn btn-warning">Edit</a>
                             <a href="?h=hapus_siswa&id=<?= $data['id']; ?>" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                         </div>

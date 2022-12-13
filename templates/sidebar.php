@@ -73,15 +73,15 @@
                 </a>
             </li>
 
-            <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa']) ? 'active' : '' ?>">
-                <a data-bs-target="#siswa" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa']) ? '' : 'collapsed' ?>">
+            <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) ? 'active' : '' ?>">
+                <a data-bs-target="#siswa" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) ? '' : 'collapsed' ?>">
                     <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Siswa</span>
                 </a>
-                <ul id="siswa" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
-                    <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa']) && ($_GET['status'] ?? '') != 'Alumni') ? 'active' : '' ?>">
+                <ul id="siswa" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
+                    <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) && ($_GET['status'] ?? '') != 'Alumni') ? 'active' : '' ?>">
                         <a href="?h=siswa" class="sidebar-link">Aktif</a>
                     </li>
-                    <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa']) && ($_GET['status'] ?? '') == 'Alumni') ? 'active' : '' ?>">
+                    <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['siswa', 'lihat_siswa']) && ($_GET['status'] ?? '') == 'Alumni') ? 'active' : '' ?>">
                         <a href="?h=siswa&status=Alumni" class="sidebar-link">Telah Lulus</a>
                     </li>
                 </ul>
@@ -99,43 +99,19 @@
                     <?php endwhile; ?>
                 </ul>
             </li>
-            <!-- <li class="sidebar-item">
-                <a data-bs-target="#multi" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Multi Level</span>
+            <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? 'active' : '' ?>">
+                <a data-bs-target="#kelas_selesai" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? '' : 'collapsed' ?>">
+                    <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Kelas Selesai</span>
                 </a>
-                <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
-                        <a data-bs-target="#multi-2" data-bs-toggle="collapse" class="sidebar-link collapsed">Two Levels</a>
-                        <ul id="multi-2" class="sidebar-dropdown list-unstyled collapse">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Item 1</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Item 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a data-bs-target="#multi-3" data-bs-toggle="collapse" class="sidebar-link collapsed">Three Levels</a>
-                        <ul id="multi-3" class="sidebar-dropdown list-unstyled collapse">
-                            <li class="sidebar-item">
-                                <a data-bs-target="#multi-3-1" data-bs-toggle="collapse" class="sidebar-link collapsed">Item 1</a>
-                                <ul id="multi-3-1" class="sidebar-dropdown list-unstyled collapse">
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="#">Item 1</a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="#">Item 2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">Item 2</a>
-                            </li>
-                        </ul>
-                    </li>
+                <ul id="kelas_selesai" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
+                    <?php $result = $mysqli->query("SELECT * FROM kelas ORDER BY tingkat"); ?>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                        <li class="sidebar-item <?= (($_GET['id_kelas'] ?? '') == $row['id']) ? 'active' : '' ?>">
+                            <a href="?h=kelas_selesai&id_kelas=<?= $row['id']; ?>" class="sidebar-link">Kelas <?= $row['nama']; ?></a>
+                        </li>
+                    <?php endwhile; ?>
                 </ul>
-            </li> -->
+            </li>
             <li class="sidebar-header">
                 Laporan
             </li>
