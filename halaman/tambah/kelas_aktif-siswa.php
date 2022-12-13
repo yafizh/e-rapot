@@ -23,6 +23,7 @@ if (isset($_POST['submit'])) {
     $id_siswa = $_POST['id_siswa'];
 
     $siswa_dalam_kelas['result'] = $mysqli->query("SELECT * FROM kelas_siswa WHERE id_kelas_aktif=" . $_GET['id_kelas_aktif']);
+    $siswa_dalam_kelas['data'] = [];
     while ($row = $siswa_dalam_kelas['result']->fetch_assoc()) {
         $siswa_dalam_kelas['data'][] = $row['id_siswa'];
     }

@@ -214,7 +214,7 @@ if (isset($_POST['lulus'])) {
         </div>
 
         <div class="row justify-content-center">
-            <?php if ($kelas_selanjutnya) : ?>
+            <?php if ($kelas_selanjutnya || $semester_selanjutnya) : ?>
                 <?php if ($semester_selanjutnya) : ?>
                     <div class="col-12 col-xl-6">
                         <div class="card">
