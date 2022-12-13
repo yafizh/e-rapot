@@ -5,20 +5,6 @@ $query = "
         IFNULL(
             (
                 SELECT 
-                    status 
-                FROM 
-                    kelas_siswa 
-                WHERE 
-                    id_siswa=" . $_GET['id'] . " 
-                ORDER BY 
-                    id DESC 
-                LIMIT 1
-            ),
-            0
-        ) AS status,
-        IFNULL(
-            (
-                SELECT 
                     k.nama 
                 FROM 
                     kelas_siswa AS ks 
@@ -56,7 +42,9 @@ $data = $mysqli->query($query)->fetch_assoc(); ?>
                         <img src="../assets/img/avatars/avatar-4.jpg" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
                         <h5 class="card-title mb-0"><?= $data['nama']; ?></h5>
                         <div class="text-muted mb-2">
-                            <?php if ($data['status'] == 'Aktif') : ?>
+                            <?php if ($data['status'] == 'Alumni') : ?>
+                                Telah Lulus
+                            <?php elseif ($data['status'] == 'Aktif') : ?>
                                 Sekarang: Kelas <?= $data['kelas']; ?>
                             <?php elseif ($data['status'] == 'Tidak Aktif' && $data['status'] == 'Tidak Naik Kelas' || $data['status'] == 'Tidak Lulus') : ?>
                                 Kelas Terakhir: <?= $data['kelas']; ?>

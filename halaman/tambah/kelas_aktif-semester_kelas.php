@@ -170,6 +170,14 @@ if (isset($_POST['lulus'])) {
 
     try {
         $mysqli->begin_transaction();
+        foreach ($id_kelas_siswa_checkbox as $key => $value) {
+            $q = "
+                UPDATE siswa SET 
+                    status='Alumni' 
+                WHERE  
+                    id=" . $id_siswa[array_search($value, $id_kelas_siswa)];
+            $mysqli->query($q);
+        }
 
         $q = "
         UPDATE kelas_siswa SET 

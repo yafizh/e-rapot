@@ -70,21 +70,9 @@
                             </thead>
                             <?php
                             if (($_GET['status'] ?? '') == 'Alumni') {
-                                $q = "
-                                    SELECT DISTINCT
-                                        s.*  
-                                    FROM 
-                                        siswa AS s 
-                                    INNER JOIN 
-                                        kelas_siswa AS ks 
-                                    ON 
-                                        ks.id_siswa=s.id 
-                                    WHERE 
-                                        ks.status='Lulus'
-                                ";
-                                $result = $mysqli->query($q);
+                                $result = $mysqli->query("SELECT * FROM siswa WHERE status='Alumni' ORDER BY nama");
                             } else
-                                $result = $mysqli->query("SELECT * FROM siswa ORDER BY nama");
+                                $result = $mysqli->query("SELECT * FROM siswa WHERE status='Aktif' ORDER BY nama");
                             $no = 1;
                             ?>
                             <tbody>
