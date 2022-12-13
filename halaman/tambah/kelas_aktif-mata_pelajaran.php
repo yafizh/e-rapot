@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3">
                                 <label class="form-label">Mata Pelajaran</label>
                                 <?php $mata_pelajaran = $mysqli->query("SELECT * FROM mata_pelajaran WHERE id NOT IN (SELECT id_mata_pelajaran FROM mata_pelajaran_kelas WHERE id_kelas_aktif=" . $_GET['id_kelas_aktif'] . ") ORDER BY nama"); ?>
-                                <select name="id_mata_pelajaran" required class="form-control">
+                                <select name="id_mata_pelajaran" required class="form-control choices-single">
                                     <option value="" selected disabled>Pilih Mata Pelajaran</option>
                                     <?php while ($row = $mata_pelajaran->fetch_assoc()) : ?>
                                         <option value="<?= $row['id']; ?>"><?= $row['nama'] ?></option>
@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3">
                                 <label class="form-label">Pengajar</label>
                                 <?php $guru = $mysqli->query("SELECT * FROM guru ORDER BY nama"); ?>
-                                <select name="id_guru" required class="form-control">
+                                <select name="id_guru" required class="form-control choices-single">
                                     <option value="" selected disabled>Pilih Pengajar</option>
                                     <?php while ($row = $guru->fetch_assoc()) : ?>
                                         <option value="<?= $row['id']; ?>"><?= $row['nama'] ?></option>

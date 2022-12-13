@@ -45,13 +45,15 @@ if (isset($_POST['submit'])) {
                 tempat_lahir,
                 tanggal_lahir,
                 jenis_kelamin,
-                foto
+                foto,
+                status  
             ) VALUES (
                 '$nama',
                 '$tempat_lahir',
                 '$tanggal_lahir',
                 '$jenis_kelamin',
-                '$target_file'
+                '$target_file',
+                'Aktif' 
             )";
 
             if ($mysqli->query($q)) {

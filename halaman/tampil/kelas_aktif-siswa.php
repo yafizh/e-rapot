@@ -42,7 +42,7 @@ foreach ($semester as $key => $value) {
                         <h1 class="h3 d-inline"><a href="?h=kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>">Kelas Aktif</a></h1>
                     </li>
                     <li class="breadcrumb-item active">
-                        <h1 class="h3 d-inline">Siswa <?= $kelas_aktif['nama']; ?></h1>
+                        <h1 class="h3 d-inline">Siswa Kelas <?= $kelas_aktif['nama']; ?></h1>
                     </li>
                 </ol>
             </nav>
@@ -139,7 +139,7 @@ foreach ($semester as $key => $value) {
                                                         $result2 = $mysqli->query($q);
                                                         ?>
                                                         <?php while ($row2 = $result2->fetch_assoc()) : ?>
-                                                            <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row2['id']; ?>" class="btn btn-info btn-sm" target="_blank"><?= $row2['nama']; ?></a>
+                                                            <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row2['id']; ?>" class="btn btn-info btn-sm" target="_blank">Semester <?= $row2['nama']; ?></a>
                                                         <?php endwhile; ?>
                                                     </td>
                                                 </tr>
@@ -204,7 +204,7 @@ foreach ($semester as $key => $value) {
                 <div class="col-12 col-md-6">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title mb-0 align-self-center"><?= $semester[$key]['nama']; ?></h5>
+                            <h5 class="card-title mb-0 align-self-center">Semester <?= $semester[$key]['nama']; ?></h5>
                             <div>
                                 <?php if ($latest_semester && $kelas_aktif['status'] == 'Aktif') : ?>
                                     <a href="?h=tambah_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>&id_semester=<?= $semester[$key]['id']; ?>" class="btn btn-primary">Tambah Siswa</a>
@@ -223,17 +223,22 @@ foreach ($semester as $key => $value) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1; ?>
-                                    <?php foreach ($value as $row) : ?>
+                                    <?php if (count($value)) : ?>
+                                        <?php foreach ($value as $index => $row) : ?>
+                                            <tr>
+                                                <td class="text-center td-fit"><?= ++$index; ?></td>
+                                                <td><?= $row['nama']; ?></td>
+                                                <td class="text-center td-fit">
+                                                    <a href="?h=tambah_kelas_aktif-siswa-nilai&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id_semester_kelas=<?= $row['id_semester_kelas'] ?>&id_siswa=<?= $row['id_siswa'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Nilai</a>
+                                                    <a href="?h=hapus_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
                                         <tr>
-                                            <td class="text-center td-fit"><?= $no++; ?></td>
-                                            <td><?= $row['nama']; ?></td>
-                                            <td class="text-center td-fit">
-                                                <a href="?h=tambah_kelas_aktif-siswa-nilai&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id_semester_kelas=<?= $row['id_semester_kelas'] ?>&id_siswa=<?= $row['id_siswa'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Nilai</a>
-                                                <a href="?h=hapus_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
-                                            </td>
+                                            <td class="text-center" colspan="4">Data Tidak Ada</td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

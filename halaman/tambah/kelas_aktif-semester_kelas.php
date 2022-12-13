@@ -210,7 +210,7 @@ if (isset($_POST['lulus'])) {
     <div class="container-fluid p-0">
 
         <div class="mb-3 text-center">
-            <h1 class="h3 d-inline align-middle">Siswa <?= $kelas_aktif['kelas']; ?> <?= $kelas_aktif['nama_kelas']; ?> <?= $semester['nama']; ?></h1>
+            <h1 class="h3 d-inline align-middle">Siswa Kelas <?= $kelas_aktif['kelas']; ?> <?= $kelas_aktif['nama_kelas']; ?> Semester <?= $semester['nama']; ?></h1>
         </div>
 
         <div class="row justify-content-center">
@@ -342,7 +342,7 @@ if (isset($_POST['lulus'])) {
                                                         $result2 = $mysqli->query($q);
                                                         ?>
                                                         <?php while ($row2 = $result2->fetch_assoc()) : ?>
-                                                            <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_kelas_siswa']; ?>" class="btn btn-info btn-sm" target="_blank"><?= $row2['nama']; ?></a>
+                                                            <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_kelas_siswa']; ?>" class="btn btn-info btn-sm" target="_blank">Semester <?= $row2['nama']; ?></a>
                                                         <?php endwhile; ?>
                                                     </td>
                                                 </tr>
@@ -422,7 +422,7 @@ if (isset($_POST['lulus'])) {
                                                     $result2 = $mysqli->query($q);
                                                     ?>
                                                     <?php while ($row2 = $result2->fetch_assoc()) : ?>
-                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_kelas_siswa']; ?>" class="btn btn-info btn-sm" target="_blank"><?= $row2['nama']; ?></a>
+                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_kelas_siswa']; ?>" class="btn btn-info btn-sm" target="_blank">Semester <?= $row2['nama']; ?></a>
                                                     <?php endwhile; ?>
                                                 </td>
                                             </tr>

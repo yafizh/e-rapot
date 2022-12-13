@@ -61,6 +61,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">No</th>
+                                    <th class="text-center">Pengajar</th>
                                     <th class="text-center">Mata Pelajaran</th>
                                     <th class="text-center">KKM</th>
                                     <th class="text-center td-fit">Aksi</th>
@@ -71,13 +72,18 @@
                                 SELECT 
                                     mpk.id,
                                     mpk.kkm,
-                                    mp.nama
+                                    mp.nama AS mata_pelajaran,
+                                    g.nama AS pengajar
                                 FROM 
                                     mata_pelajaran_kelas AS mpk 
                                 INNER JOIN 
                                     mata_pelajaran AS mp 
                                 ON 
                                     mp.id=mpk.id_mata_pelajaran 
+                                INNER JOIN 
+                                    guru AS g 
+                                ON 
+                                    g.id=mpk.id_guru 
                                 WHERE 
                                     mpk.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
                                 ORDER BY 
@@ -87,16 +93,23 @@
                             $no = 1;
                             ?>
                             <tbody>
-                                <?php while ($row = $result->fetch_assoc()) : ?>
+                                <?php if ($result->num_rows) : ?>
+                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                        <tr>
+                                            <td class="text-center td-fit"><?= $no++; ?></td>
+                                            <td class="text-center"><?= $row['pengajar']; ?></td>
+                                            <td class="text-center"><?= $row['mata_pelajaran']; ?></td>
+                                            <td class="text-center"><?= $row['kkm']; ?></td>
+                                            <td class="text-center td-fit">
+                                                <a href="?h=hapus_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                <?php else : ?>
                                     <tr>
-                                        <td class="text-center td-fit"><?= $no++; ?></td>
-                                        <td class="text-center"><?= $row['nama']; ?></td>
-                                        <td class="text-center"><?= $row['kkm']; ?></td>
-                                        <td class="text-center td-fit">
-                                            <a href="?h=hapus_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
-                                        </td>
+                                        <td class="text-center" colspan="5">Data Tidak Ada</td>
                                     </tr>
-                                <?php endwhile; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

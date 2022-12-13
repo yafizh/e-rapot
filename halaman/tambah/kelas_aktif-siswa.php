@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
     <div class="container-fluid p-0">
 
         <div class="mb-3 text-center">
-            <h1 class="h3 d-inline align-middle">Tambah Siswa <?= $kelas_aktif['kelas']; ?> <?= $kelas_aktif['nama_kelas']; ?></h1>
+            <h1 class="h3 d-inline align-middle">Tambah Siswa Kelas <?= $kelas_aktif['kelas']; ?> <?= $kelas_aktif['nama_kelas']; ?></h1>
         </div>
 
         <div class="row justify-content-center">

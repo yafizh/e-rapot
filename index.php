@@ -164,8 +164,11 @@ $_SESSION['old'] = [];
                 responsive: true
             });
             // Choices.js
-            if (document.querySelector(".choices-single"))
-                new Choices(document.querySelector(".choices-single"));
+            if (document.querySelector(".choices-single")) {
+                document.querySelectorAll(".choices-single").forEach(element => {
+                    new Choices(element);
+                });
+            }
             if (document.querySelector(".choices-multiple"))
                 new Choices(document.querySelector(".choices-multiple"), {
                     removeItems: true,
