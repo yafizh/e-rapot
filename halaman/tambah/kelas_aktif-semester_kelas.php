@@ -52,31 +52,44 @@ foreach ($semua_kelas as $key => $value) {
 
 if (isset($_POST['semester_selesai'])) {
     $id_kelas_siswa = $_POST['id_kelas_siswa'];
-    $q = "
+    $id_kelas_siswa_lanjut_semester = [];
+    foreach ($id_kelas_siswa as $i => $id) {
+        if ($_POST['siswa' . $i]) {
+            $id_kelas_siswa_lanjut_semester[] = $id;
+        }
+    }
+
+    try {
+        $mysqli->begin_transaction();
+
+        $q = "
         UPDATE kelas_siswa SET 
             status='Tidak Aktif' 
         WHERE 
             id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "
             AND 
-            id NOT IN (" . implode(',', $id_kelas_siswa) . ")
+            id NOT IN (" . implode(',', $id_kelas_siswa_lanjut_semester) . ")
         ";
-    if ($mysqli->query($q)) {
-        foreach ($id_kelas_siswa as $key => $value) {
+        $mysqli->query($q);
+
+        foreach ($id_kelas_siswa_lanjut_semester as $id) {
             $q = "
             INSERT INTO semester_kelas (
                 id_kelas_siswa, 
                 id_semester
             ) VALUES (
-                " . $value . ",
+                " . $id . ",
                 " . $semester_selanjutnya['id'] . " 
             )";
-            if (!$mysqli->query($q)) die($mysqli->error);
+            $mysqli->query($q);
         }
-    } else
-        die($mysqli->error);
 
-
-    echo "<script>location.href = '?h=lihat_kelas_aktif-siswa&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "';</script>";
+        $mysqli->commit();
+        echo "<script>location.href = '?h=lihat_kelas_aktif-siswa&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "';</script>";
+    } catch (\Throwable $e) {
+        $mysqli->rollback();
+        throw $e;
+    };
 }
 if (isset($_POST['kelas_selesai'])) {
     $id_kelas_siswa_checkbox = $_POST['id_kelas_siswa_checkbox'];
@@ -251,7 +264,7 @@ if (isset($_POST['lulus'])) {
                                     s.nama 
                             ";
                                 $result = $mysqli->query($q);
-                                $no = 1;
+                                $no = 0;
                                 ?>
                                 <form action="" method="POST">
                                     <table class="table table-striped" style="width:100%">
@@ -259,17 +272,30 @@ if (isset($_POST['lulus'])) {
                                             <tr>
                                                 <th class="text-center td-fit">No</th>
                                                 <th class="text-center">Nama</th>
-                                                <th class="text-center td-fit">Lanjut Semester</th>
+                                                <th class="text-center">Lanjut Semester</th>
                                                 <th class="text-center td-fit">Rapot <?= $semester['nama']; ?></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php while ($row = $result->fetch_assoc()) : ?>
                                                 <tr>
-                                                    <td class="text-center td-fit"><?= $no++; ?></td>
+                                                    <td class="text-center td-fit"><?= ++$no; ?></td>
                                                     <td><?= $row['nama']; ?></td>
-                                                    <td class="text-center">
-                                                        <input class="form-check-input" type="checkbox" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" checked>
+                                                    <td class="text-center td-fit">
+                                                        <label class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="0">
+                                                            <span class="form-check-label">
+                                                                Tidak
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="1" checked>
+                                                            <span class="form-check-label">
+                                                                Ya
+                                                            </span>
+                                                        </label>
+                                                        <input type="text" hidden name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>">
+                                                        <!-- <input class="form-check-input" type="checkbox" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" checked> -->
                                                     </td>
                                                     <td class="text-center">
                                                         <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Lihat</a>
@@ -448,3 +474,21 @@ if (isset($_POST['lulus'])) {
 
     </div>
 </main>
+<div class="modal fade" id="semester<?= $value['tingkat']; ?>Selesai" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?= $value['nama']; ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-3">
+                <p class="mb-0">Dengan menyatakan <strong><?= $value['nama']; ?></strong> telah selesai, maka wali kelas tidak dapat lagi memberikan nilai kepada siswa yang berada di <strong><?= $value['nama']; ?></strong>.</p>
+            </div>
+            <div class="modal-footer">
+                <!-- <input type="text" name="id_semester" hidden value="<?= $value['id']; ?>"> -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" name="submit" class="btn btn-primary">Selesai</button>
+            </div>
+        </div>
+    </div>
+</div>

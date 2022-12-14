@@ -49,8 +49,8 @@
                             Kelas
                         </div>
                         <div class="col-auto">:</div>
-                        <div class="col">
-                            V (Lima)
+                        <div class="col text-capitalize">
+                            V <?= (new NumberFormatter("id", NumberFormatter::SPELLOUT))->format(1); ?>
                         </div>
                     </div>
                     <div class="row">

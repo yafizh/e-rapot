@@ -2,6 +2,7 @@
 <?php
 $_SESSION['error'] = [];
 $_SESSION['old'] = [];
+
 ?>
 <?php require_once('functions/date.php'); ?>
 <?php require_once('db/koneksi.php'); ?>
@@ -16,6 +17,7 @@ $_SESSION['old'] = [];
 
     <link rel="stylesheet" href="assets/css/light.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <style>
         .td-fit {
             width: 1%;

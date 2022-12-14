@@ -42,7 +42,7 @@
                                     }
                                     ?>">
                 <a class="sidebar-link" href="?h=semester">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Semester</span>
+                    <i class="fa-regular fa-calendar-minus"></i> <span class="align-middle">Semester</span>
                 </a>
             </li>
             <li class="sidebar-item <?php
@@ -53,7 +53,7 @@
                                     }
                                     ?>">
                 <a class="sidebar-link" href="?h=mata_pelajaran">
-                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Mata Pelajaran</span>
+                    <i class="fa-solid fa-book"></i> <span class="align-middle">Mata Pelajaran</span>
                 </a>
             </li>
 
@@ -69,13 +69,13 @@
                                     }
                                     ?>">
                 <a class="sidebar-link" href="?h=guru">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Guru</span>
+                    <i class="fa-solid fa-users"></i> <span class="align-middle">Guru</span>
                 </a>
             </li>
 
             <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) ? 'active' : '' ?>">
                 <a data-bs-target="#siswa" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) ? '' : 'collapsed' ?>">
-                    <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Siswa</span>
+                    <i class="fa-solid fa-users-line"></i> <span class="align-middle">Siswa</span>
                 </a>
                 <ul id="siswa" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
                     <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['siswa', 'tambah_siswa', 'edit_siswa', 'lihat_siswa']) && ($_GET['status'] ?? '') != 'Alumni') ? 'active' : '' ?>">
@@ -88,7 +88,7 @@
             </li>
             <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['kelas_aktif', 'tambah_kelas_aktif', 'edit_kelas_aktif', 'lihat_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa-nilai', 'lihat_kelas_aktif-mata_pelajaran']) ? 'active' : '' ?>">
                 <a data-bs-target="#kelas_aktif" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['kelas_aktif', 'tambah_kelas_aktif', 'edit_kelas_aktif', 'lihat_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa-nilai', 'lihat_kelas_aktif-mata_pelajaran']) ? '' : 'collapsed' ?>">
-                    <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Kelas Aktif</span>
+                    <i class="fa-solid fa-user-tie"></i> <span class="align-middle">Kelas Aktif</span>
                 </a>
                 <ul id="kelas_aktif" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['kelas_aktif', 'tambah_kelas_aktif', 'edit_kelas_aktif', 'lihat_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa', 'tambah_kelas_aktif-siswa-nilai', 'lihat_kelas_aktif-mata_pelajaran']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
                     <?php $result = $mysqli->query("SELECT * FROM kelas ORDER BY tingkat"); ?>
@@ -101,7 +101,7 @@
             </li>
             <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? 'active' : '' ?>">
                 <a data-bs-target="#kelas_selesai" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? '' : 'collapsed' ?>">
-                    <i class="align-middle" data-feather="corner-right-down"></i> <span class="align-middle">Kelas Selesai</span>
+                    <i class="fa-solid fa-user-graduate"></i> <span class="align-middle">Kelas Selesai</span>
                 </a>
                 <ul id="kelas_selesai" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
                     <?php $result = $mysqli->query("SELECT * FROM kelas ORDER BY tingkat"); ?>

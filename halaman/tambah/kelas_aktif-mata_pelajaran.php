@@ -1,6 +1,29 @@
 <?php
 $kelas = $mysqli->query("SELECT * FROM kelas WHERE id=" . $_GET['id_kelas'])->fetch_assoc();
-$kelas_aktif = $mysqli->query("SELECT ka.id, ka.nama, g.nama AS wali_kelas FROM kelas_aktif AS ka INNER JOIN guru AS g ON g.id=ka.id_guru WHERE ka.id=" . $_GET['id_kelas_aktif'])->fetch_assoc();
+
+$q = "
+    SELECT 
+        ka.id, 
+        ka.nama, 
+        g.nama AS wali_kelas 
+    FROM 
+        kelas_aktif AS ka 
+    INNER JOIN 
+        guru AS g 
+    ON 
+        g.id=ka.id_guru 
+    WHERE ka.id=" . $_GET['id_kelas_aktif'];
+$kelas_aktif = $mysqli->query($q)->fetch_assoc();
+
+$q = "
+    SELECT 
+        * 
+    FROM 
+        mata_pelajaran 
+    WHERE 
+        id NOT IN (SELECT id_mata_pelajaran FROM mata_pelajaran_kelas WHERE id_kelas_aktif=" . $_GET['id_kelas_aktif'] . ") 
+    ORDER BY nama";
+$mata_pelajaran = $mysqli->query($q)->fetch_all(MYSQLI_ASSOC);
 if (isset($_POST['submit'])) {
     $id_guru = $mysqli->real_escape_string($_POST['id_guru']);
     $id_mata_pelajaran = $mysqli->real_escape_string($_POST['id_mata_pelajaran']);
@@ -20,7 +43,12 @@ if (isset($_POST['submit'])) {
         )";
 
     if ($mysqli->query($q)) {
-        $_SESSION['tambah_data']['nama'] =  'ISI NANTI';
+        foreach ($mata_pelajaran as $row) {
+            if ($row['id'] == $id_mata_pelajaran) {
+                $_SESSION['tambah_data']['nama'] =  $row['nama'];
+                break;
+            }
+        }
         echo "<script>location.href = '?h=lihat_kelas_aktif-mata_pelajaran&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $kelas_aktif['id'] . "';</script>";
     } else {
         echo "<script>alert('Tambah Data Gagal!')</script>";
@@ -50,12 +78,11 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Mata Pelajaran</label>
-                                <?php $mata_pelajaran = $mysqli->query("SELECT * FROM mata_pelajaran WHERE id NOT IN (SELECT id_mata_pelajaran FROM mata_pelajaran_kelas WHERE id_kelas_aktif=" . $_GET['id_kelas_aktif'] . ") ORDER BY nama"); ?>
                                 <select name="id_mata_pelajaran" required class="form-control choices-single">
                                     <option value="" selected disabled>Pilih Mata Pelajaran</option>
-                                    <?php while ($row = $mata_pelajaran->fetch_assoc()) : ?>
+                                    <?php foreach ($mata_pelajaran as $row) : ?>
                                         <option value="<?= $row['id']; ?>"><?= $row['nama'] ?></option>
-                                    <?php endwhile; ?>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="mb-3">

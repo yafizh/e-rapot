@@ -2,26 +2,29 @@
 $siswa = $mysqli->query("SELECT * FROM siswa WHERE id=" . $_GET['id_siswa'])->fetch_assoc();
 $semester = $mysqli->query("SELECT semester.nama FROM semester_kelas INNER JOIN semester ON semester.id=semester_kelas.id_semester WHERE semester_kelas.id=" . $_GET['id_semester_kelas'])->fetch_assoc();
 if (isset($_POST['submit'])) {
-    $mata_pelajaran_kelas = $_POST['mata_pelajaran_kelas'];
-    $nilai = $_POST['nilai'];
+    $mata_pelajaran_kelas = $_POST['mata_pelajaran_kelas'] ?? [];
+    $nilai = $_POST['nilai'] ?? [];
     $izin = $mysqli->real_escape_string($_POST['izin']);
     $sakit = $mysqli->real_escape_string($_POST['sakit']);
     $tanpa_keterangan = $mysqli->real_escape_string($_POST['tanpa_keterangan']);
     $catatan = $mysqli->real_escape_string($_POST['catatan']);
 
+    try {
+        $mysqli->begin_transaction();
 
-    $q = "
-        UPDATE semester_kelas SET 
-            sakit=$sakit,
-            izin=$izin,
-            tanpa_keterangan=$tanpa_keterangan,
-            catatan_wali_kelas='$catatan' 
-        WHERE 
-            id=" . $_GET['id_semester_kelas'] . " 
-    ";
+        $q = "
+            UPDATE semester_kelas SET 
+                sakit=$sakit,
+                izin=$izin,
+                tanpa_keterangan=$tanpa_keterangan,
+                catatan_wali_kelas='$catatan' 
+            WHERE 
+                id=" . $_GET['id_semester_kelas'] . " 
+        ";
+        $mysqli->query($q);
 
-    if ($mysqli->query($q)) {
         $mysqli->query("DELETE FROM nilai_siswa WHERE id_semester_kelas=" . $_GET['id_semester_kelas']);
+
         for ($i = 0; $i < count($mata_pelajaran_kelas); $i++) {
             $q = "
             INSERT INTO nilai_siswa (
@@ -35,22 +38,37 @@ if (isset($_POST['submit'])) {
             )";
             $mysqli->query($q);
         }
-        $_SESSION['tambah_data']['nama'] =  'ISI NANTI';
-    } else {
-        echo "<script>alert('Tambah Data Gagal!')</script>";
-        die($mysqli->error);
-    }
+
+        $mysqli->commit();
+        $_SESSION['berhasil'] = true;
+    } catch (\Throwable $e) {
+        $mysqli->rollback();
+        throw $e;
+    };
 }
 ?>
 <main class="content">
     <div class="container-fluid p-0">
 
         <div class="mb-3 text-center">
-            <h1 class="h3 d-inline align-middle">Rapot <?= $siswa['nama']; ?></h1>
+            <h1 class="h3 d-inline align-middle"><?= $siswa['nama']; ?></h1>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-12 col-xl-8">
+                <?php if (isset($_SESSION['berhasil'])) : ?>
+                    <div class="col-12">
+                        <div class="alert delete alert-success alert-dismissible" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div class="alert-message">
+                                <h4 class="alert-heading">Memperbaharui Rapot Berhasil</h4>
+                                <p>Berhasil memperbaharui rapot.</p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <?php unset($_SESSION['berhasil']); ?>
+                <?php endif; ?>
                 <div class="card">
                     <div class="card-header">
                         Semester <?= $semester['nama']; ?>

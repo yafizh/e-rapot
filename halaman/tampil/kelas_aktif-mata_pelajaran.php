@@ -23,31 +23,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Tambah Data Berhasil</h4>
-                            <p>Berhasil menambah data kelas aktif dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menambah mata pelajaran <strong><?= $_SESSION['tambah_data']['nama']; ?></strong> pada kelas <?= $kelas_aktif['nama']; ?>.</p>
                             <hr>
                         </div>
                     </div>
                 </div>
                 <?php unset($_SESSION['tambah_data']); ?>
-            <?php elseif (isset($_SESSION['edit_data'])) : ?>
-                <div class="col-12">
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <div class="alert-message">
-                            <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui data kelas aktif <strong><?= $_SESSION['edit_data']['nama']; ?>.</p>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                <?php unset($_SESSION['edit_data']); ?>
             <?php elseif (isset($_SESSION['hapus_data'])) : ?>
                 <div class="col-12">
                     <div class="alert alert-success alert-dismissible delete" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
                             <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data kelas aktif <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
+                            <p>Berhasil menghapus mata pelajaran <strong><?= $_SESSION['hapus_data']['nama']; ?></strong> pada kelas <?= $kelas_aktif['nama']; ?>.</p>
                             <hr>
                         </div>
                     </div>
