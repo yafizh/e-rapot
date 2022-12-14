@@ -166,7 +166,27 @@ if (isset($_POST['kelas_selesai'])) {
             $mysqli->query($q);
         }
 
+        $q = "
+        INSERT INTO mata_pelajaran_kelas (
+            id_kelas_aktif,
+            id_mata_pelajaran,
+            id_guru,
+            kkm 
+        ) SELECT 
+            " . $id_kelas_aktif . ",
+            id_mata_pelajaran, 
+            id_guru,
+            kkm 
+        FROM 
+            mata_pelajaran_kelas 
+        WHERE 
+            id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "
+        ";
+        $mysqli->query($q);
+
         $mysqli->commit();
+        echo "<script>location.href = '?h=kelas_aktif&id_kelas=" . $kelas_selanjutnya['id'] . "';</script>";
+        exit;
     } catch (\Throwable $e) {
         $mysqli->rollback();
         throw $e; // but the error must be handled anyway

@@ -1,3 +1,4 @@
+<?php $kelas = $mysqli->query("SELECT * FROM kelas WHERE id=" . $_GET['id_kelas'])->fetch_assoc(); ?>
 <main class="content">
     <div class="container-fluid p-0">
 
@@ -5,7 +6,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item active">
-                        <h1 class="h3 d-inline">Kelas Aktif</h1>
+                        <h1 class="h3 d-inline">Kelas <?= $kelas['nama']; ?></h1>
                     </li>
                 </ol>
             </nav>
@@ -83,7 +84,9 @@
                                 ON 
                                     g.id=ka.id_guru 
                                 WHERE 
-                                    k.id=" . $_GET['id_kelas'] . "
+                                    k.id=" . $_GET['id_kelas'] . " 
+                                    AND 
+                                    ka.status = 'Aktif' 
                                 ORDER BY 
                                     ka.tahun_pelajaran, ka.nama";
                             $result = $mysqli->query($query);
