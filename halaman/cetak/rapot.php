@@ -10,6 +10,41 @@
 
 <body>
     <?php include_once('header.php'); ?>
+    <?php 
+    $q = "
+        SELECT 
+            sk.id, 
+            s.nama AS nama_siswa,
+            k.nama AS kelas, 
+            semester.nama AS semester,
+            ka.tahun_pelajaran 
+        FROM 
+            semester_kelas AS sk 
+        INNER JOIN 
+            semester 
+        ON 
+            semester.id=sk.id_semester 
+        INNER JOIN 
+            kelas_siswa AS ks 
+        ON 
+            ks.id=sk.id_kelas_siswa 
+        INNER JOIN  
+            siswa AS s 
+        ON 
+            s.id=ks.id_siswa 
+        INNER JOIN 
+            kelas_aktif AS ka 
+        ON 
+            ka.id=ks.id_kelas_aktif 
+        INNER JOIN 
+            kelas AS k 
+        ON 
+            k.id=ka.id_kelas 
+        WHERE 
+            sk.id=".$_GET['id_semester_kelas']."
+    ";
+    $data = $mysqli->query($q)->fetch_assoc();
+    ?>
     <h4 class="text-center my-3">RAPOT</h4>
     <main class="p-3">
         <section class="mb-3">
@@ -21,7 +56,7 @@
                         </div>
                         <div class="col-auto">:</div>
                         <div class="col">
-                            Nurcholis
+                            <?= $data['nama_siswa']; ?>
                         </div>
                     </div>
                     <div class="row">
@@ -50,7 +85,7 @@
                         </div>
                         <div class="col-auto">:</div>
                         <div class="col text-capitalize">
-                            V <?= (new NumberFormatter("id", NumberFormatter::SPELLOUT))->format(1); ?>
+                            <?= numberToRomanRepresentation($data['kelas']) ?> (<?= (new NumberFormatter("id", NumberFormatter::SPELLOUT))->format($data['kelas']); ?>)
                         </div>
                     </div>
                     <div class="row">
@@ -59,7 +94,7 @@
                         </div>
                         <div class="col-auto">:</div>
                         <div class="col">
-                            II (Dua)
+                            <?= numberToRomanRepresentation($data['semester']) ?> (<?= (new NumberFormatter("id", NumberFormatter::SPELLOUT))->format($data['semester']); ?>)
                         </div>
                     </div>
                     <div class="row">
@@ -68,7 +103,7 @@
                         </div>
                         <div class="col-auto">:</div>
                         <div class="col">
-                            2022/2023
+                            <?= $data['tahun_pelajaran']; ?>
                         </div>
                     </div>
                 </div>

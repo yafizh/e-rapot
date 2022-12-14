@@ -1,4 +1,5 @@
 <?php include_once('../../db/koneksi.php'); ?>
+<?php include_once('../../functions/number.php'); ?>
 <?php date_default_timezone_set('Asia/Kuala_Lumpur'); ?>
 <header class="text-center p-4">
     <img src="../../../assets/images/OXA.png" alt="Logo" width="110" style="position: absolute; left: 30px;">
