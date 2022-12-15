@@ -11,6 +11,7 @@ CREATE TABLE `user` (
 
 CREATE TABLE `guru` (
     id INT NOT NULL AUTO_INCREMENT,
+    nip VARCHAR(255) NOT NULL UNIQUE,
     nama VARCHAR(255) NOT NULL,
     tempat_lahir VARCHAR(255) NOT NULL,
     tanggal_lahir DATE NOT NULL,
@@ -20,15 +21,16 @@ CREATE TABLE `guru` (
 );
 
 INSERT INTO `guru` (
+    nip,
     nama,
     tempat_lahir,
     tanggal_lahir,
     jenis_kelamin,
     foto
 ) VALUES 
-('Nurcholis', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
-('Habibi', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
-('Arif', 'Martapura', '2000-01-01', 'Laki - Laki', '');
+('1', 'Nurcholis', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
+('2', 'Habibi', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
+('3', 'Arif', 'Martapura', '2000-01-01', 'Laki - Laki', '');
 
 CREATE TABLE `user_guru` (
     id INT NOT NULL AUTO_INCREMENT,

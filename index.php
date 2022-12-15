@@ -65,6 +65,12 @@ $_SESSION['old'] = [];
                     case "kelas_selesai":
                         include_once "halaman/tampil/kelas_selesai.php";
                         break;
+                    case "admin":
+                        include_once "halaman/tampil/admin.php";
+                        break;
+                    case "wali_kelas":
+                        include_once "halaman/tampil/wali_kelas.php";
+                        break;
                         // Lihat
                     case "lihat_guru":
                         include_once "halaman/lihat/guru.php";
@@ -112,6 +118,9 @@ $_SESSION['old'] = [];
                     case "tambah_kelas_aktif-semester_kelas":
                         include_once "halaman/tambah/kelas_aktif-semester_kelas.php";
                         break;
+                    case "tambah_admin":
+                        include_once "halaman/tambah/admin.php";
+                        break;
                         // Edit
                     case "edit_kelas":
                         include_once "halaman/edit/kelas.php";
@@ -130,6 +139,9 @@ $_SESSION['old'] = [];
                         break;
                     case "edit_kelas_aktif":
                         include_once "halaman/edit/kelas_aktif.php";
+                        break;
+                    case "edit_admin":
+                        include_once "halaman/edit/admin.php";
                         break;
                         // Hapus
                     case "hapus_kelas":
@@ -155,6 +167,13 @@ $_SESSION['old'] = [];
                         break;
                     case "hapus_kelas_aktif-mata_pelajaran":
                         include_once "halaman/hapus/kelas_aktif-mata_pelajaran.php";
+                        break;
+                    case "hapus_admin":
+                        include_once "halaman/hapus/admin.php";
+                        break;
+                        // Others
+                    case "ganti_password":
+                        include_once "halaman/auth/ganti_password.php";
                         break;
                     default:
                         include_once "beranda.php";

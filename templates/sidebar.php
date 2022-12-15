@@ -14,9 +14,20 @@
             <li class="sidebar-header">
                 Data User
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item <?php
+                                    if (isset($_GET['h'])) {
+                                        if ($_GET['h'] == "admin") echo "active";
+                                        else if ($_GET['h'] == "tambah_admin") echo "active";
+                                        else if ($_GET['h'] == "edit_admin") echo "active";
+                                    }
+                                    ?>">
                 <a class="sidebar-link" href="?h=admin">
                     <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Admin</span>
+                </a>
+            </li>
+            <li class="sidebar-item <?= (($_GET['h'] ?? '') == "wali_kelas") ? "active" : ''; ?>">
+                <a class="sidebar-link" href="?h=wali_kelas">
+                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Wali Kelas</span>
                 </a>
             </li>
 
