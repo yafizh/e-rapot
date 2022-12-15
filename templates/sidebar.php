@@ -99,14 +99,14 @@
                     <?php endwhile; ?>
                 </ul>
             </li>
-            <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? 'active' : '' ?>">
-                <a data-bs-target="#kelas_selesai" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? '' : 'collapsed' ?>">
+            <li class="sidebar-item <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'lihat_kelas_selesai']) ? 'active' : '' ?>">
+                <a data-bs-target="#kelas_selesai" data-bs-toggle="collapse" class="sidebar-link <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'lihat_kelas_selesai']) ? '' : 'collapsed' ?>">
                     <i class="fa-solid fa-user-graduate"></i> <span class="align-middle">Kelas Selesai</span>
                 </a>
-                <ul id="kelas_selesai" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
+                <ul id="kelas_selesai" class="sidebar-dropdown list-unstyled collapse <?= in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'lihat_kelas_selesai']) ? 'show' : '' ?>" data-bs-parent="#sidebar">
                     <?php $result = $mysqli->query("SELECT * FROM kelas ORDER BY tingkat"); ?>
                     <?php while ($row = $result->fetch_assoc()) : ?>
-                        <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'tambah_kelas_selesai', 'edit_kelas_selesai', 'lihat_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa', 'tambah_kelas_selesai-siswa-nilai', 'lihat_kelas_selesai-mata_pelajaran']) && ($_GET['id_kelas'] ?? '') == $row['id']) ? 'active' : '' ?>">
+                        <li class="sidebar-item <?= (in_array(($_GET['h'] ?? ''), ['kelas_selesai', 'lihat_kelas_selesai']) && ($_GET['id_kelas'] ?? '') == $row['id']) ? 'active' : '' ?>">
                             <a href="?h=kelas_selesai&id_kelas=<?= $row['id']; ?>" class="sidebar-link">Kelas <?= $row['nama']; ?></a>
                         </li>
                     <?php endwhile; ?>

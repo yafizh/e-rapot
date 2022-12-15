@@ -62,6 +62,9 @@ $_SESSION['old'] = [];
                     case "kelas_aktif":
                         include_once "halaman/tampil/kelas_aktif.php";
                         break;
+                    case "kelas_selesai":
+                        include_once "halaman/tampil/kelas_selesai.php";
+                        break;
                         // Lihat
                     case "lihat_guru":
                         include_once "halaman/lihat/guru.php";
@@ -74,6 +77,9 @@ $_SESSION['old'] = [];
                         break;
                     case "lihat_kelas_aktif-mata_pelajaran":
                         include_once "halaman/tampil/kelas_aktif-mata_pelajaran.php";
+                        break;
+                    case "lihat_kelas_selesai":
+                        include_once "halaman/lihat/kelas_selesai.php";
                         break;
                         // Tambah
                     case "tambah_kelas":

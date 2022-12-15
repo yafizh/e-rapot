@@ -89,6 +89,9 @@ foreach ($semester as $value) {
                                     <a href="?h=tambah_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>&id_semester=<?= $semester[$i]['id']; ?>" class="btn btn-primary">Tambah Siswa</a>
                                     <a href="?h=tambah_kelas_aktif-semester_kelas&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $kelas_aktif['id']; ?>&id_semester=<?= $semester[$i]['id']; ?>" class="btn btn-success">Semester Selesai</a>
                                     <?php $latest_semester = false; ?>
+                                <?php else : ?>
+                                    <a href="#" class="btn btn-primary invisible">Tambah Siswa</a>
+                                    <a href="#" class="btn btn-success invisible">Semester Selesai</a>
                                 <?php endif; ?>
                             </div>
                         </div>
