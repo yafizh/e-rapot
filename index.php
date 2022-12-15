@@ -37,7 +37,11 @@ $_SESSION['old'] = [];
 
 <body>
     <div class="wrapper">
-        <?php include_once('templates/sidebar.php'); ?>
+        <?php if (isset($_SESSION['user'])) : ?>
+            <?php if (is_null($_SESSION['user']['id_guru'])) : ?>
+                <?php include_once('templates/sidebar.php'); ?>
+            <?php endif; ?>
+        <?php endif; ?>
         <div class="main">
             <?php include_once('templates/navbar.php'); ?>
             <?php

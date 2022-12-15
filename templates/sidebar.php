@@ -128,27 +128,27 @@
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">1</span>
+                    <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Guru</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">2</span>
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Siswa</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">3</span>
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Nilai Siswa</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">4</span>
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Kelas Aktif</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">5</span>
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Kelas Selesai</span>
                 </a>
             </li>
         </ul>

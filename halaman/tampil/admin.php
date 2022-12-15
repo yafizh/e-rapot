@@ -48,7 +48,7 @@
                     <div class="alert alert-success alert-dismissible delete" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
-                            <h4 class="alert-heading">Hapus Data Berhasil</h4>
+                            <h4 class="alert-heading">Ganti Password Berhasil</h4>
                             <p>Berhasil memperbaharui password admin <strong><?= $_SESSION['ganti_password']['username']; ?></strong>.</p>
                             <hr>
                         </div>
@@ -68,7 +68,7 @@
                                 </tr>
                             </thead>
                             <?php
-                            $result = $mysqli->query("SELECT * FROM user ORDER BY username");
+                            $result = $mysqli->query("SELECT * FROM user WHERE id NOT IN (SELECT id_user FROM user_guru) ORDER BY username");
                             $no = 1;
                             ?>
                             <tbody>

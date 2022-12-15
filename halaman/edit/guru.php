@@ -1,11 +1,13 @@
 <?php
 $data = $mysqli->query("SELECT * FROM guru WHERE id=" . $_GET['id'])->fetch_assoc();
 if (isset($_POST['submit'])) {
+    $nip = $mysqli->real_escape_string($_POST['nip']);
     $nama = $mysqli->real_escape_string($_POST['nama']);
     $tempat_lahir = $mysqli->real_escape_string($_POST['tempat_lahir']);
     $tanggal_lahir = $mysqli->real_escape_string($_POST['tanggal_lahir']);
     $jenis_kelamin = $mysqli->real_escape_string($_POST['jenis_kelamin']);
 
+    $_SESSION['old']['nip'] = $nip;
     $_SESSION['old']['nama'] = $nama;
     $_SESSION['old']['tempat_lahir'] = $tempat_lahir;
     $_SESSION['old']['tanggal_lahir'] = $tanggal_lahir;
@@ -47,25 +49,38 @@ if (isset($_POST['submit'])) {
 
 
     if ($uploadOk) {
-        $q = "
-            UPDATE guru SET
-                nama='$nama',
-                tempat_lahir='$tempat_lahir',
-                tanggal_lahir='$tanggal_lahir',
-                jenis_kelamin='$jenis_kelamin',
-                foto='$target_file' 
-            WHERE 
-                id=" . $_GET['id'] . "
-            ";
+        $validasi = $mysqli->query("SELECT nip FROM guru WHERE nip='$nip' AND id !=" . $data['id']);
+        if (!$validasi->num_rows) {
+            try {
+                $mysqli->begin_transaction();
+                $user_guru = $mysqli->query("SELECT * FROM user_guru WHERE id_guru=" . $_GET['id']);
+                if ($user_guru->num_rows)
+                    $mysqli->query("UPDATE user SET username='$nip' WHERE id=" . $user_guru->fetch_assoc()['id_user']);
 
-        if ($mysqli->query($q)) {
-            $_SESSION['edit_data']['id'] =  $data['id'];
-            $_SESSION['edit_data']['nama'] =  $data['nama'];
-            echo "<script>location.href = '?h=guru';</script>";
-        } else {
-            echo "<script>alert('Edit Data Gagal!')</script>";
-            die($mysqli->error);
-        }
+                $q = "
+                UPDATE guru SET
+                    nip='$nip',
+                    nama='$nama',
+                    tempat_lahir='$tempat_lahir',
+                    tanggal_lahir='$tanggal_lahir',
+                    jenis_kelamin='$jenis_kelamin',
+                    foto='$target_file' 
+                WHERE 
+                    id=" . $_GET['id'] . "
+                ";
+                $mysqli->query($q);
+
+                $mysqli->commit();
+
+                $_SESSION['edit_data']['id'] =  $data['id'];
+                $_SESSION['edit_data']['nama'] =  $data['nama'];
+                echo "<script>location.href = '?h=guru';</script>";
+            } catch (\Throwable $e) {
+                $mysqli->rollback();
+                throw $e;
+            };
+        } else
+            $_SESSION['error'][] = "NIP telah digunakan, NIP tidak dapat sama dengan guru yang lain.";
     }
 }
 ?>
@@ -91,6 +106,10 @@ if (isset($_POST['submit'])) {
                 <div class="card">
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">NIP</label>
+                                <input type="text" class="form-control" name="nip" required autocomplete="off" value="<?= $_SESSION['old']['nip'] ?? $data['nip']; ?>">
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Nama</label>
                                 <input type="text" class="form-control" name="nama" required autocomplete="off" value="<?= $_SESSION['old']['nama'] ?? $data['nama']; ?>">

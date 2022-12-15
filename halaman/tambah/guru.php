@@ -1,10 +1,12 @@
 <?php
 if (isset($_POST['submit'])) {
+    $nip = $mysqli->real_escape_string($_POST['nip']);
     $nama = $mysqli->real_escape_string($_POST['nama']);
     $tempat_lahir = $mysqli->real_escape_string($_POST['tempat_lahir']);
     $tanggal_lahir = $mysqli->real_escape_string($_POST['tanggal_lahir']);
     $jenis_kelamin = $mysqli->real_escape_string($_POST['jenis_kelamin']);
 
+    $_SESSION['old']['nip'] = $nip;
     $_SESSION['old']['nama'] = $nama;
     $_SESSION['old']['tempat_lahir'] = $tempat_lahir;
     $_SESSION['old']['tanggal_lahir'] = $tanggal_lahir;
@@ -36,33 +38,40 @@ if (isset($_POST['submit'])) {
     }
 
     if ($uploadOk) {
-        if (!is_dir($target_dir)) mkdir($target_dir, 0700, true);
-        if (move_uploaded_file($foto["tmp_name"], $target_file)) {
-            $q = "
-            INSERT INTO guru (
-                nama,
-                tempat_lahir,
-                tanggal_lahir,
-                jenis_kelamin,
-                foto 
-            ) VALUES (
-                '$nama',
-                '$tempat_lahir',
-                '$tanggal_lahir',
-                '$jenis_kelamin',
-                '$target_file'
-            )";
 
-            if ($mysqli->query($q)) {
-                $_SESSION['tambah_data']['id'] = $mysqli->insert_id;
-                $_SESSION['tambah_data']['nama'] = $nama;
-                echo "<script>location.href = '?h=guru';</script>";
-            } else {
-                echo "<script>alert('Tambah Data Gagal!')</script>";
-                die($mysqli->error);
-            }
-        } else 
-            echo "Sorry, there was an error uploading your file.";
+        $validasi = $mysqli->query("SELECT nip FROM guru WHERE nip='$nip'");
+        if (!$validasi->num_rows) {
+            if (!is_dir($target_dir)) mkdir($target_dir, 0700, true);
+            if (move_uploaded_file($foto["tmp_name"], $target_file)) {
+                $q = "
+                INSERT INTO guru (
+                    nip,
+                    nama,
+                    tempat_lahir,
+                    tanggal_lahir,
+                    jenis_kelamin,
+                    foto 
+                ) VALUES (
+                    '$nip',
+                    '$nama',
+                    '$tempat_lahir',
+                    '$tanggal_lahir',
+                    '$jenis_kelamin',
+                    '$target_file'
+                )";
+
+                if ($mysqli->query($q)) {
+                    $_SESSION['tambah_data']['id'] = $mysqli->insert_id;
+                    $_SESSION['tambah_data']['nama'] = $nama;
+                    echo "<script>location.href = '?h=guru';</script>";
+                } else {
+                    echo "<script>alert('Tambah Data Gagal!')</script>";
+                    die($mysqli->error);
+                }
+            } else
+                echo "Sorry, there was an error uploading your file.";
+        } else
+            $_SESSION['error'][] = "NIP telah digunakan, NIP tidak dapat sama dengan guru yang lain.";
     }
 }
 ?>
@@ -88,6 +97,10 @@ if (isset($_POST['submit'])) {
                 <div class="card">
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">NIP</label>
+                                <input type="text" class="form-control" name="nip" required autofocus autocomplete="off" value="<?= $_SESSION['old']['nip'] ?? ''; ?>">
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Nama</label>
                                 <input type="text" class="form-control" name="nama" required autofocus autocomplete="off" value="<?= $_SESSION['old']['nama'] ?? ''; ?>">

@@ -6,21 +6,52 @@ if (isset($_POST['submit'])) {
     $nama = $mysqli->real_escape_string($_POST['nama']);
     $tahun_pelajaran = $mysqli->real_escape_string($_POST['tahun_pelajaran']);
 
-    $q = "
+    try {
+        $mysqli->begin_transaction();
+        $guru = $mysqli->query("SELECT * FROM guru WHERE id=$id_guru")->fetch_assoc();
+        $user_guru = $mysqli->query("SELECT * FROM user_guru WHERE id_guru=" . $data['id_guru'])->fetch_assoc();
+
+        $q = "
         UPDATE kelas_aktif SET 
             id_guru='$id_guru',
             nama='$nama',  
             tahun_pelajaran='$tahun_pelajaran' 
         WHERE 
             id=" . $_GET['id_kelas_aktif'];
+        $mysqli->query($q);
 
-    if ($mysqli->query($q)) {
+        $mysqli->query("DELETE FROM user WHERE id=" . $user_guru['id_user']);
+
+        $q = "
+        INSERT INTO user (
+            username, 
+            password 
+        ) VALUES (
+            '" . $guru['nip'] . "', 
+            '" . $guru['nip'] . "' 
+        )";
+        $mysqli->query($q);
+
+        $q = "
+        INSERT INTO user_guru (
+            id_user, 
+            id_guru,
+            status  
+        ) VALUES (
+            '" . $mysqli->insert_id . "', 
+            '$id_guru',
+            'Wali Kelas'  
+        )";
+        $mysqli->query($q);
+
+        $mysqli->commit();
+
         $_SESSION['edit_data']['nama'] =  $nama;
         echo "<script>location.href = '?h=kelas_aktif&id_kelas=" . $_GET['id_kelas'] . "';</script>";
-    } else {
-        echo "<script>alert('Tambah Data Gagal!')</script>";
-        die($mysqli->error);
-    }
+    } catch (\Throwable $e) {
+        $mysqli->rollback();
+        throw $e;
+    };
 }
 ?>
 <main class="content">

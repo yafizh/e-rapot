@@ -1,14 +1,36 @@
 <?php
 if (isset($_GET['id'])) {
-    $data = $mysqli->query("SELECT * FROM user WHERE id=" . $_GET['id'])->fetch_assoc();
+    $q = "
+        SELECT 
+            u.*,
+            ug.id_guru,
+            g.nama  
+        FROM 
+            user AS u 
+        LEFT JOIN 
+            user_guru AS ug 
+        ON 
+            ug.id_user=u.id 
+        LEFT JOIN 
+            guru AS g 
+        ON 
+            ug.id_guru=g.id 
+        WHERE 
+            u.id=" . $_GET['id'];
+    $data = $mysqli->query($q)->fetch_assoc();
     if (isset($_POST['submit'])) {
         $password = $mysqli->real_escape_string($_POST['password']);
 
         $q = "UPDATE user SET password='$password' WHERE id=" . $_GET['id'];
 
         if ($mysqli->query($q)) {
-            $_SESSION['ganti_password']['username'] =  $data['username'];
-            echo "<script>location.href = '?h=admin';</script>";
+            if (is_null($data['id_guru'])) {
+                $_SESSION['ganti_password']['username'] =  $data['username'];
+                echo "<script>location.href = '?h=admin';</script>";
+            } else {
+                $_SESSION['ganti_password']['nama'] =  $data['nama'];
+                echo "<script>location.href = '?h=wali_kelas';</script>";
+            }
         } else
             die($mysqli->error);
     }

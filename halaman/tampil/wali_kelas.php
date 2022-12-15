@@ -6,42 +6,18 @@
         </div>
 
         <div class="row">
-            <?php if (isset($_SESSION['tambah_data'])) : ?>
-                <div class="col-12">
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <div class="alert-message">
-                            <h4 class="alert-heading">Tambah Data Berhasil</h4>
-                            <p>Berhasil menambah data wali kelas dengan nama <strong><?= $_SESSION['tambah_data']['nama']; ?></strong>.</p>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                <?php unset($_SESSION['tambah_data']); ?>
-            <?php elseif (isset($_SESSION['edit_data'])) : ?>
-                <div class="col-12">
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <div class="alert-message">
-                            <h4 class="alert-heading">Edit Data Berhasil</h4>
-                            <p>Berhasil memperbaharui data wali kelas <strong><?= $_SESSION['edit_data']['nama']; ?></strong>.</p>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                <?php unset($_SESSION['edit_data']); ?>
-            <?php elseif (isset($_SESSION['hapus_data'])) : ?>
+            <?php if (isset($_SESSION['ganti_password'])) : ?>
                 <div class="col-12">
                     <div class="alert alert-success alert-dismissible delete" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <div class="alert-message">
-                            <h4 class="alert-heading">Hapus Data Berhasil</h4>
-                            <p>Berhasil menghapus data wali kelas <strong><?= $_SESSION['hapus_data']['nama']; ?></strong>.</p>
+                            <h4 class="alert-heading">Ganti Password Berhasil</h4>
+                            <p>Berhasil memperbaharui password wali kelas <strong><?= $_SESSION['ganti_password']['nama']; ?></strong>.</p>
                             <hr>
                         </div>
                     </div>
                 </div>
-                <?php unset($_SESSION['hapus_data']); ?>
+                <?php unset($_SESSION['ganti_password']); ?>
             <?php endif; ?>
             <div class="col-12">
                 <div class="card">
@@ -59,6 +35,7 @@
                             <?php
                             $q = "
                                 SELECT 
+                                    ug.id_user,
                                     g.nip, 
                                     g.nama, 
                                     k.nama AS kelas, 
@@ -84,10 +61,11 @@
                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                     <tr>
                                         <td class="text-center td-fit"><?= $no++; ?></td>
-                                        <td class="text-center"><?= $row['username']; ?></td>
+                                        <td class="text-center"><?= $row['nip']; ?></td>
+                                        <td class="text-center"><?= $row['nama']; ?></td>
                                         <td class="text-center"><?= $row['kelas']; ?> <?= $row['nama_kelas']; ?></td>
                                         <td class="text-center td-fit">
-                                            <a href="?h=hapus_admin&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Reset Password</a>
+                                            <a href="?h=ganti_password&id=<?= $row['id_user']; ?>" class="btn btn-sm btn-secondary">Ganti Password</a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>
