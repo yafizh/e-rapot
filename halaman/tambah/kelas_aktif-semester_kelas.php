@@ -189,7 +189,7 @@ if (isset($_POST['kelas_selesai'])) {
         exit;
     } catch (\Throwable $e) {
         $mysqli->rollback();
-        throw $e; // but the error must be handled anyway
+        throw $e;
     };
 
 
@@ -315,7 +315,6 @@ if (isset($_POST['lulus'])) {
                                                             </span>
                                                         </label>
                                                         <input type="text" hidden name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>">
-                                                        <!-- <input class="form-check-input" type="checkbox" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" checked> -->
                                                     </td>
                                                     <td class="text-center">
                                                         <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Lihat</a>
@@ -325,7 +324,8 @@ if (isset($_POST['lulus'])) {
                                         </tbody>
                                     </table>
                                     <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
-                                    <button type="submit" name="semester_selesai" class="btn btn-success float-end">Semester Selesai</button>
+                                    <input type="text" name="semester_selesai" value="1" hidden>
+                                    <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#modalSemesterSelesai" data-semester="<?= $semester['nama']; ?>">Semester Selesai</button>
                                 </form>
                             </div>
                         </div>
@@ -404,7 +404,8 @@ if (isset($_POST['lulus'])) {
                                         </tbody>
                                     </table>
                                     <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
-                                    <button type="submit" name="kelas_selesai" class="btn btn-success float-end">Kelas Selesai</button>
+                                    <input type="text" name="kelas_selesai" value="1" hidden>
+                                    <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#modalKelasSelesai" data-kelas="<?= $kelas_aktif['kelas']; ?>">Kelas Selesai</button>
                                 </form>
                             </div>
                         </div>
@@ -484,7 +485,8 @@ if (isset($_POST['lulus'])) {
                                     </tbody>
                                 </table>
                                 <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
-                                <button type="submit" name="lulus" class="btn btn-success float-end">Lulus</button>
+                                <input type="text" name="lulus" value="1" hidden>
+                                <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#modalKelasSelesai" data-kelas="<?= $kelas_aktif['kelas']; ?>">Lulus</button>
                             </form>
                         </div>
                     </div>
@@ -494,21 +496,47 @@ if (isset($_POST['lulus'])) {
 
     </div>
 </main>
-<div class="modal fade" id="semester<?= $value['tingkat']; ?>Selesai" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalSemesterSelesai" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><?= $value['nama']; ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="modal-body m-3">
-                <p class="mb-0">Dengan menyatakan <strong><?= $value['nama']; ?></strong> telah selesai, maka wali kelas tidak dapat lagi memberikan nilai kepada siswa yang berada di <strong><?= $value['nama']; ?></strong>.</p>
+                <p class="mb-0"></p>
             </div>
             <div class="modal-footer">
-                <!-- <input type="text" name="id_semester" hidden value="<?= $value['id']; ?>"> -->
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="submit" name="submit" class="btn btn-primary">Selesai</button>
+                <button id="btn-semester-selesai" type="button" class="btn btn-primary">Mengerti</button>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalKelasSelesai" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body m-3">
+                <p class="mb-0"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button id="btn-kelas-selesai" type="button" class="btn btn-primary">Mengerti</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if (document.querySelector("button[data-bs-target='#modalSemesterSelesai']")) {
+        document.querySelector("button[data-bs-target='#modalSemesterSelesai']").addEventListener('click', function() {
+            document.querySelector('#modalSemesterSelesai .modal-body p').innerHTML = `
+            Dengan menyatakan <strong>Semester ${this.getAttribute('data-semester')}</strong> telah selesai, maka wali kelas tidak dapat lagi mengisi rapot kepada seluruh siswa yang berada di <strong>Semester ${this.getAttribute('data-semester')}</strong>.
+        `;
+            document.querySelector("#btn-semester-selesai").addEventListener('click', () => document.querySelector('form').submit());
+        });
+    }
+    if (document.querySelector("button[data-bs-target='#modalKelasSelesai']")) {
+        document.querySelector("button[data-bs-target='#modalKelasSelesai']").addEventListener('click', function() {
+            document.querySelector('#modalKelasSelesai .modal-body p').innerHTML = `
+            Dengan menyatakan <strong>Kelas ${this.getAttribute('data-kelas')}</strong> telah selesai, maka wali kelas tidak dapat lagi mengisi rapot kepada seluruh siswa yang berada di <strong>Kelas ${this.getAttribute('data-kelas')}</strong>.
+        `;
+            document.querySelector("#btn-kelas-selesai").addEventListener('click', () => document.querySelector('form').submit());
+        });
+    }
+</script>

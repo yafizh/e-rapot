@@ -183,7 +183,8 @@ $_SESSION['old'] = [];
     </script>
     <script>
         setTimeout(() => {
-            document.querySelector('.alert.delete').parentElement.remove()
+            if (document.querySelector('.alert.delete'))
+                document.querySelector('.alert.delete').parentElement.remove()
         }, 5000);
     </script>
 </body>
