@@ -41,144 +41,148 @@ $_SESSION['old'] = [];
         <div class="main">
             <?php include_once('templates/navbar.php'); ?>
             <?php
-            if (isset($_GET['h'])) {
-                switch ($_GET['h']) {
-                        // Tampil
-                    case "kelas":
-                        include_once "halaman/tampil/kelas.php";
-                        break;
-                    case "semester":
-                        include_once "halaman/tampil/semester.php";
-                        break;
-                    case "mata_pelajaran":
-                        include_once "halaman/tampil/mata_pelajaran.php";
-                        break;
-                    case "guru":
-                        include_once "halaman/tampil/guru.php";
-                        break;
-                    case "siswa":
-                        include_once "halaman/tampil/siswa.php";
-                        break;
-                    case "kelas_aktif":
-                        include_once "halaman/tampil/kelas_aktif.php";
-                        break;
-                    case "kelas_selesai":
-                        include_once "halaman/tampil/kelas_selesai.php";
-                        break;
-                    case "admin":
-                        include_once "halaman/tampil/admin.php";
-                        break;
-                    case "wali_kelas":
-                        include_once "halaman/tampil/wali_kelas.php";
-                        break;
-                        // Lihat
-                    case "lihat_guru":
-                        include_once "halaman/lihat/guru.php";
-                        break;
-                    case "lihat_siswa":
-                        include_once "halaman/lihat/siswa.php";
-                        break;
-                    case "lihat_kelas_aktif-siswa":
-                        include_once "halaman/tampil/kelas_aktif-siswa.php";
-                        break;
-                    case "lihat_kelas_aktif-mata_pelajaran":
-                        include_once "halaman/tampil/kelas_aktif-mata_pelajaran.php";
-                        break;
-                    case "lihat_kelas_selesai":
-                        include_once "halaman/lihat/kelas_selesai.php";
-                        break;
-                        // Tambah
-                    case "tambah_kelas":
-                        include_once "halaman/tambah/kelas.php";
-                        break;
-                    case "tambah_semester":
-                        include_once "halaman/tambah/semester.php";
-                        break;
-                    case "tambah_mata_pelajaran":
-                        include_once "halaman/tambah/mata_pelajaran.php";
-                        break;
-                    case "tambah_guru":
-                        include_once "halaman/tambah/guru.php";
-                        break;
-                    case "tambah_siswa":
-                        include_once "halaman/tambah/siswa.php";
-                        break;
-                    case "tambah_kelas_aktif":
-                        include_once "halaman/tambah/kelas_aktif.php";
-                        break;
-                    case "tambah_kelas_aktif-siswa":
-                        include_once "halaman/tambah/kelas_aktif-siswa.php";
-                        break;
-                    case "tambah_kelas_aktif-mata_pelajaran":
-                        include_once "halaman/tambah/kelas_aktif-mata_pelajaran.php";
-                        break;
-                    case "tambah_kelas_aktif-siswa-nilai":
-                        include_once "halaman/tambah/kelas_aktif-siswa-nilai.php";
-                        break;
-                    case "tambah_kelas_aktif-semester_kelas":
-                        include_once "halaman/tambah/kelas_aktif-semester_kelas.php";
-                        break;
-                    case "tambah_admin":
-                        include_once "halaman/tambah/admin.php";
-                        break;
-                        // Edit
-                    case "edit_kelas":
-                        include_once "halaman/edit/kelas.php";
-                        break;
-                    case "edit_semester":
-                        include_once "halaman/edit/semester.php";
-                        break;
-                    case "edit_mata_pelajaran":
-                        include_once "halaman/edit/mata_pelajaran.php";
-                        break;
-                    case "edit_guru":
-                        include_once "halaman/edit/guru.php";
-                        break;
-                    case "edit_siswa":
-                        include_once "halaman/edit/siswa.php";
-                        break;
-                    case "edit_kelas_aktif":
-                        include_once "halaman/edit/kelas_aktif.php";
-                        break;
-                    case "edit_admin":
-                        include_once "halaman/edit/admin.php";
-                        break;
-                        // Hapus
-                    case "hapus_kelas":
-                        include_once "halaman/hapus/kelas.php";
-                        break;
-                    case "hapus_semester":
-                        include_once "halaman/hapus/semester.php";
-                        break;
-                    case "hapus_mata_pelajaran":
-                        include_once "halaman/hapus/mata_pelajaran.php";
-                        break;
-                    case "hapus_guru":
-                        include_once "halaman/hapus/guru.php";
-                        break;
-                    case "hapus_siswa":
-                        include_once "halaman/hapus/siswa.php";
-                        break;
-                    case "hapus_kelas_aktif":
-                        include_once "halaman/hapus/kelas_aktif.php";
-                        break;
-                    case "hapus_kelas_aktif-siswa":
-                        include_once "halaman/hapus/kelas_aktif-siswa.php";
-                        break;
-                    case "hapus_kelas_aktif-mata_pelajaran":
-                        include_once "halaman/hapus/kelas_aktif-mata_pelajaran.php";
-                        break;
-                    case "hapus_admin":
-                        include_once "halaman/hapus/admin.php";
-                        break;
-                        // Others
-                    case "ganti_password":
-                        include_once "halaman/auth/ganti_password.php";
-                        break;
-                    default:
-                        include_once "beranda.php";
-                }
-            } else include_once "beranda.php";
+            if (isset($_SESSION['user'])) {
+                if (isset($_GET['h'])) {
+                    switch ($_GET['h']) {
+                            // Tampil
+                        case "kelas":
+                            include_once "halaman/tampil/kelas.php";
+                            break;
+                        case "semester":
+                            include_once "halaman/tampil/semester.php";
+                            break;
+                        case "mata_pelajaran":
+                            include_once "halaman/tampil/mata_pelajaran.php";
+                            break;
+                        case "guru":
+                            include_once "halaman/tampil/guru.php";
+                            break;
+                        case "siswa":
+                            include_once "halaman/tampil/siswa.php";
+                            break;
+                        case "kelas_aktif":
+                            include_once "halaman/tampil/kelas_aktif.php";
+                            break;
+                        case "kelas_selesai":
+                            include_once "halaman/tampil/kelas_selesai.php";
+                            break;
+                        case "admin":
+                            include_once "halaman/tampil/admin.php";
+                            break;
+                        case "wali_kelas":
+                            include_once "halaman/tampil/wali_kelas.php";
+                            break;
+                            // Lihat
+                        case "lihat_guru":
+                            include_once "halaman/lihat/guru.php";
+                            break;
+                        case "lihat_siswa":
+                            include_once "halaman/lihat/siswa.php";
+                            break;
+                        case "lihat_kelas_aktif-siswa":
+                            include_once "halaman/tampil/kelas_aktif-siswa.php";
+                            break;
+                        case "lihat_kelas_aktif-mata_pelajaran":
+                            include_once "halaman/tampil/kelas_aktif-mata_pelajaran.php";
+                            break;
+                        case "lihat_kelas_selesai":
+                            include_once "halaman/lihat/kelas_selesai.php";
+                            break;
+                            // Tambah
+                        case "tambah_kelas":
+                            include_once "halaman/tambah/kelas.php";
+                            break;
+                        case "tambah_semester":
+                            include_once "halaman/tambah/semester.php";
+                            break;
+                        case "tambah_mata_pelajaran":
+                            include_once "halaman/tambah/mata_pelajaran.php";
+                            break;
+                        case "tambah_guru":
+                            include_once "halaman/tambah/guru.php";
+                            break;
+                        case "tambah_siswa":
+                            include_once "halaman/tambah/siswa.php";
+                            break;
+                        case "tambah_kelas_aktif":
+                            include_once "halaman/tambah/kelas_aktif.php";
+                            break;
+                        case "tambah_kelas_aktif-siswa":
+                            include_once "halaman/tambah/kelas_aktif-siswa.php";
+                            break;
+                        case "tambah_kelas_aktif-mata_pelajaran":
+                            include_once "halaman/tambah/kelas_aktif-mata_pelajaran.php";
+                            break;
+                        case "tambah_kelas_aktif-siswa-nilai":
+                            include_once "halaman/tambah/kelas_aktif-siswa-nilai.php";
+                            break;
+                        case "tambah_kelas_aktif-semester_kelas":
+                            include_once "halaman/tambah/kelas_aktif-semester_kelas.php";
+                            break;
+                        case "tambah_admin":
+                            include_once "halaman/tambah/admin.php";
+                            break;
+                            // Edit
+                        case "edit_kelas":
+                            include_once "halaman/edit/kelas.php";
+                            break;
+                        case "edit_semester":
+                            include_once "halaman/edit/semester.php";
+                            break;
+                        case "edit_mata_pelajaran":
+                            include_once "halaman/edit/mata_pelajaran.php";
+                            break;
+                        case "edit_guru":
+                            include_once "halaman/edit/guru.php";
+                            break;
+                        case "edit_siswa":
+                            include_once "halaman/edit/siswa.php";
+                            break;
+                        case "edit_kelas_aktif":
+                            include_once "halaman/edit/kelas_aktif.php";
+                            break;
+                        case "edit_admin":
+                            include_once "halaman/edit/admin.php";
+                            break;
+                            // Hapus
+                        case "hapus_kelas":
+                            include_once "halaman/hapus/kelas.php";
+                            break;
+                        case "hapus_semester":
+                            include_once "halaman/hapus/semester.php";
+                            break;
+                        case "hapus_mata_pelajaran":
+                            include_once "halaman/hapus/mata_pelajaran.php";
+                            break;
+                        case "hapus_guru":
+                            include_once "halaman/hapus/guru.php";
+                            break;
+                        case "hapus_siswa":
+                            include_once "halaman/hapus/siswa.php";
+                            break;
+                        case "hapus_kelas_aktif":
+                            include_once "halaman/hapus/kelas_aktif.php";
+                            break;
+                        case "hapus_kelas_aktif-siswa":
+                            include_once "halaman/hapus/kelas_aktif-siswa.php";
+                            break;
+                        case "hapus_kelas_aktif-mata_pelajaran":
+                            include_once "halaman/hapus/kelas_aktif-mata_pelajaran.php";
+                            break;
+                        case "hapus_admin":
+                            include_once "halaman/hapus/admin.php";
+                            break;
+                            // Others
+                        case "ganti_password":
+                            include_once "halaman/auth/ganti_password.php";
+                            break;
+                        default:
+                            include_once "beranda.php";
+                    }
+                } else include_once "beranda.php";
+            } else
+                echo "<script>location.href = 'halaman/auth/login.php'</script>";
+
             ?>
         </div>
     </div>

@@ -1,3 +1,44 @@
+<?php 
+session_start();
+$_SESSION['error'] = [];
+require_once('../../db/koneksi.php');
+if (isset($_POST['submit'])) {
+    $username = $mysqli->real_escape_string($_POST['username']);
+    $password = $mysqli->real_escape_string($_POST['password']);
+
+    $q = "
+        SELECT 
+            u.id AS id_user,
+            u.username, 
+            u.password,
+            ug.id_guru,
+            g.nip,
+            g.nama,
+            g.foto,
+            ug.status 
+        FROM 
+            user AS u 
+        LEFT JOIN 
+            user_guru AS ug 
+        ON 
+            u.id=ug.id_user 
+        LEFT JOIN 
+            guru AS g 
+        ON 
+            g.id=ug.id_guru 
+        WHERE 
+            u.username='$username' 
+            AND 
+            u.password='$password' 
+    ";
+    $data = $mysqli->query($q);
+    if ($data->num_rows) {
+        $_SESSION['user'] =  $data->fetch_assoc();
+        echo "<script>location.href = '../../index.php';</script>";
+    } else
+        $_SESSION['error'][] = "Username atau Password Salah!";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +49,10 @@
 
     <link rel="canonical" href="https://demo.adminkit.io/pages-sign-in.html" />
 
-    <title>Sign In | AdminKit Demo</title>
+    <title>LOGIN</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css   /app.css">
+    <link rel="stylesheet" href="../../assets/css/light.css">
     <style>
         body {
             opacity: 0;
@@ -32,21 +73,30 @@
                             <h1 class="h2">SMK NEGERI 1 MARTAPURA</h1>
                             <p class="lead">Silakan Login Untuk Melanjutkan</p>
                         </div>
-
+                        <?php if (count($_SESSION['error'])) : ?>
+                            <?php foreach ($_SESSION['error'] as $error) : ?>
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <div class="alert-message">
+                                        <?= $error; ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         <div class="card">
                             <div class="card-body">
                                 <div class="m-sm-4">
                                     <form action="" method="POST">
                                         <div class="mb-3">
-                                            <label class="form-label">Username</label>
-                                            <input class="form-control form-control-lg" type="text" name="email" placeholder="Enter your email" />
+                                            <label class="form-label">NIP</label>
+                                            <input class="form-control form-control-lg" type="text" name="username" autofocus placeholder="Masukkan NIP" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
-                                            <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
+                                            <input class="form-control form-control-lg" type="password" name="password" placeholder="Masukkan Password" />
                                         </div>
                                         <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-lg btn-primary">LOGIN</button>
+                                            <button type="submit" name="submit" class="btn btn-lg btn-primary">LOGIN</button>
                                         </div>
                                     </form>
                                 </div>

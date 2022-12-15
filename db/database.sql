@@ -9,6 +9,12 @@ CREATE TABLE `user` (
     PRIMARY KEY (id)
 );
 
+INSERT INTO `user` (
+    username,
+    password
+) VALUES 
+('admin', 'admin');
+
 CREATE TABLE `guru` (
     id INT NOT NULL AUTO_INCREMENT,
     nip VARCHAR(255) NOT NULL UNIQUE,

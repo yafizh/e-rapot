@@ -5,7 +5,7 @@ if (isset($_POST['submit'])) {
 
     $_SESSION['old']['username'] = $username;
 
-    $validasi = $mysqli->query("SELECT username FROM user WHERE username=$username");
+    $validasi = $mysqli->query("SELECT username FROM user WHERE username='$username'");
     if (!$validasi->num_rows) {
         $q = "INSERT INTO user (username, password) VALUES ('$username', '$password')";
 

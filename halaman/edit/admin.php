@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
 
     $_SESSION['old']['username'] = $username;
 
-    $validasi = $mysqli->query("SELECT username FROM user WHERE username=$username AND id !=" . $data['id']);
+    $validasi = $mysqli->query("SELECT username FROM user WHERE username='$username' AND id !=" . $data['id']);
     if (!$validasi->num_rows) {
         $q = "UPDATE admin SET username='$username' WHERE id=" . $_GET['id'];
 

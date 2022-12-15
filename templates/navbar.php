@@ -11,14 +11,17 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+                    <?php if (!is_null($_SESSION['user']['id_guru'])) : ?>
+                        <img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+                    <?php endif; ?>
+                    <span class="text-dark"><?= is_null($_SESSION['user']['id_guru']) ? 'ADMIN' : $_SESSION['user']['nama']; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <?php if (false) : ?>
+                    <?php if (!is_null($_SESSION['user']['id_guru'])) : ?>
                         <a class="dropdown-item" href="?h=ganti_password"><i class="align-middle me-1" data-feather="settings"></i> Ganti Password</a>
+                        <div class="dropdown-divider"></div>
                     <?php endif; ?>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href="halaman/auth/logout.php">Log out</a>
                 </div>
             </li>
         </ul>
