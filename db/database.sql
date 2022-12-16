@@ -80,12 +80,13 @@ INSERT INTO `semester` (
 CREATE TABLE `mata_pelajaran` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
-    kkn INT NOT NULL,
+    kkm INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 INSERT INTO `mata_pelajaran` (
-    nama
+    nama,
+    kkm
 ) VALUES 
 ('Matematika', 75),
 ('Bahasa Indonesia', 65),

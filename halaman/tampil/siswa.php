@@ -61,6 +61,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">No</th>
+                                    <th class="text-center">NIS/NISN</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Tempat Lahir</th>
                                     <th class="text-center">Tanggal Lahir</th>
@@ -76,7 +77,8 @@
                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                     <tr>
                                         <td class="text-center td-fit"><?= $no++; ?></td>
-                                        <td class="text-center"><?= $row['nama']; ?></td>
+                                        <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
+                                        <td><?= $row['nama']; ?></td>
                                         <td class="text-center"><?= $row['tempat_lahir']; ?></td>
                                         <td class="text-center"><?= indonesiaDate($row['tanggal_lahir']); ?></td>
                                         <td class="text-center"><?= $row['jenis_kelamin']; ?></td>

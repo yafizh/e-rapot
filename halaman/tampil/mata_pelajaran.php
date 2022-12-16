@@ -47,11 +47,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatables-reponsive" class="table table-striped" style="width:100%">
+                        <table class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">No</th>
                                     <th class="text-center">Nama Mata Pelajaran</th>
+                                    <th class="text-center">KKM</th>
                                     <th class="text-center td-fit">Aksi</th>
                                 </tr>
                             </thead>
@@ -60,16 +61,23 @@
                             $no = 1;
                             ?>
                             <tbody>
-                                <?php while ($row = $result->fetch_assoc()) : ?>
+                                <?php if ($result->num_rows) : ?>
+                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                        <tr>
+                                            <td class="text-center td-fit"><?= $no++; ?></td>
+                                            <td class="text-center"><?= $row['nama']; ?></td>
+                                            <td class="text-center"><?= $row['kkm']; ?></td>
+                                            <td class="text-center td-fit">
+                                                <a href="?h=edit_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
+                                                <a href="?h=hapus_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                <?php else : ?>
                                     <tr>
-                                        <td class="text-center td-fit"><?= $no++; ?></td>
-                                        <td class="text-center"><?= $row['nama']; ?></td>
-                                        <td class="text-center td-fit">
-                                            <a href="?h=edit_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="?h=hapus_mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
-                                        </td>
+                                        <td class="text-center" colspan="4">Data Tidak Ada</td>
                                     </tr>
-                                <?php endwhile; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

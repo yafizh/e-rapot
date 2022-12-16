@@ -65,21 +65,68 @@ $data = $mysqli->query($query)->fetch_assoc(); ?>
                         <h5 class="card-title mb-0">Data Diri</h5>
                     </div>
                     <div class="card-body h-100">
-                        <div class="mb-3">
-                            <label class="form-label">Nama</label>
-                            <input type="text" class="form-control" value="<?= $data['nama']; ?>" disabled>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">NIS</label>
+                                <input type="text" class="form-control" value="<?= $data['nis']; ?>" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">NISN</label>
+                                <input type="text" class="form-control" value="<?= $data['nisn']; ?>" disabled>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Tempat Lahir</label>
-                            <input type="text" class="form-control" value="<?= $data['tempat_lahir']; ?>" disabled>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Nama</label>
+                                <input type="text" class="form-control" value="<?= $data['nama']; ?>" disabled>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Tanggal Lahir</label>
-                            <input type="text" class="form-control" value="<?= indonesiaDate($data['tanggal_lahir']); ?>" disabled>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tempat Lahir</label>
+                                <input type="text" class="form-control" value="<?= $data['tempat_lahir']; ?>" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tanggal Lahir</label>
+                                <input type="text" class="form-control" value="<?= indonesiaDate($data['tanggal_lahir']); ?>" disabled>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Jenis Kelamin</label>
-                            <input type="text" class="form-control" value="<?= $data['jenis_kelamin']; ?>" disabled>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Jenis Kelamin</label>
+                                <input type="text" class="form-control" value="<?= $data['jenis_kelamin']; ?>" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Agama</label>
+                                <input type="text" class="form-control" value="<?= $data['agama']; ?>" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Alamat</label>
+                                <textarea class="form-control" disabled><?= $data['alamat']; ?></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nama Ayah</label>
+                                <input type="text" class="form-control" value="<?= $data['nama_ayah'] ?>" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nama Ibu</label>
+                                <input type="text" class="form-control" value="<?= $data['nama_ibu'] ?>" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Pekerjaan Ayah</label>
+                                <input type="text" class="form-control" value="<?= $data['pekerjaan_ayah'] ?>" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Pekerjaan Ibu</label>
+                                <input type="text" class="form-control" value="<?= $data['pekerjaan_ibu'] ?>" disabled>
+                            </div>
                         </div>
                         <div class="d-flex gap-1">
                             <a href="?h=siswa<?= (isset($_GET['status']) ? '&status=Alumni' : '') ?>" class="btn btn-secondary">Kembali</a>
