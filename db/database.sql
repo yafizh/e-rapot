@@ -104,6 +104,7 @@ CREATE TABLE `kelas_aktif` (
 
 CREATE TABLE `siswa` (
     id INT NOT NULL AUTO_INCREMENT,
+    nomor_induk VARCHAR(255) NOT NULL,
     nama VARCHAR(255) NOT NULL,
     tempat_lahir VARCHAR(255) NOT NULL,
     tanggal_lahir VARCHAR(255) NOT NULL,
@@ -114,6 +115,7 @@ CREATE TABLE `siswa` (
 );
 
 INSERT INTO `siswa` (
+    nomor_induk,
     nama,
     tempat_lahir,
     tanggal_lahir,
@@ -121,9 +123,9 @@ INSERT INTO `siswa` (
     foto,
     status
 ) VALUES 
-('Diki', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
-('Syafiq', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
-('Gusti', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif');
+('1', 'Diki', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
+('2', 'Syafiq', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
+('3', 'Gusti', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif');
 
 CREATE TABLE `kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
