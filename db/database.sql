@@ -80,15 +80,16 @@ INSERT INTO `semester` (
 CREATE TABLE `mata_pelajaran` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
+    kkn INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 INSERT INTO `mata_pelajaran` (
     nama
 ) VALUES 
-('Matematika'),
-('Bahasa Indonesia'),
-('Bahasa Inggris');
+('Matematika', 75),
+('Bahasa Indonesia', 65),
+('Bahasa Inggris', 80);
 
 CREATE TABLE `kelas_aktif` (
     id INT NOT NULL AUTO_INCREMENT,
@@ -104,28 +105,42 @@ CREATE TABLE `kelas_aktif` (
 
 CREATE TABLE `siswa` (
     id INT NOT NULL AUTO_INCREMENT,
-    nomor_induk VARCHAR(255) NOT NULL,
+    nis VARCHAR(255) NOT NULL,
+    nisn VARCHAR(255) NOT NULL,
     nama VARCHAR(255) NOT NULL,
     tempat_lahir VARCHAR(255) NOT NULL,
     tanggal_lahir VARCHAR(255) NOT NULL,
     jenis_kelamin VARCHAR(255) NOT NULL,
+    agama VARCHAR(255) NOT NULL,
+    alamat TEXT NOT NULL,
+    nama_ayah VARCHAR(255),
+    pekerjaan_ayah VARCHAR(255),
+    nama_ibu VARCHAR(255),
+    pekerjaan_ibu VARCHAR(255),
     foto VARCHAR(255) NOT NULL,
     status VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
 INSERT INTO `siswa` (
-    nomor_induk,
+    nis,
+    nisn,
     nama,
     tempat_lahir,
     tanggal_lahir,
     jenis_kelamin,
+    agama,
+    alamat,
+    nama_ayah,
+    pekerjaan_ayah,
+    nama_ibu,
+    pekerjaan_ibu,
     foto,
     status
 ) VALUES 
-('1', 'Diki', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
-('2', 'Syafiq', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif'),
-('3', 'Gusti', 'Martapura', '2000-01-01', 'Laki - Laki', '', 'Aktif');
+('131262130001160477', '3066683363', 'AHMAD ALGI PARI', 'Ampah', '2006-03-16', 'Laki - Laki', 'Islam', 'Ampah Rt.09 Rw.03', 'SUWAJI', 'ASMIAH', 'Wiraswasta', 'IRT', '', 'Aktif'),
+('131262130001160478', '0068438164', 'AHMAD AZHARI', 'Ampah', '2006-01-12', 'Laki - Laki', 'Islam', 'Ampah Kota Rt.024 Rw.008', 'JUPRIANTO', 'ASNANI', 'PNS', 'IRT', '', 'Aktif'),
+('131262130001160479', '0052588832', 'ATIKA ROHIMAH', 'Ampah', '2006-08-30', 'Perempuan', 'Islam', 'Jl. Talohen Rt.025', 'SURIANI', 'SITI RODIAH', 'Petani', 'IRT', '', 'Aktif');
 
 CREATE TABLE `kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
