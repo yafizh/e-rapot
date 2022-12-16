@@ -1,4 +1,5 @@
 <?php include_once('../../db/koneksi.php'); ?>
+<?php include_once('../../functions/predikat.php'); ?>
 <?php include_once('../../functions/number.php'); ?>
 <?php date_default_timezone_set('Asia/Kuala_Lumpur'); ?>
 <header class="text-center p-4">
@@ -11,3 +12,9 @@
 <div class="d-flex flex-column justify-content-center w-100">
     <div style="width: 100%; border-top: 3px solid black;"></div>
 </div>
+<style>
+    .td-fit {
+        width: 1%;
+        white-space: nowrap;
+    }
+</style>
