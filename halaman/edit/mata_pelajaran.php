@@ -1,9 +1,10 @@
 <?php
-$data = $mysqli->query("SELECT * FROM mata_pelajaran WHERE id=".$_GET['id'])->fetch_assoc();
+$data = $mysqli->query("SELECT * FROM mata_pelajaran WHERE id=" . $_GET['id'])->fetch_assoc();
 if (isset($_POST['submit'])) {
     $nama = $mysqli->real_escape_string($_POST['nama']);
+    $kkm = $mysqli->real_escape_string($_POST['kkm']);
 
-    $q = "UPDATE mata_pelajaran SET nama='$nama' WHERE id=" . $_GET['id'];
+    $q = "UPDATE mata_pelajaran SET nama='$nama', kkm='$kkm' WHERE id=" . $_GET['id'];
 
     if ($mysqli->query($q)) {
         $_SESSION['edit_data']['nama'] =  $data['nama'];
@@ -29,6 +30,10 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3">
                                 <label class="form-label">Nama Mata Pelajaran</label>
                                 <input type="text" class="form-control" name="nama" required autocomplete="off" value="<?= $data['nama']; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">KKM</label>
+                                <input type="number" min="0" max="100" class="form-control" name="kkm" required autocomplete="off" value="<?= $data['kkm']; ?>">
                             </div>
                             <a href="?h=mata_pelajaran" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Perbaharui</button>

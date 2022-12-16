@@ -27,8 +27,15 @@ $mata_pelajaran = $mysqli->query($q)->fetch_all(MYSQLI_ASSOC);
 if (isset($_POST['submit'])) {
     $id_guru = $mysqli->real_escape_string($_POST['id_guru']);
     $id_mata_pelajaran = $mysqli->real_escape_string($_POST['id_mata_pelajaran']);
-    $kkm = $mysqli->real_escape_string($_POST['kkm']);
-
+    $nama_mata_pelajaran = null;
+    $kkm_mata_pelajaran = null;
+    foreach ($mata_pelajaran as $row) {
+        if ($row['id'] == $id_mata_pelajaran) {
+            $nama_mata_pelajaran = $row['nama'];
+            $kkm_mata_pelajaran = $row['kkm'];
+            break;
+        }
+    }
     $q = "
         INSERT INTO mata_pelajaran_kelas (
             id_kelas_aktif,
@@ -39,16 +46,11 @@ if (isset($_POST['submit'])) {
             '" . $kelas_aktif['id'] . "',
             '$id_mata_pelajaran',
             '$id_guru', 
-            '$kkm' 
+            '$kkm_mata_pelajaran' 
         )";
 
     if ($mysqli->query($q)) {
-        foreach ($mata_pelajaran as $row) {
-            if ($row['id'] == $id_mata_pelajaran) {
-                $_SESSION['tambah_data']['nama'] =  $row['nama'];
-                break;
-            }
-        }
+        $_SESSION['tambah_data']['nama'] =  $nama_mata_pelajaran;
         echo "<script>location.href = '?h=lihat_kelas_aktif-mata_pelajaran&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $kelas_aktif['id'] . "';</script>";
     } else {
         echo "<script>alert('Tambah Data Gagal!')</script>";
@@ -94,10 +96,6 @@ if (isset($_POST['submit'])) {
                                         <option value="<?= $row['id']; ?>"><?= $row['nama'] ?></option>
                                     <?php endwhile; ?>
                                 </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">KKM</label>
-                                <input type="number" name="kkm" class="form-control">
                             </div>
                             <a href="?h=lihat_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>
