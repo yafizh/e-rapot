@@ -92,9 +92,16 @@ if (isset($_POST['semester_selesai'])) {
     };
 }
 if (isset($_POST['kelas_selesai'])) {
-    $id_kelas_siswa_checkbox = $_POST['id_kelas_siswa_checkbox'];
     $id_kelas_siswa = $_POST['id_kelas_siswa'];
     $id_siswa = $_POST['id_siswa'];
+    $id_kelas_siswa_naik_kelas = [];
+    $id_siswa_naik_kelas = [];
+    for ($i = 0; $i < count($id_kelas_siswa); $i++) {
+        if ($_POST['siswa' . $i]) {
+            $id_kelas_siswa_naik_kelas[] = $id_kelas_siswa[$i];
+            $id_siswa_naik_kelas[] = $id_siswa[$i];
+        }
+    }
 
     try {
         $mysqli->begin_transaction();
@@ -105,7 +112,7 @@ if (isset($_POST['kelas_selesai'])) {
         WHERE 
             id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "
             AND 
-            id NOT IN (" . implode(',', $id_kelas_siswa_checkbox) . ")";
+            id NOT IN (" . implode(',', $id_kelas_siswa_naik_kelas) . ")";
         $mysqli->query($q);
 
         $q = "
@@ -114,7 +121,7 @@ if (isset($_POST['kelas_selesai'])) {
         WHERE 
             id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "
             AND 
-            id IN (" . implode(',', $id_kelas_siswa_checkbox) . ")";
+            id IN (" . implode(',', $id_kelas_siswa_naik_kelas) . ")";
         $mysqli->query($q);
 
         $q = "
@@ -143,14 +150,14 @@ if (isset($_POST['kelas_selesai'])) {
         $mysqli->query($q);
 
         $id_kelas_aktif = $mysqli->insert_id;
-        foreach ($id_kelas_siswa_checkbox as $key => $value) {
+        foreach ($id_siswa_naik_kelas as $key => $value) {
             $q = "INSERT INTO kelas_siswa (
                 id_kelas_aktif,
                 id_siswa,
                 status 
             ) VALUES (
                 '" . $id_kelas_aktif . "',
-                '" . $id_siswa[array_search($value, $id_kelas_siswa)] . "',
+                '" . $value . "',
                 'Aktif' 
             )";
             $mysqli->query($q);
@@ -197,20 +204,25 @@ if (isset($_POST['kelas_selesai'])) {
 }
 
 if (isset($_POST['lulus'])) {
-    $id_kelas_siswa_checkbox = $_POST['id_kelas_siswa_checkbox'];
     $id_kelas_siswa = $_POST['id_kelas_siswa'];
     $id_siswa = $_POST['id_siswa'];
+    $id_kelas_siswa_lulus = [];
+    $id_siswa_lulus = [];
+    for ($i = 0; $i < count($id_kelas_siswa); $i++) {
+        if ($_POST['siswa' . $i]) {
+            $id_kelas_siswa_lulus[] = $id_kelas_siswa[$i];
+            $id_siswa_lulus[] = $id_siswa[$i];
+        }
+    }
 
     try {
         $mysqli->begin_transaction();
-        foreach ($id_kelas_siswa_checkbox as $key => $value) {
-            $q = "
-                UPDATE siswa SET 
-                    status='Alumni' 
-                WHERE  
-                    id=" . $id_siswa[array_search($value, $id_kelas_siswa)];
-            $mysqli->query($q);
-        }
+        $q = "
+        UPDATE siswa SET 
+            status='Alumni' 
+        WHERE  
+            id IN (" . implode(',', $id_siswa_lulus) . ")";
+        $mysqli->query($q);
 
         $q = "
         UPDATE kelas_siswa SET 
@@ -218,7 +230,7 @@ if (isset($_POST['lulus'])) {
         WHERE 
             id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "
             AND 
-            id NOT IN (" . implode(',', $id_kelas_siswa_checkbox) . ")";
+            id NOT IN (" . implode(',', $id_kelas_siswa_lulus) . ")";
         $mysqli->query($q);
 
         $q = "
@@ -227,7 +239,7 @@ if (isset($_POST['lulus'])) {
         WHERE 
             id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "
             AND 
-            id IN (" . implode(',', $id_kelas_siswa_checkbox) . ")";
+            id IN (" . implode(',', $id_kelas_siswa_lulus) . ")";
         $mysqli->query($q);
 
         $q = "
@@ -240,11 +252,11 @@ if (isset($_POST['lulus'])) {
         $mysqli->commit();
     } catch (\Throwable $e) {
         $mysqli->rollback();
-        throw $e; // but the error must be handled anyway
+        throw $e;
     };
 
 
-    echo "<script>location.href = '?h=lihat_kelas_aktif-siswa&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "';</script>";
+    echo "<script>location.href = '?h=lihat_kelas_selesai&id_kelas=" . $_GET['id_kelas'] . "&id_kelas_aktif=" . $_GET['id_kelas_aktif'] . "';</script>";
 }
 ?>
 <main class="content">
@@ -352,7 +364,7 @@ if (isset($_POST['lulus'])) {
                                     s.nama 
                             ";
                                 $result = $mysqli->query($q);
-                                $no = 1;
+                                $no = 0;
                                 ?>
                                 <form action="" method="POST">
                                     <table class="table table-striped" style="width:100%">
@@ -367,10 +379,21 @@ if (isset($_POST['lulus'])) {
                                         <tbody>
                                             <?php while ($row = $result->fetch_assoc()) : ?>
                                                 <tr>
-                                                    <td class="text-center td-fit"><?= $no++; ?></td>
+                                                    <td class="text-center td-fit"><?= ++$no; ?></td>
                                                     <td><?= $row['nama']; ?></td>
-                                                    <td class="text-center">
-                                                        <input class="form-check-input" type="checkbox" name="id_kelas_siswa_checkbox[]" value="<?= $row['id_kelas_siswa']; ?>" checked>
+                                                    <td class="text-center td-fit">
+                                                        <label class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="0">
+                                                            <span class="form-check-label">
+                                                                Tidak
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="1" checked>
+                                                            <span class="form-check-label">
+                                                                Ya
+                                                            </span>
+                                                        </label>
                                                         <input type="text" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" hidden>
                                                         <input type="text" name="id_siswa[]" value="<?= $row['id_siswa']; ?>" hidden>
                                                     </td>
@@ -433,7 +456,7 @@ if (isset($_POST['lulus'])) {
                                     s.nama 
                             ";
                             $result = $mysqli->query($q);
-                            $no = 1;
+                            $no = 0;
                             ?>
                             <form action="" method="POST">
                                 <table class="table table-striped" style="width:100%">
@@ -448,10 +471,21 @@ if (isset($_POST['lulus'])) {
                                     <tbody>
                                         <?php while ($row = $result->fetch_assoc()) : ?>
                                             <tr>
-                                                <td class="text-center td-fit"><?= $no++; ?></td>
+                                                <td class="text-center td-fit"><?= ++$no; ?></td>
                                                 <td><?= $row['nama']; ?></td>
-                                                <td class="text-center">
-                                                    <input class="form-check-input" type="checkbox" name="id_kelas_siswa_checkbox[]" value="<?= $row['id_kelas_siswa']; ?>" checked>
+                                                <td class="text-center td-fit">
+                                                    <label class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="0">
+                                                        <span class="form-check-label">
+                                                            Tidak
+                                                        </span>
+                                                    </label>
+                                                    <label class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="1" checked>
+                                                        <span class="form-check-label">
+                                                            Ya
+                                                        </span>
+                                                    </label>
                                                     <input type="text" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" hidden>
                                                     <input type="text" name="id_siswa[]" value="<?= $row['id_siswa']; ?>" hidden>
                                                 </td>
