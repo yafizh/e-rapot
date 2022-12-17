@@ -1,5 +1,6 @@
 <?php $kelas = $mysqli->query("SELECT * FROM kelas WHERE id=" . $_GET['id_kelas'])->fetch_assoc(); ?>
 <?php $kelas_aktif = $mysqli->query("SELECT * FROM kelas_aktif WHERE id=" . $_GET['id_kelas_aktif'])->fetch_assoc(); ?>
+<?php $semester = $mysqli->query("SELECT * FROM semester ORDER BY tingkat DESC")->fetch_all(MYSQLI_ASSOC); ?>
 
 <main class="content">
     <div class="container-fluid p-0">
@@ -24,16 +25,99 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <h5 class="card-title mb-0 align-self-center">Seluruh Semester</h5>
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#semesterSelesai">Lihat Peringkat</button>
+                                <div>
+                                    <?php foreach ($semester as $value) : ?>
+                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLihatPeringkatSemester<?= $value['nama']; ?>">
+                                            Lihat Peringkat Semester <?= $value['nama']; ?>
+                                        </button>
+                                        <div class="modal fade" id="modalLihatPeringkatSemester<?= $value['nama']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Peringkat Siswa Semester <?= $value['nama']; ?></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body m-3">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">NIS/NISN</th>
+                                                                    <th class="text-center">Nama</th>
+                                                                    <th class="text-center">Total Nilai</th>
+                                                                    <th class="text-center">Rata - Rata</th>
+                                                                    <th class="text-center">Peringkat</th>
+                                                                    <th class="text-center">Rapot</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <?php
+                                                            $q = "
+                                                            SELECT 
+                                                                s.nis,
+                                                                s.nisn,
+                                                                s.nama,
+                                                                sk.id AS id_semester_kelas,
+                                                                SUM(ns.nilai) AS total_nilai, 
+                                                                (SUM(ns.nilai)/COUNT(ns.id)) AS rata_rata 
+                                                            FROM 
+                                                                kelas_aktif AS ka 
+                                                            INNER JOIN 
+                                                                kelas_siswa AS ks 
+                                                            ON 
+                                                                ks.id_kelas_aktif=ka.id 
+                                                            INNER JOIN 
+                                                                siswa AS s 
+                                                            ON 
+                                                                s.id=ks.id_siswa 
+                                                            LEFT JOIN 
+                                                                semester_kelas AS sk 
+                                                            ON 
+                                                                sk.id_kelas_siswa=ks.id 
+                                                            LEFT JOIN 
+                                                                nilai_siswa AS ns 
+                                                            ON 
+                                                                ns.id_semester_kelas=sk.id 
+                                                            WHERE
+                                                                sk.id_semester=" . $value['id'] . " 
+                                                                AND 
+                                                                ka.id=" . $_GET['id_kelas_aktif'] . "
+                                                            GROUP BY 
+                                                                sk.id 
+                                                            ORDER BY 
+                                                                rata_rata DESC
+                                                        ";
+                                                            $result = $mysqli->query($q);
+                                                            $peringkat = 1;
+                                                            ?>
+                                                            <tbody>
+                                                                <?php while ($row = $result->fetch_assoc()) : ?>
+                                                                    <tr>
+                                                                        <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
+                                                                        <td><?= $row['nama']; ?></td>
+                                                                        <td class="text-center"><?= $row['total_nilai']; ?></td>
+                                                                        <td class="text-center"><?= $row['rata_rata']; ?></td>
+                                                                        <td class="text-center td-fit"><?= $peringkat++; ?></td>
+                                                                        <td class="text-center td-fit">
+                                                                            <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Lihat</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php endwhile; ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th class="text-center td-fit">No</th>
+                                            <th class="text-center">NIS/NISN</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Status</th>
-                                            <th class="text-center">Rapot</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,7 +126,9 @@
                                                 SELECT 
                                                     ks.id,
                                                     ks.status,
-                                                    s.nama 
+                                                    s.nama,
+                                                    s.nis,
+                                                    s.nisn  
                                                 FROM 
                                                     kelas_siswa AS ks 
                                                 INNER JOIN 
@@ -60,86 +146,19 @@
                                         <?php while ($row = $result->fetch_assoc()) : ?>
                                             <tr>
                                                 <td class="text-center td-fit"><?= $no++; ?></td>
+                                                <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
                                                 <td><?= $row['nama']; ?></td>
                                                 <td class="text-center"><?= $row['status']; ?></td>
-                                                <td class="text-center td-fit">
-                                                    <?php
-                                                    $q = "
-                                                            SELECT 
-                                                                sk.id,
-                                                                s.nama  
-                                                            FROM 
-                                                                semester_kelas AS sk 
-                                                            INNER JOIN 
-                                                                semester AS s 
-                                                            ON 
-                                                                s.id=sk.id_semester 
-                                                            WHERE 
-                                                                sk.id_kelas_siswa = " . $row['id'] . " 
-                                                            ORDER BY 
-                                                                s.tingkat ASC
-                                                            ";
-                                                    $result2 = $mysqli->query($q);
-                                                    ?>
-                                                    <?php while ($row2 = $result2->fetch_assoc()) : ?>
-                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row2['id']; ?>" class="btn btn-info btn-sm" target="_blank">Semester <?= $row2['nama']; ?></a>
-                                                    <?php endwhile; ?>
-                                                </td>
                                             </tr>
                                         <?php endwhile; ?>
                                     </tbody>
                                 </table>
-                                <div class="modal fade" id="semesterSelesai" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Seluruh Semester</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body m-3">
-                                                <table class="table table-bordered" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center">Nama</th>
-                                                            <th class="text-center td-fit">Ranking</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $query = "
-                                                                SELECT 
-                                                                    s.nama 
-                                                                FROM 
-                                                                    kelas_siswa AS ks 
-                                                                INNER JOIN 
-                                                                    siswa AS s 
-                                                                ON 
-                                                                    s.id=ks.id_siswa 
-                                                                WHERE 
-                                                                    ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
-                                                                ORDER BY 
-                                                                    s.nama 
-                                                            ";
-                                                        $result = $mysqli->query($query);
-                                                        ?>
-                                                        <?php while ($row = $result->fetch_assoc()) : ?>
-                                                            <tr>
-                                                                <td><?= $row['nama']; ?></td>
-                                                                <td></td>
-                                                            </tr>
-                                                        <?php endwhile; ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="card">
-                        <div class="card-header d-flex justify-content-between">
+                            <div class="card-header d-flex justify-content-between">
                                 <h5 class="card-title mb-0 align-self-center">Mata Pelajaran Kelas</h5>
                                 <button type="button" class="btn btn-info invisible">Lihat Peringkat</button>
                             </div>
