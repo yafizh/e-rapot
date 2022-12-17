@@ -13,7 +13,7 @@ $_SESSION['old'] = [];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Aplikasi E-Rapot</title>
-    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="shortcut icon" href="../../assets/img/icons/kemenag.svg" />
 
     <link rel="stylesheet" href="assets/css/light.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">

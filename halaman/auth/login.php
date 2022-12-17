@@ -68,9 +68,9 @@ if (isset($_POST['submit'])) {
                     <div class="d-table-cell align-middle">
 
                         <div class="text-center">
-                            <img src="../../assets/img/photos/unsplash-1.jpg" style="width: 12rem; aspect-ratio: 1;" class="mb-3">
+                            <img src="../../assets/img/icons/kemenag.svg" style="width: 12rem; aspect-ratio: 1;" class="mb-3">
                             <h1 class="h2">APLIKASI E-RAPOT PADA</h1>
-                            <h1 class="h2">SMK NEGERI 1 MARTAPURA</h1>
+                            <h1 class="h2">MADRASAH ALIYAH AMPAH</h1>
                             <p class="lead">Silakan Login Untuk Melanjutkan</p>
                         </div>
                         <?php if (count($_SESSION['error'])) : ?>
