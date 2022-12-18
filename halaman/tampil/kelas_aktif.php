@@ -57,10 +57,11 @@
                         <table class="table table-striped datatables-reponsive" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Tahun Pelajaran</th>
+                                    <th class="text-center td-fit">Tahun Pelajaran</th>
                                     <th class="text-center">Nama Kelas</th>
+                                    <th class="text-center td-fit">NIP</th>
                                     <th class="text-center">Wali Kelas</th>
-                                    <th class="text-center">Jumlah Siswa</th>
+                                    <th class="text-center td-fit">Jumlah Siswa</th>
                                     <th class="text-center td-fit">Aksi</th>
                                 </tr>
                             </thead>
@@ -71,6 +72,7 @@
                                     k.nama AS kelas,
                                     ka.nama,
                                     ka.tahun_pelajaran,
+                                    g.nip,
                                     g.nama AS wali_kelas,
                                     (SELECT COUNT(id) FROM kelas_siswa AS ks WHERE ks.id_kelas_aktif=ka.id AND status!='Tidak Aktif') AS jumlah_siswa 
                                 FROM 
@@ -95,10 +97,11 @@
                             <tbody>
                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                     <tr>
-                                        <td class="text-center"><?= $row['tahun_pelajaran']; ?></td>
+                                        <td class="text-center td-fit"><?= $row['tahun_pelajaran']; ?></td>
                                         <td class="text-center"><?= $row['nama']; ?></td>
-                                        <td class="text-center"><?= $row['wali_kelas']; ?></td>
-                                        <td class="text-center"><?= $row['jumlah_siswa']; ?></td>
+                                        <td class="text-center td-fit"><?= $row['nip']; ?></td>
+                                        <td><?= $row['wali_kelas']; ?></td>
+                                        <td class="text-center td-fit"><?= $row['jumlah_siswa']; ?></td>
                                         <td class="text-center td-fit">
                                             <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-success">Lihat Siswa</a>
                                             <a href="?h=lihat_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas']; ?>&id_kelas_aktif=<?= $row['id']; ?>" class="btn btn-sm btn-info">Lihat Mata Pelajaran</a>

@@ -217,6 +217,9 @@ if (isset($_POST['lulus'])) {
 
     try {
         $mysqli->begin_transaction();
+        $user_guru = $mysqli->query("SELECT * FROM user_guru WHERE id_guru=" . $kelas_aktif['id_guru'])->fetch_assoc();
+        $mysqli->query("DELETE FROM user WHERE id=" . $user_guru['id_user']);
+
         $q = "
         UPDATE siswa SET 
             status='Alumni' 
@@ -269,7 +272,7 @@ if (isset($_POST['lulus'])) {
         <div class="row justify-content-center">
             <?php if ($kelas_selanjutnya || $semester_selanjutnya) : ?>
                 <?php if ($semester_selanjutnya) : ?>
-                    <div class="col-12 col-xl-6">
+                    <div class="col-12 col-xl-10">
                         <div class="card">
                             <div class="card-body">
                                 <?php
@@ -277,7 +280,9 @@ if (isset($_POST['lulus'])) {
                                 SELECT 
                                     sk.id AS id_semester_kelas,
                                     ks.id AS id_kelas_siswa,
-                                    s.nama 
+                                    s.nama, 
+                                    s.nis, 
+                                    s.nisn  
                                 FROM 
                                     kelas_siswa AS ks 
                                 INNER JOIN 
@@ -303,15 +308,17 @@ if (isset($_POST['lulus'])) {
                                         <thead>
                                             <tr>
                                                 <th class="text-center td-fit">No</th>
+                                                <th class="text-center">NIS/NISN</th>
                                                 <th class="text-center">Nama</th>
-                                                <th class="text-center">Lanjut Semester</th>
-                                                <th class="text-center td-fit">Rapot <?= $semester['nama']; ?></th>
+                                                <th class="text-center td-fit">Lanjut Semester</th>
+                                                <th class="text-center td-fit">Rapot</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php while ($row = $result->fetch_assoc()) : ?>
                                                 <tr>
                                                     <td class="text-center td-fit"><?= ++$no; ?></td>
+                                                    <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
                                                     <td><?= $row['nama']; ?></td>
                                                     <td class="text-center td-fit">
                                                         <label class="form-check form-check-inline">
@@ -328,8 +335,8 @@ if (isset($_POST['lulus'])) {
                                                         </label>
                                                         <input type="text" hidden name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>">
                                                     </td>
-                                                    <td class="text-center">
-                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Lihat</a>
+                                                    <td class="text-center td-fit">
+                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Semester 1</a>
                                                     </td>
                                                 </tr>
                                             <?php endwhile; ?>
@@ -343,26 +350,35 @@ if (isset($_POST['lulus'])) {
                         </div>
                     </div>
                 <?php else : ?>
-                    <div class="col-12 col-xl-6">
+                    <div class="col-12 col-xl-10">
                         <div class="card">
                             <div class="card-body">
                                 <?php
                                 $q = "
-                                SELECT
-                                    s.id AS id_siswa,
-                                    ks.id AS id_kelas_siswa,
-                                    s.nama 
-                                FROM 
-                                    kelas_siswa AS ks
-                                INNER JOIN 
-                                    siswa AS s 
-                                ON 
-                                    s.id=ks.id_siswa 
-                                WHERE 
-                                    ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
-                                ORDER BY 
-                                    s.nama 
-                            ";
+                                    SELECT 
+                                        sk.id AS id_semester_kelas,
+                                        ks.id AS id_kelas_siswa,
+                                        s.nis,
+                                        s.nisn,
+                                        s.nama,
+                                        s.id AS id_siswa  
+                                    FROM 
+                                        kelas_siswa AS ks 
+                                    INNER JOIN 
+                                        siswa AS s 
+                                    ON 
+                                        s.id=ks.id_siswa 
+                                    INNER JOIN 
+                                        semester_kelas AS sk 
+                                    ON 
+                                        ks.id=sk.id_kelas_siswa  
+                                    WHERE 
+                                        ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
+                                        AND 
+                                        sk.id_semester=" . $_GET['id_semester'] . "
+                                    ORDER BY 
+                                        s.nama 
+                                ";
                                 $result = $mysqli->query($q);
                                 $no = 0;
                                 ?>
@@ -371,15 +387,17 @@ if (isset($_POST['lulus'])) {
                                         <thead>
                                             <tr>
                                                 <th class="text-center td-fit">No</th>
+                                                <th class="text-center">NIS/NISN</th>
                                                 <th class="text-center">Nama</th>
                                                 <th class="text-center td-fit">Naik Kelas</th>
-                                                <th class="text-center">Rapot</th>
+                                                <th class="text-center td-fit">Rapot</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php while ($row = $result->fetch_assoc()) : ?>
                                                 <tr>
                                                     <td class="text-center td-fit"><?= ++$no; ?></td>
+                                                    <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
                                                     <td><?= $row['nama']; ?></td>
                                                     <td class="text-center td-fit">
                                                         <label class="form-check form-check-inline">
@@ -398,29 +416,7 @@ if (isset($_POST['lulus'])) {
                                                         <input type="text" name="id_siswa[]" value="<?= $row['id_siswa']; ?>" hidden>
                                                     </td>
                                                     <td class="text-center td-fit">
-                                                        <?php
-                                                        $q = "
-                                                        SELECT 
-                                                            sk.id,
-                                                            s.nama  
-                                                        FROM 
-                                                            semester_kelas AS sk 
-                                                        INNER JOIN 
-                                                            semester AS s 
-                                                        ON 
-                                                            s.id=sk.id_semester 
-                                                        WHERE 
-                                                            sk.id_semester <= " . $semester['id'] . " 
-                                                            AND 
-                                                            sk.id_kelas_siswa = " . $row['id_kelas_siswa'] . " 
-                                                        ORDER BY 
-                                                            s.id ASC
-                                                        ";
-                                                        $result2 = $mysqli->query($q);
-                                                        ?>
-                                                        <?php while ($row2 = $result2->fetch_assoc()) : ?>
-                                                            <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_kelas_siswa']; ?>" class="btn btn-info btn-sm" target="_blank">Semester <?= $row2['nama']; ?></a>
-                                                        <?php endwhile; ?>
+                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Semester 2</a>
                                                     </td>
                                                 </tr>
                                             <?php endwhile; ?>
@@ -435,23 +431,32 @@ if (isset($_POST['lulus'])) {
                     </div>
                 <?php endif; ?>
             <?php else : ?>
-                <div class="col-12 col-xl-6">
+                <div class="col-12 col-xl-10">
                     <div class="card">
                         <div class="card-body">
                             <?php
                             $q = "
-                                SELECT
-                                    s.id AS id_siswa,
+                                SELECT 
+                                    sk.id AS id_semester_kelas,
                                     ks.id AS id_kelas_siswa,
-                                    s.nama 
+                                    s.nis,
+                                    s.nisn,
+                                    s.nama,
+                                    s.id AS id_siswa  
                                 FROM 
-                                    kelas_siswa AS ks
+                                    kelas_siswa AS ks 
                                 INNER JOIN 
                                     siswa AS s 
                                 ON 
                                     s.id=ks.id_siswa 
+                                INNER JOIN 
+                                    semester_kelas AS sk 
+                                ON 
+                                    ks.id=sk.id_kelas_siswa  
                                 WHERE 
                                     ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
+                                    AND 
+                                    sk.id_semester=" . $_GET['id_semester'] . "
                                 ORDER BY 
                                     s.nama 
                             ";
@@ -463,15 +468,17 @@ if (isset($_POST['lulus'])) {
                                     <thead>
                                         <tr>
                                             <th class="text-center td-fit">No</th>
+                                            <th class="text-center">NIS/NISN</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center td-fit">Lulus</th>
-                                            <th class="text-center">Rapot</th>
+                                            <th class="text-center td-fit">Rapot</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($row = $result->fetch_assoc()) : ?>
                                             <tr>
                                                 <td class="text-center td-fit"><?= ++$no; ?></td>
+                                                <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
                                                 <td><?= $row['nama']; ?></td>
                                                 <td class="text-center td-fit">
                                                     <label class="form-check form-check-inline">
@@ -490,29 +497,7 @@ if (isset($_POST['lulus'])) {
                                                     <input type="text" name="id_siswa[]" value="<?= $row['id_siswa']; ?>" hidden>
                                                 </td>
                                                 <td class="text-center td-fit">
-                                                    <?php
-                                                    $q = "
-                                                        SELECT 
-                                                            sk.id,
-                                                            s.nama  
-                                                        FROM 
-                                                            semester_kelas AS sk 
-                                                        INNER JOIN 
-                                                            semester AS s 
-                                                        ON 
-                                                            s.id=sk.id_semester 
-                                                        WHERE 
-                                                            sk.id_semester <= " . $semester['id'] . " 
-                                                            AND 
-                                                            sk.id_kelas_siswa = " . $row['id_kelas_siswa'] . " 
-                                                        ORDER BY 
-                                                            s.id ASC
-                                                        ";
-                                                    $result2 = $mysqli->query($q);
-                                                    ?>
-                                                    <?php while ($row2 = $result2->fetch_assoc()) : ?>
-                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_kelas_siswa']; ?>" class="btn btn-info btn-sm" target="_blank">Semester <?= $row2['nama']; ?></a>
-                                                    <?php endwhile; ?>
+                                                    <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Semester 2</a>
                                                 </td>
                                             </tr>
                                         <?php endwhile; ?>
