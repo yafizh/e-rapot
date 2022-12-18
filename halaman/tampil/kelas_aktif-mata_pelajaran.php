@@ -10,7 +10,7 @@
                         <h1 class="h3 d-inline"><a href="?h=kelas_aktif&id_kelas=<?= $_GET['id_kelas']; ?>">Kelas <?= $kelas['nama']; ?></a></h1>
                     </li>
                     <li class="breadcrumb-item active">
-                        <h1 class="h3 d-inline">Mata Pelajaran <?= $kelas_aktif['nama']; ?></h1>
+                        <h1 class="h3 d-inline">Mata Pelajaran Kelas <?= $kelas_aktif['nama']; ?></h1>
                     </li>
                 </ol>
             </nav>

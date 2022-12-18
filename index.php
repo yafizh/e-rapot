@@ -33,6 +33,9 @@ $_SESSION['old'] = [];
             bottom: 0;
         }
     </style>
+    <script>
+        const imageError = (elm) => elm.setAttribute('src', 'assets/img/photos/no-product-image-400x400.png');
+    </script>
 </head>
 
 <body>
@@ -188,6 +191,11 @@ $_SESSION['old'] = [];
                 } else {
                     if (isset($_GET['h'])) {
                         switch ($_GET['h']) {
+                            case "input_nilai":
+                                include_once "halaman/wali_kelas/input_nilai.php";
+                                break;
+                            default:
+                                include_once "halaman/wali_kelas/beranda.php";
                         }
                     } else include_once "halaman/wali_kelas/beranda.php";
                 }
