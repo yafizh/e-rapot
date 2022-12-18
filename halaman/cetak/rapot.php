@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-auto p-0">:</div>
                         <div class="col">
-                            ABC
+                            MADRASAH ALIYAH AMPAH
                         </div>
                     </div>
                     <div class="row">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-auto p-0">:</div>
                         <div class="col">
-                            ABC
+                            Jl.Kapten Raden Soesilo RT.03
                         </div>
                     </div>
                     <div class="row">
@@ -198,7 +198,7 @@
                     <?php endwhile; ?>
                 <?php else : ?>
                     <tr>
-                        <td class="text-center" colspan="4">Tidak Ada Data</td>
+                        <td class="text-center" colspan="6">Tidak Ada Data</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
@@ -261,12 +261,15 @@
         </div>
         <br><br><br><br><br>
         <div class="row justify-content-center">
-            <div class="col-12 text-center">Nama Kepala Sekolah</div>
+            <div class="col-12 text-center">Martaniah, S.Pd.I.</div>
             <div class="col-3 border border-dark"></div>
-            <div class="col-12 text-center">NIP. 12345</div>
+            <div class="col-12 text-center">NIP. 197303232000032003</div>
         </div>
 
     </section>
+    <script>
+        window.print();
+    </script>
 </body>
 
 </html>

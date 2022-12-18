@@ -184,6 +184,22 @@ $_SESSION['old'] = [];
                             case "ganti_password":
                                 include_once "halaman/auth/ganti_password.php";
                                 break;
+                                // Laporan
+                            case "laporan_guru":
+                                include_once "halaman/laporan/guru.php";
+                                break;
+                            case "laporan_siswa":
+                                include_once "halaman/laporan/.php";
+                                break;
+                            case "laporan_nilai_siswa":
+                                include_once "halaman/laporan/.php";
+                                break;
+                            case "laporan_kelas_aktif":
+                                include_once "halaman/laporan/.php";
+                                break;
+                            case "laporan_kelas_selesai":
+                                include_once "halaman/laporan/.php";
+                                break;
                             default:
                                 include_once "beranda.php";
                         }
