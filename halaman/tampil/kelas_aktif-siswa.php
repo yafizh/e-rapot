@@ -11,7 +11,9 @@ foreach ($semester as $value) {
                 ks.id,
                 ks.status,
                 s.id AS id_siswa,
-                s.nama 
+                s.nis, 
+                s.nisn, 
+                s.nama  
             FROM 
                 kelas_siswa AS ks 
             INNER JOIN 
@@ -178,6 +180,7 @@ foreach ($semester as $value) {
                                 <thead>
                                     <tr>
                                         <th class="text-center td-fit">No</th>
+                                        <th class="text-center">NIS/NISN</th>
                                         <th class="text-center">Nama</th>
                                         <th class="text-center td-fit">Aksi</th>
                                     </tr>
@@ -187,6 +190,7 @@ foreach ($semester as $value) {
                                         <?php foreach ($siswa_kelas as $i_siswa_kelas => $row) : ?>
                                             <tr>
                                                 <td class="text-center td-fit"><?= ++$i_siswa_kelas; ?></td>
+                                                <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
                                                 <td><?= $row['nama']; ?></td>
                                                 <td class="text-center td-fit">
                                                     <a href="?h=tambah_kelas_aktif-siswa-nilai&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id_semester_kelas=<?= $row['id_semester_kelas'] ?>&id_siswa=<?= $row['id_siswa'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Nilai</a>

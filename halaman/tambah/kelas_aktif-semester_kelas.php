@@ -24,6 +24,7 @@ $kelas_aktif = $mysqli->query($q)->fetch_assoc();
 $semua_semester = $mysqli->query("SELECT * FROM semester ORDER BY tingkat DESC")->fetch_all(MYSQLI_ASSOC);
 $semester = $mysqli->query("SELECT * FROM semester WHERE id=" . $_GET['id_semester'])->fetch_assoc();
 foreach ($semua_semester as $key => $value) {
+    $semester_sekarang = $value['nama'];
     if ($semester['id'] == $value['id'] && $key == 0) {
         $semester_selanjutnya = false;
         break;
@@ -270,247 +271,104 @@ if (isset($_POST['lulus'])) {
         </div>
 
         <div class="row justify-content-center">
-            <?php if ($kelas_selanjutnya || $semester_selanjutnya) : ?>
-                <?php if ($semester_selanjutnya) : ?>
-                    <div class="col-12 col-xl-10">
-                        <div class="card">
-                            <div class="card-body">
-                                <?php
-                                $q = "
-                                SELECT 
-                                    sk.id AS id_semester_kelas,
-                                    ks.id AS id_kelas_siswa,
-                                    s.nama, 
-                                    s.nis, 
-                                    s.nisn  
-                                FROM 
-                                    kelas_siswa AS ks 
-                                INNER JOIN 
-                                    siswa AS s 
-                                ON 
-                                    s.id=ks.id_siswa 
-                                INNER JOIN 
-                                    semester_kelas AS sk 
-                                ON 
-                                    ks.id=sk.id_kelas_siswa  
-                                WHERE 
-                                    ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
-                                    AND 
-                                    sk.id_semester=" . $_GET['id_semester'] . "
-                                ORDER BY 
-                                    s.nama 
+            <div class="col-12 col-xl-10">
+                <div class="card">
+                    <div class="card-body">
+                        <?php
+                        $q = "
+                            SELECT 
+                                sk.id id_semester_kelas,
+                                ks.id id_kelas_siswa,
+                                s.id id_siswa, 
+                                s.nama, 
+                                s.nis, 
+                                s.nisn 
+                            FROM 
+                                kelas_siswa ks 
+                            INNER JOIN 
+                                siswa s 
+                            ON 
+                                s.id=ks.id_siswa 
+                            INNER JOIN 
+                                semester_kelas sk 
+                            ON 
+                                ks.id=sk.id_kelas_siswa  
+                            WHERE 
+                                ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
+                                AND 
+                                sk.id_semester=" . $_GET['id_semester'] . "
+                            ORDER BY 
+                                s.nama 
                             ";
-                                $result = $mysqli->query($q);
-                                $no = 0;
-                                ?>
-                                <form action="" method="POST">
-                                    <table class="table table-striped" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center td-fit">No</th>
-                                                <th class="text-center">NIS/NISN</th>
-                                                <th class="text-center">Nama</th>
+                        $result = $mysqli->query($q);
+                        $no = 0;
+                        ?>
+                        <form action="" method="POST">
+                            <table class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center td-fit">No</th>
+                                        <th class="text-center">NIS/NISN</th>
+                                        <th class="text-center">Nama</th>
+                                        <?php if ($kelas_selanjutnya || $semester_selanjutnya) : ?>
+                                            <?php if ($semester_selanjutnya) : ?>
                                                 <th class="text-center td-fit">Lanjut Semester</th>
-                                                <th class="text-center td-fit">Rapot</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php while ($row = $result->fetch_assoc()) : ?>
-                                                <tr>
-                                                    <td class="text-center td-fit"><?= ++$no; ?></td>
-                                                    <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
-                                                    <td><?= $row['nama']; ?></td>
-                                                    <td class="text-center td-fit">
-                                                        <label class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="0">
-                                                            <span class="form-check-label">
-                                                                Tidak
-                                                            </span>
-                                                        </label>
-                                                        <label class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="1" checked>
-                                                            <span class="form-check-label">
-                                                                Ya
-                                                            </span>
-                                                        </label>
-                                                        <input type="text" hidden name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>">
-                                                    </td>
-                                                    <td class="text-center td-fit">
-                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Semester 1</a>
-                                                    </td>
-                                                </tr>
-                                            <?php endwhile; ?>
-                                        </tbody>
-                                    </table>
-                                    <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
+                                            <?php else : ?>
+                                                <th class="text-center td-fit">Naik Kelas</th>
+                                            <?php endif; ?>
+                                        <?php else : ?>
+                                            <th class="text-center td-fit">Lulus</th>
+                                        <?php endif; ?>
+                                        <th class="text-center td-fit">Rapot</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                        <tr>
+                                            <td class="text-center td-fit"><?= ++$no; ?></td>
+                                            <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
+                                            <td><?= $row['nama']; ?></td>
+                                            <td class="text-center td-fit">
+                                                <label class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="0">
+                                                    <span class="form-check-label">
+                                                        Tidak
+                                                    </span>
+                                                </label>
+                                                <label class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="1" checked>
+                                                    <span class="form-check-label">
+                                                        Ya
+                                                    </span>
+                                                </label>
+                                                <input type="text" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" hidden>
+                                                <input type="text" name="id_siswa[]" value="<?= $row['id_siswa']; ?>" hidden>
+                                            </td>
+                                            <td class="text-center td-fit">
+                                                <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Semester <?= $semester_sekarang; ?></a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                            <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
+
+                            <?php if ($kelas_selanjutnya || $semester_selanjutnya) : ?>
+                                <?php if ($semester_selanjutnya) : ?>
                                     <input type="text" name="semester_selesai" value="1" hidden>
                                     <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#modalSemesterSelesai" data-semester="<?= $semester['nama']; ?>">Semester Selesai</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                <?php else : ?>
-                    <div class="col-12 col-xl-10">
-                        <div class="card">
-                            <div class="card-body">
-                                <?php
-                                $q = "
-                                    SELECT 
-                                        sk.id AS id_semester_kelas,
-                                        ks.id AS id_kelas_siswa,
-                                        s.nis,
-                                        s.nisn,
-                                        s.nama,
-                                        s.id AS id_siswa  
-                                    FROM 
-                                        kelas_siswa AS ks 
-                                    INNER JOIN 
-                                        siswa AS s 
-                                    ON 
-                                        s.id=ks.id_siswa 
-                                    INNER JOIN 
-                                        semester_kelas AS sk 
-                                    ON 
-                                        ks.id=sk.id_kelas_siswa  
-                                    WHERE 
-                                        ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
-                                        AND 
-                                        sk.id_semester=" . $_GET['id_semester'] . "
-                                    ORDER BY 
-                                        s.nama 
-                                ";
-                                $result = $mysqli->query($q);
-                                $no = 0;
-                                ?>
-                                <form action="" method="POST">
-                                    <table class="table table-striped" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center td-fit">No</th>
-                                                <th class="text-center">NIS/NISN</th>
-                                                <th class="text-center">Nama</th>
-                                                <th class="text-center td-fit">Naik Kelas</th>
-                                                <th class="text-center td-fit">Rapot</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php while ($row = $result->fetch_assoc()) : ?>
-                                                <tr>
-                                                    <td class="text-center td-fit"><?= ++$no; ?></td>
-                                                    <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
-                                                    <td><?= $row['nama']; ?></td>
-                                                    <td class="text-center td-fit">
-                                                        <label class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="0">
-                                                            <span class="form-check-label">
-                                                                Tidak
-                                                            </span>
-                                                        </label>
-                                                        <label class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="1" checked>
-                                                            <span class="form-check-label">
-                                                                Ya
-                                                            </span>
-                                                        </label>
-                                                        <input type="text" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" hidden>
-                                                        <input type="text" name="id_siswa[]" value="<?= $row['id_siswa']; ?>" hidden>
-                                                    </td>
-                                                    <td class="text-center td-fit">
-                                                        <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Semester 2</a>
-                                                    </td>
-                                                </tr>
-                                            <?php endwhile; ?>
-                                        </tbody>
-                                    </table>
-                                    <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
+                                <?php else : ?>
                                     <input type="text" name="kelas_selesai" value="1" hidden>
                                     <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#modalKelasSelesai" data-kelas="<?= $kelas_aktif['kelas']; ?>">Kelas Selesai</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            <?php else : ?>
-                <div class="col-12 col-xl-10">
-                    <div class="card">
-                        <div class="card-body">
-                            <?php
-                            $q = "
-                                SELECT 
-                                    sk.id AS id_semester_kelas,
-                                    ks.id AS id_kelas_siswa,
-                                    s.nis,
-                                    s.nisn,
-                                    s.nama,
-                                    s.id AS id_siswa  
-                                FROM 
-                                    kelas_siswa AS ks 
-                                INNER JOIN 
-                                    siswa AS s 
-                                ON 
-                                    s.id=ks.id_siswa 
-                                INNER JOIN 
-                                    semester_kelas AS sk 
-                                ON 
-                                    ks.id=sk.id_kelas_siswa  
-                                WHERE 
-                                    ks.id_kelas_aktif=" . $_GET['id_kelas_aktif'] . " 
-                                    AND 
-                                    sk.id_semester=" . $_GET['id_semester'] . "
-                                ORDER BY 
-                                    s.nama 
-                            ";
-                            $result = $mysqli->query($q);
-                            $no = 0;
-                            ?>
-                            <form action="" method="POST">
-                                <table class="table table-striped" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center td-fit">No</th>
-                                            <th class="text-center">NIS/NISN</th>
-                                            <th class="text-center">Nama</th>
-                                            <th class="text-center td-fit">Lulus</th>
-                                            <th class="text-center td-fit">Rapot</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($row = $result->fetch_assoc()) : ?>
-                                            <tr>
-                                                <td class="text-center td-fit"><?= ++$no; ?></td>
-                                                <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
-                                                <td><?= $row['nama']; ?></td>
-                                                <td class="text-center td-fit">
-                                                    <label class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="0">
-                                                        <span class="form-check-label">
-                                                            Tidak
-                                                        </span>
-                                                    </label>
-                                                    <label class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="siswa<?= $no - 1 ?>" value="1" checked>
-                                                        <span class="form-check-label">
-                                                            Ya
-                                                        </span>
-                                                    </label>
-                                                    <input type="text" name="id_kelas_siswa[]" value="<?= $row['id_kelas_siswa']; ?>" hidden>
-                                                    <input type="text" name="id_siswa[]" value="<?= $row['id_siswa']; ?>" hidden>
-                                                </td>
-                                                <td class="text-center td-fit">
-                                                    <a href="halaman/cetak/rapot.php?id_semester_kelas=<?= $row['id_semester_kelas']; ?>" class="btn btn-info btn-sm" target="_blank">Semester 2</a>
-                                                </td>
-                                            </tr>
-                                        <?php endwhile; ?>
-                                    </tbody>
-                                </table>
-                                <a href="?h=lihat_kelas_aktif-siswa&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
+                                <?php endif; ?>
+                            <?php else : ?>
                                 <input type="text" name="lulus" value="1" hidden>
                                 <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#modalKelasSelesai" data-kelas="<?= $kelas_aktif['kelas']; ?>">Lulus</button>
-                            </form>
-                        </div>
+                            <?php endif; ?>
+                        </form>
                     </div>
                 </div>
-            <?php endif; ?>
+            </div>
         </div>
 
     </div>
