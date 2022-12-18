@@ -58,7 +58,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">Tahun Pelajaran</th>
-                                    <th class="text-center">Nama Kelas</th>
+                                    <th class="text-center td-fit">Nama Kelas</th>
                                     <th class="text-center td-fit">NIP</th>
                                     <th class="text-center">Wali Kelas</th>
                                     <th class="text-center td-fit">Jumlah Siswa</th>
@@ -98,7 +98,7 @@
                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                     <tr>
                                         <td class="text-center td-fit"><?= $row['tahun_pelajaran']; ?></td>
-                                        <td class="text-center"><?= $row['nama']; ?></td>
+                                        <td class="text-center td-fit"><?= $row['nama']; ?></td>
                                         <td class="text-center td-fit"><?= $row['nip']; ?></td>
                                         <td><?= $row['wali_kelas']; ?></td>
                                         <td class="text-center td-fit"><?= $row['jumlah_siswa']; ?></td>

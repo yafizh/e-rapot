@@ -50,6 +50,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">No</th>
+                                    <th class="text-center">NIP</th>
                                     <th class="text-center">Pengajar</th>
                                     <th class="text-center">Mata Pelajaran</th>
                                     <th class="text-center">KKM</th>
@@ -61,16 +62,17 @@
                                 SELECT 
                                     mpk.id,
                                     mpk.kkm,
-                                    mp.nama AS mata_pelajaran,
-                                    g.nama AS pengajar
+                                    mp.nama mata_pelajaran,
+                                    g.nama pengajar,
+                                    g.nip 
                                 FROM 
-                                    mata_pelajaran_kelas AS mpk 
+                                    mata_pelajaran_kelas mpk 
                                 INNER JOIN 
-                                    mata_pelajaran AS mp 
+                                    mata_pelajaran mp 
                                 ON 
                                     mp.id=mpk.id_mata_pelajaran 
                                 INNER JOIN 
-                                    guru AS g 
+                                    guru g 
                                 ON 
                                     g.id=mpk.id_guru 
                                 WHERE 
@@ -86,6 +88,7 @@
                                     <?php while ($row = $result->fetch_assoc()) : ?>
                                         <tr>
                                             <td class="text-center td-fit"><?= $no++; ?></td>
+                                            <td class="text-center"><?= $row['nip']; ?></td>
                                             <td class="text-center"><?= $row['pengajar']; ?></td>
                                             <td class="text-center"><?= $row['mata_pelajaran']; ?></td>
                                             <td class="text-center"><?= $row['kkm']; ?></td>
