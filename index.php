@@ -195,7 +195,7 @@ $_SESSION['old'] = [];
                                 include_once "halaman/laporan/.php";
                                 break;
                             case "laporan_kelas_aktif":
-                                include_once "halaman/laporan/.php";
+                                include_once "halaman/laporan/kelas_aktif.php";
                                 break;
                             case "laporan_kelas_selesai":
                                 include_once "halaman/laporan/.php";

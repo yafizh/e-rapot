@@ -92,7 +92,6 @@
                                 ORDER BY 
                                     ka.tahun_pelajaran, ka.nama";
                             $result = $mysqli->query($query);
-                            $kelas_before = '';
                             ?>
                             <tbody>
                                 <?php while ($row = $result->fetch_assoc()) : ?>
