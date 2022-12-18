@@ -80,9 +80,6 @@
         </table>
     </main>
     <?php include_once('footer.php'); ?>
-    <script>
-        window.print();
-    </script>
 </body>
 
 </html>

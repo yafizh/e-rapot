@@ -126,12 +126,12 @@
             <li class="sidebar-header">
                 Laporan
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item <?= ($_GET['h'] ?? '') == 'laporan_guru' ? 'active' : ''; ?>">
                 <a class="sidebar-link" href="?h=laporan_guru">
                     <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Guru</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item <?= ($_GET['h'] ?? '') == 'laporan_siswa' ? 'active' : ''; ?>">
                 <a class="sidebar-link" href="?h=laporan_siswa">
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">Siswa</span>
                 </a>

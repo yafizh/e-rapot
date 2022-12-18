@@ -2,7 +2,7 @@
     <div class="container-fluid p-0">
 
         <div class="mb-3 d-flex justify-content-between">
-            <h1 class="h3 d-inline align-middle">Laporan Guru</h1>
+            <h1 class="h3 d-inline align-middle">Laporan Siswa</h1>
         </div>
 
         <div class="row">
@@ -13,7 +13,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center td-fit">No</th>
-                                    <th class="text-center">NIP</th>
+                                    <th class="text-center">NIS/NISN</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Tempat Lahir</th>
                                     <th class="text-center">Tanggal Lahir</th>
@@ -22,27 +22,12 @@
                                 </tr>
                             </thead>
                             <?php
-                            $q = "
-                                SELECT 
-                                    *,
-                                    IF(
-                                        (SELECT id_guru FROM kelas_aktif ka WHERE ka.id_guru=g.id AND ka.status='Aktif'),
-                                        'Wali Kelas',
-                                        'Guru'
-                                    ) status
-                                FROM 
-                                    guru g
-                            ";
+                            $q = "SELECT * FROM siswa";
                             if (isset($_POST['submit'])) {
-                                $q .= "
-                                    WHERE 
-                                        IF(
-                                            (SELECT id_guru FROM kelas_aktif ka WHERE ka.id_guru=g.id AND ka.status='Aktif'),
-                                            'Wali Kelas',
-                                            'Guru'
-                                        ) = '" . $_POST['status'] . "'
-                                ";
+                                $q .= " WHERE status = '" . $_POST['status'] . "'";
                             }
+
+                            $q .= " ORDER BY nama";
                             $result = $mysqli->query($q);
                             $no = 1;
                             ?>
@@ -51,12 +36,12 @@
                                     <?php while ($row = $result->fetch_assoc()) : ?>
                                         <tr>
                                             <td class="text-center td-fit"><?= $no++; ?></td>
-                                            <td class="text-center"><?= $row['nip']; ?></td>
-                                            <td class="text-center"><?= $row['nama']; ?></td>
+                                            <td class="text-center"><?= $row['nis']; ?>/<?= $row['nisn']; ?></td>
+                                            <td><?= $row['nama']; ?></td>
                                             <td class="text-center"><?= $row['tempat_lahir']; ?></td>
                                             <td class="text-center"><?= indonesiaDate($row['tanggal_lahir']); ?></td>
                                             <td class="text-center"><?= $row['jenis_kelamin']; ?></td>
-                                            <td class="text-center"><?= $row['status']; ?></td>
+                                            <td class="text-center"><?= $row['status'] == 'Alumni' ? 'Telah Lulus' : $row['status']; ?></td>
                                         </tr>
                                     <?php endwhile; ?>
                                 <?php else : ?>
@@ -77,11 +62,11 @@
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
-                                <label class="form-label">Status Guru</label>
+                                <label class="form-label">Status Siswa</label>
                                 <select class="form-control" name="status" required>
                                     <option value="" selected disabled>Semua</option>
-                                    <option value="Guru" <?= ($_POST['status'] ?? '') == 'Guru' ? 'selected' : ''; ?>>Guru</option>
-                                    <option value="Wali Kelas" <?= ($_POST['status'] ?? '') == 'Wali Kelas' ? 'selected' : ''; ?>>Wali Kelas</option>
+                                    <option value="Aktif" <?= ($_POST['status'] ?? '') == 'Aktif' ? 'selected' : ''; ?>>Aktif</option>
+                                    <option value="Alumni" <?= ($_POST['status'] ?? '') == 'Alumni' ? 'selected' : ''; ?>>Telah Lulus</option>
                                 </select>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -92,7 +77,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form id="form-cetak" action="halaman/cetak/guru.php" method="POST" target="_blank">
+                        <form id="form-cetak" action="halaman/cetak/siswa.php" method="POST" target="_blank">
                             <?php if (isset($_POST['submit'])) : ?>
                                 <input type="text" hidden name="status" value="<?= $_POST['status']; ?>">
                             <?php endif; ?>
