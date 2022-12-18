@@ -40,25 +40,22 @@ if (isset($_GET['id'])) {
             * 
         FROM 
             user_guru 
-        WHERE id=" . $_SESSION['user']['id'];
-    $data = $mysqli->query()->fetch_assoc();
+        WHERE id_guru=" . $_SESSION['user']['id_guru'];
+    $data = $mysqli->query($q)->fetch_assoc();
     if (isset($_POST['submit'])) {
-        $username = $mysqli->real_escape_string($_POST['username']);
-        $password = $mysqli->real_escape_string($_POST['password']);
+        $password_lama = $mysqli->real_escape_string($_POST['password_lama']);
+        $password_baru = $mysqli->real_escape_string($_POST['password_baru']);
+        $konfirmasi_password_baru = $mysqli->real_escape_string($_POST['konfirmasi_password_baru']);
 
-        $_SESSION['old']['username'] = $username;
-
-        $validasi = $mysqli->query("SELECT username FROM user WHERE username=$username AND id !=" . $data['id']);
-        if (!$validasi->num_rows) {
-            $q = "UPDATE admin SET username='$username' WHERE id=" . $_GET['id'];
-
-            if ($mysqli->query($q)) {
-                $_SESSION['edit_data']['username'] =  $data['username'];
-                echo "<script>location.href = '?h=admin';</script>";
-            } else
-                die($mysqli->error);
-        } else
-            $_SESSION['error'][] = "Username $username telah digunakan, username tidak dapat sama dengan admin yang lain.";
+        $cek_password_lama = $mysqli->query("SELECT * FROM user WHERE id=" . $data['id_user'] . " AND password='$password_lama'");
+        if ($cek_password_lama->num_rows) {
+            if ($password_baru === $konfirmasi_password_baru) {
+                if ($mysqli->query("UPDATE user SET password='$password' WHERE id=" . $data['id_user']))
+                    $_SESSION['success'] =  true;
+                else
+                    die($mysqli->error);
+            } else $_SESSION['error'][] = 'Password Baru Tidak Sama!';
+        } else $_SESSION['error'][] = 'Password Lama Salah!';
     }
 }
 ?>
@@ -80,6 +77,15 @@ if (isset($_GET['id'])) {
                             </div>
                         </div>
                     <?php endforeach; ?>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['success'])) : ?>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="alert-message">
+                            Password Berhasil Diperbaharui!
+                        </div>
+                    </div>
+                    <?php unset($_SESSION['success']); ?>
                 <?php endif; ?>
                 <?php if (isset($_GET['id'])) : ?>
                     <div class="card">
@@ -110,7 +116,11 @@ if (isset($_GET['id'])) {
                                     <label class="form-label">Konfirmasi Password Baru</label>
                                     <input type="password" class="form-control" name="konfirmasi_password_baru" required autocomplete="off">
                                 </div>
-                                <a href="?h=admin" class="btn btn-secondary float-start">Kembali</a>
+                                <?php if (is_null($_SESSION['user']['id_guru'])) : ?>
+                                    <a href="?h=admin" class="btn btn-secondary float-start">Kembali</a>
+                                <?php else : ?>
+                                    <a href="?" class="btn btn-secondary float-start">Kembali</a>
+                                <?php endif; ?>
                                 <button type="submit" name="submit" class="btn btn-primary float-end">Ganti Password</button>
                             </form>
                         </div>

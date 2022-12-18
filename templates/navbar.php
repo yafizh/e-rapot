@@ -12,12 +12,13 @@
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                     <?php if (!is_null($_SESSION['user']['id_guru'])) : ?>
-                        <img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+                        <img src="<?= $_SESSION['user']['foto']; ?>" onerror="imageError(this)" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
                     <?php endif; ?>
                     <span class="text-dark"><?= is_null($_SESSION['user']['id_guru']) ? 'ADMIN' : $_SESSION['user']['nama']; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <?php if (!is_null($_SESSION['user']['id_guru'])) : ?>
+                        <a class="dropdown-item" href="?"><i class="align-middle me-1" data-feather="home"></i> Menu Utama</a>
                         <a class="dropdown-item" href="?h=ganti_password"><i class="align-middle me-1" data-feather="settings"></i> Ganti Password</a>
                         <div class="dropdown-divider"></div>
                     <?php endif; ?>

@@ -194,6 +194,9 @@ $_SESSION['old'] = [];
                             case "input_nilai":
                                 include_once "halaman/wali_kelas/input_nilai.php";
                                 break;
+                            case "ganti_password":
+                                include_once "halaman/auth/ganti_password.php";
+                                break;
                             default:
                                 include_once "halaman/wali_kelas/beranda.php";
                         }
