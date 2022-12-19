@@ -2,7 +2,7 @@
     <div class="container-fluid p-0">
 
         <div class="mb-3 d-flex justify-content-between">
-            <h1 class="h3 d-inline align-middle">Laporan Kelas Aktif</h1>
+            <h1 class="h3 d-inline align-middle">Laporan Kelas Selesai</h1>
         </div>
 
         <div class="row">
@@ -18,7 +18,7 @@
                                     <th class="text-center td-fit">NIP</th>
                                     <th class="text-center">Wali Kelas</th>
                                     <th class="text-center td-fit">Jumlah Siswa</th>
-                                    <th class="text-center td-fit">Aksi</th>
+                                    <th class="text-center td-fit">Cetak</th>
                                 </tr>
                             </thead>
                             <?php
@@ -42,7 +42,7 @@
                             ON 
                                 g.id=ka.id_guru 
                             WHERE 
-                                ka.status='Aktif' 
+                                ka.status='Selesai' 
                                 ";
                             if (!empty($_POST['kelas'] ?? ''))
                                 $q .= " AND k.id=" . $_POST['kelas'];
@@ -65,8 +65,9 @@
                                             <td><?= $row['wali_kelas']; ?></td>
                                             <td class="text-center td-fit"><?= $row['jumlah_siswa']; ?></td>
                                             <td class="text-center td-fit">
-                                                <a target="_blank" href="halaman/cetak/kelas-siswa.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-success">Cetak Siswa</a>
-                                                <a target="_blank" href="halaman/cetak/kelas-mata_pelajaran.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Cetak Mata Pelajaran</a>
+                                                <a target="_blank" href="halaman/cetak/kelas-ranking_siswa.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-secondary">Peringkat</a>
+                                                <a target="_blank" href="halaman/cetak/kelas-siswa.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-success">Siswa</a>
+                                                <a target="_blank" href="halaman/cetak/kelas-mata_pelajaran.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-info">Mata Pelajaran</a>
                                             </td>
                                         </tr>
                                     <?php endwhile; ?>
@@ -98,7 +99,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <?php $result = $mysqli->query("SELECT DISTINCT tahun_pelajaran FROM kelas_aktif WHERE status='Aktif'"); ?>
+                                <?php $result = $mysqli->query("SELECT DISTINCT tahun_pelajaran FROM kelas_aktif WHERE status='Selesai'"); ?>
                                 <label class="form-label">Tahun Pelajaran</label>
                                 <select class="form-control" name="tahun_pelajaran">
                                     <option value="" selected disabled>Semua Tahun Pelajaran</option>

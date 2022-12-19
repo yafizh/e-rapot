@@ -136,17 +136,12 @@
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">Siswa</span>
                 </a>
             </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="?h=laporan_nilai_siswa">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Nilai Siswa</span>
-                </a>
-            </li>
             <li class="sidebar-item <?= ($_GET['h'] ?? '') == 'laporan_kelas_aktif' ? 'active' : ''; ?>">
                 <a class="sidebar-link" href="?h=laporan_kelas_aktif">
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">Kelas Aktif</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item <?= ($_GET['h'] ?? '') == 'laporan_kelas_selesai' ? 'active' : ''; ?>">
                 <a class="sidebar-link" href="?h=laporan_kelas_selesai">
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">Kelas Selesai</span>
                 </a>
