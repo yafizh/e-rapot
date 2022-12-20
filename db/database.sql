@@ -9,12 +9,6 @@ CREATE TABLE `user` (
     PRIMARY KEY (id)
 );
 
-INSERT INTO `user` (
-    username,
-    password
-) VALUES 
-('admin', 'admin');
-
 CREATE TABLE `guru` (
     id INT NOT NULL AUTO_INCREMENT,
     nip VARCHAR(255) NOT NULL UNIQUE,
@@ -25,18 +19,6 @@ CREATE TABLE `guru` (
     foto VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
-
-INSERT INTO `guru` (
-    nip,
-    nama,
-    tempat_lahir,
-    tanggal_lahir,
-    jenis_kelamin,
-    foto
-) VALUES 
-('1', 'Nurcholis', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
-('2', 'Habibi', 'Martapura', '2000-01-01', 'Laki - Laki', ''),
-('3', 'Arif', 'Martapura', '2000-01-01', 'Laki - Laki', '');
 
 CREATE TABLE `user_guru` (
     id INT NOT NULL AUTO_INCREMENT,
@@ -55,14 +37,6 @@ CREATE TABLE `kelas` (
     PRIMARY KEY (id) 
 );
 
-INSERT INTO `kelas` (
-    nama,
-    tingkat
-) VALUES 
-('1', 1),
-('2', 2),
-('3', 3);
-
 CREATE TABLE `semester` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
@@ -70,27 +44,12 @@ CREATE TABLE `semester` (
     PRIMARY KEY (id) 
 );
 
-INSERT INTO `semester` (
-    nama,
-    tingkat
-) VALUES 
-('1', 1),
-('2', 2);
-
 CREATE TABLE `mata_pelajaran` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
     kkm INT NOT NULL,
     PRIMARY KEY (id)
 );
-
-INSERT INTO `mata_pelajaran` (
-    nama,
-    kkm
-) VALUES 
-('Matematika', 75),
-('Bahasa Indonesia', 65),
-('Bahasa Inggris', 80);
 
 CREATE TABLE `kelas_aktif` (
     id INT NOT NULL AUTO_INCREMENT,
@@ -122,26 +81,6 @@ CREATE TABLE `siswa` (
     status VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
-
-INSERT INTO `siswa` (
-    nis,
-    nisn,
-    nama,
-    tempat_lahir,
-    tanggal_lahir,
-    jenis_kelamin,
-    agama,
-    alamat,
-    nama_ayah,
-    pekerjaan_ayah,
-    nama_ibu,
-    pekerjaan_ibu,
-    foto,
-    status
-) VALUES 
-('131262130001160477', '3066683363', 'AHMAD ALGI PARI', 'Ampah', '2006-03-16', 'Laki - Laki', 'Islam', 'Ampah Rt.09 Rw.03', 'SUWAJI', 'ASMIAH', 'Wiraswasta', 'IRT', '', 'Aktif'),
-('131262130001160478', '0068438164', 'AHMAD AZHARI', 'Ampah', '2006-01-12', 'Laki - Laki', 'Islam', 'Ampah Kota Rt.024 Rw.008', 'JUPRIANTO', 'ASNANI', 'PNS', 'IRT', '', 'Aktif'),
-('131262130001160479', '0052588832', 'ATIKA ROHIMAH', 'Ampah', '2006-08-30', 'Perempuan', 'Islam', 'Jl. Talohen Rt.025', 'SURIANI', 'SITI RODIAH', 'Petani', 'IRT', '', 'Aktif');
 
 CREATE TABLE `kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,

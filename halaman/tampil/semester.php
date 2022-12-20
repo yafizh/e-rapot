@@ -59,17 +59,23 @@
                             $no = 1;
                             ?>
                             <tbody>
-                                <?php while ($row = $result->fetch_assoc()) : ?>
+                                <?php if ($result->num_rows) : ?>
+                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                        <tr>
+                                            <td class="text-center td-fit"><?= $no++; ?></td>
+                                            <td class="text-center"><?= $row['nama']; ?></td>
+                                            <td class="text-center"><?= $row['tingkat']; ?></td>
+                                            <td class="text-center td-fit">
+                                                <a href="?h=edit_semester&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
+                                                <a href="?h=hapus_semester&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                <?php else : ?>
                                     <tr>
-                                        <td class="text-center td-fit"><?= $no++; ?></td>
-                                        <td class="text-center"><?= $row['nama']; ?></td>
-                                        <td class="text-center"><?= $row['tingkat']; ?></td>
-                                        <td class="text-center td-fit">
-                                            <a href="?h=edit_semester&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="?h=hapus_semester&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
-                                        </td>
+                                        <td class="text-center" colspan="4">Data Tidak Ada</td>
                                     </tr>
-                                <?php endwhile; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
