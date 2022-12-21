@@ -88,8 +88,8 @@
                                     <?php while ($row = $result->fetch_assoc()) : ?>
                                         <tr>
                                             <td class="text-center td-fit"><?= $no++; ?></td>
-                                            <td class="text-center"><?= $row['nip']; ?></td>
-                                            <td class="text-center"><?= $row['pengajar']; ?></td>
+                                            <td class="text-center td-fit"><?= $row['nip']; ?></td>
+                                            <td><?= $row['pengajar']; ?></td>
                                             <td class="text-center"><?= $row['mata_pelajaran']; ?></td>
                                             <td class="text-center"><?= $row['kkm']; ?></td>
                                             <td class="text-center td-fit">
@@ -99,7 +99,7 @@
                                     <?php endwhile; ?>
                                 <?php else : ?>
                                     <tr>
-                                        <td class="text-center" colspan="5">Data Tidak Ada</td>
+                                        <td class="text-center" colspan="6">Data Tidak Ada</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>

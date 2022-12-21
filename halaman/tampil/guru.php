@@ -69,7 +69,7 @@
                                 </tr>
                             </thead>
                             <?php
-                            $result = $mysqli->query("SELECT * FROM guru ORDER BY FIELD('Kepala Sekolah', 'Wali Kelas', 'Guru', nama) ASC");
+                            $result = $mysqli->query("SELECT * FROM guru ORDER BY FIELD(jabatan, 'Kepala Sekolah', 'Wali Kelas', 'Guru'), nama");
                             $no = 1;
                             ?>
                             <tbody>
