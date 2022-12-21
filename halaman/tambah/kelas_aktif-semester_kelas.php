@@ -93,8 +93,8 @@ if (isset($_POST['semester_selesai'])) {
     };
 }
 if (isset($_POST['kelas_selesai'])) {
-    $id_kelas_siswa = $_POST['id_kelas_siswa'];
-    $id_siswa = $_POST['id_siswa'];
+    $id_kelas_siswa = $_POST['id_kelas_siswa'] ?? [];
+    $id_siswa = $_POST['id_siswa'] ?? [];
     $id_kelas_siswa_naik_kelas = [];
     $id_siswa_naik_kelas = [];
     for ($i = 0; $i < count($id_kelas_siswa); $i++) {

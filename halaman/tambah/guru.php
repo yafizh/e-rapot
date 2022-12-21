@@ -2,12 +2,14 @@
 if (isset($_POST['submit'])) {
     $nip = $mysqli->real_escape_string($_POST['nip']);
     $nama = $mysqli->real_escape_string($_POST['nama']);
+    $jabatan = $mysqli->real_escape_string($_POST['jabatan']);
     $tempat_lahir = $mysqli->real_escape_string($_POST['tempat_lahir']);
     $tanggal_lahir = $mysqli->real_escape_string($_POST['tanggal_lahir']);
     $jenis_kelamin = $mysqli->real_escape_string($_POST['jenis_kelamin']);
 
     $_SESSION['old']['nip'] = $nip;
     $_SESSION['old']['nama'] = $nama;
+    $_SESSION['old']['jabatan'] = $jabatan;
     $_SESSION['old']['tempat_lahir'] = $tempat_lahir;
     $_SESSION['old']['tanggal_lahir'] = $tanggal_lahir;
     $_SESSION['old']['jenis_kelamin'] = $jenis_kelamin;
@@ -47,6 +49,7 @@ if (isset($_POST['submit'])) {
                 INSERT INTO guru (
                     nip,
                     nama,
+                    jabatan,
                     tempat_lahir,
                     tanggal_lahir,
                     jenis_kelamin,
@@ -54,6 +57,7 @@ if (isset($_POST['submit'])) {
                 ) VALUES (
                     '$nip',
                     '$nama',
+                    '$jabatan',
                     '$tempat_lahir',
                     '$tanggal_lahir',
                     '$jenis_kelamin',
@@ -103,7 +107,18 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="nama" required autofocus autocomplete="off" value="<?= $_SESSION['old']['nama'] ?? ''; ?>">
+                                <input type="text" class="form-control" name="nama" required autocomplete="off" value="<?= $_SESSION['old']['nama'] ?? ''; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Jabatan</label>
+                                <select name="jabatan" class="form-control" required>
+                                    <option value="Guru" <?= ($_SESSION['old']['nama'] ?? '') == 'Guru' ? 'selected' : ''; ?>>Guru</option>
+                                    <?php $result = $mysqli->query("SELECT * FROM guru WHERE jabatan='Kepala Sekolah'"); ?>
+                                    <?php if (!$result->num_rows) : ?>
+                                        <option value="Kepala Sekolah" <?= ($_SESSION['old']['nama'] ?? '') == 'Kepala Sekolah' ? 'selected' : ''; ?>>Kepala Sekolah</option>
+                                    <?php endif; ?>
+                                    <option value="Wali Kelas" <?= ($_SESSION['old']['nama'] ?? '') == 'Wali Kelas' ? 'selected' : ''; ?>>Wali Kelas</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Tempat Lahir</label>

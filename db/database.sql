@@ -13,6 +13,7 @@ CREATE TABLE `guru` (
     id INT NOT NULL AUTO_INCREMENT,
     nip VARCHAR(255) NOT NULL UNIQUE,
     nama VARCHAR(255) NOT NULL,
+    jabatan VARCHAR(255) NOT NULL,
     tempat_lahir VARCHAR(255) NOT NULL,
     tanggal_lahir DATE NOT NULL,
     jenis_kelamin VARCHAR(255) NOT NULL,

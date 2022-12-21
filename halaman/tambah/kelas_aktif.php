@@ -75,7 +75,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Wali Kelas</label>
-                                <?php $guru = $mysqli->query("SELECT * FROM guru WHERE id NOT IN (SELECT id_guru FROM kelas_aktif WHERE status='Aktif') ORDER BY nama"); ?>
+                                <?php $guru = $mysqli->query("SELECT * FROM guru WHERE jabatan='Wali Kelas' AND id NOT IN (SELECT id_guru FROM kelas_aktif WHERE status='Aktif') ORDER BY nama"); ?>
                                 <select name="id_guru" required class="form-control choices-single">
                                     <option value="" selected disabled>Pilih Guru</option>
                                     <?php while ($row = $guru->fetch_assoc()) : ?>

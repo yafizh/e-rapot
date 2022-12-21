@@ -259,16 +259,31 @@
             <div class="col-6 text-center">NIP. <?= $data['nip_wali_kelas']; ?></div>
         </div>
         <?php if (!($semester['id'] == $data['id_semester'])) : ?>
-            <br><br><br><br><br>
-            <div class="row">
-                <div class="col-12 text-center">Kepala Sekolah</div>
-            </div>
-            <br><br><br><br><br>
-            <div class="row justify-content-center">
-                <div class="col-12 text-center">Martaniah, S.Pd.I.</div>
-                <div class="col-3 border border-dark"></div>
-                <div class="col-12 text-center">NIP. 197303232000032003</div>
-            </div>
+            <?php $result = $mysqli->query("SELECT * FROM guru WHERE jabatan='Kepala Sekolah'"); ?>
+            <?php if ($result->num_rows) : ?>
+                <?php $kepala_sekolah = $result->fetch_assoc(); ?>
+                <br><br><br><br><br>
+                <div class="row">
+                    <div class="col-12 text-center">Kepala Sekolah</div>
+                </div>
+                <br><br><br><br><br>
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center"><?= $kepala_sekolah['nama']; ?></div>
+                    <div class="col-3 border border-dark"></div>
+                    <div class="col-12 text-center">NIP. <?= $kepala_sekolah['nip']; ?></div>
+                </div>
+            <?php else : ?>
+                <br><br><br><br><br>
+                <div class="row">
+                    <div class="col-12 text-center">Kepala Sekolah</div>
+                </div>
+                <br><br><br><br><br>
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">Kepala Sekolah Belum Ditambahkan</div>
+                    <div class="col-3 border border-dark"></div>
+                    <div class="col-12 text-center">NIP. ################</div>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
 
     </section>

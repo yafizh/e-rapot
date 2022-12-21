@@ -3,12 +3,14 @@ $data = $mysqli->query("SELECT * FROM guru WHERE id=" . $_GET['id'])->fetch_asso
 if (isset($_POST['submit'])) {
     $nip = $mysqli->real_escape_string($_POST['nip']);
     $nama = $mysqli->real_escape_string($_POST['nama']);
+    $jabatan = $mysqli->real_escape_string($_POST['jabatan']);
     $tempat_lahir = $mysqli->real_escape_string($_POST['tempat_lahir']);
     $tanggal_lahir = $mysqli->real_escape_string($_POST['tanggal_lahir']);
     $jenis_kelamin = $mysqli->real_escape_string($_POST['jenis_kelamin']);
 
     $_SESSION['old']['nip'] = $nip;
     $_SESSION['old']['nama'] = $nama;
+    $_SESSION['old']['jabatan'] = $jabatan;
     $_SESSION['old']['tempat_lahir'] = $tempat_lahir;
     $_SESSION['old']['tanggal_lahir'] = $tanggal_lahir;
     $_SESSION['old']['jenis_kelamin'] = $jenis_kelamin;
@@ -49,8 +51,15 @@ if (isset($_POST['submit'])) {
 
 
     if ($uploadOk) {
-        $validasi = $mysqli->query("SELECT nip FROM guru WHERE nip='$nip' AND id !=" . $data['id']);
-        if (!$validasi->num_rows) {
+        $validasi_nip = $mysqli->query("SELECT nip FROM guru WHERE nip='$nip' AND id !=" . $data['id']);
+        if ($validasi_nip->num_rows)
+            $_SESSION['error'][] = "NIP telah digunakan, NIP tidak dapat sama dengan guru yang lain.";
+
+        $validasi_wali_kelas = $mysqli->query("SELECT * FROM kelas_aktif WHERE status='Aktif' AND id_guru=" . $data['id']);
+        if ($validasi_wali_kelas->num_rows)
+            $_SESSION['error'][] = "Jabatan tidak dapat diganti karena guru sedang menjadi wali kelas pada sebuah kelas aktif.";
+
+        if (!$validasi_nip->num_rows && !$validasi_wali_kelas->num_rows) {
             try {
                 $mysqli->begin_transaction();
                 $user_guru = $mysqli->query("SELECT * FROM user_guru WHERE id_guru=" . $_GET['id']);
@@ -61,6 +70,7 @@ if (isset($_POST['submit'])) {
                 UPDATE guru SET
                     nip='$nip',
                     nama='$nama',
+                    jabatan='$jabatan',
                     tempat_lahir='$tempat_lahir',
                     tanggal_lahir='$tanggal_lahir',
                     jenis_kelamin='$jenis_kelamin',
@@ -79,8 +89,7 @@ if (isset($_POST['submit'])) {
                 $mysqli->rollback();
                 throw $e;
             };
-        } else
-            $_SESSION['error'][] = "NIP telah digunakan, NIP tidak dapat sama dengan guru yang lain.";
+        }
     }
 }
 ?>
@@ -113,6 +122,17 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3">
                                 <label class="form-label">Nama</label>
                                 <input type="text" class="form-control" name="nama" required autocomplete="off" value="<?= $_SESSION['old']['nama'] ?? $data['nama']; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Jabatan</label>
+                                <select name="jabatan" class="form-control" required>
+                                    <option value="Guru" <?= ($_SESSION['old']['nama'] ?? $data['jabatan']) == 'Guru' ? 'selected' : ''; ?>>Guru</option>
+                                    <?php $result = $mysqli->query("SELECT * FROM guru WHERE jabatan='Kepala Sekolah' AND id !=" . $data['id']); ?>
+                                    <?php if (!$result->num_rows) : ?>
+                                        <option value="Kepala Sekolah" <?= ($_SESSION['old']['nama'] ?? $data['jabatan']) == 'Kepala Sekolah' ? 'selected' : ''; ?>>Kepala Sekolah</option>
+                                    <?php endif; ?>
+                                    <option value="Wali Kelas" <?= ($_SESSION['old']['nama'] ?? $data['jabatan']) == 'Wali Kelas' ? 'selected' : ''; ?>>Wali Kelas</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Tempat Lahir</label>

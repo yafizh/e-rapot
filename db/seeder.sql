@@ -7,21 +7,22 @@ INSERT INTO `user` (
 INSERT INTO `guru` (
     nip,
     nama,
+    jabatan,
     tempat_lahir,
     tanggal_lahir,
     jenis_kelamin,
     foto
 ) VALUES 
-('196910291995031002', 'Rusmiansyah, S.Pd', 'Martapura', '1969-10-29', 'Laki - Laki', ''),
-('197610132005011010', 'Zakaria, S.E', 'Martapura', '1976-10-13', 'Laki - Laki', ''),
-('197207132006041003', 'Agung Basuki, S.Pd', 'Martapura', '1972-07-13', 'Laki - Laki', ''),
-('196209102006041007', 'Drs.Mulyani', 'Martapura', '1962-09-10', 'Laki - Laki', ''),
-('197602272006041015', 'Nurkhabib, S.Ag', 'Martapura', '1976-02-27', 'Laki - Laki', ''),
-('198011142008021001', 'Suradi,S.Pd', 'Martapura', '1980-11-14', 'Laki - Laki', ''),
-('197909202009032002', 'Sri Pujiastuti, S.Pd', 'Martapura', '1979-09-20', 'Perempuan', ''),
-('198304212009032005', 'Sisetyowati, S.Pd', 'Martapura', '1983-04-21', 'Perempuan', ''),
-('198308282009032005', 'Noorafni, S.Pd', 'Martapura', '1983-08-28', 'Perempuan', ''),
-('198405152009031003', 'M. Muammar,SP', 'Martapura', '1984-05-15', 'Laki - Laki', '');
+('196910291995031002', 'Kepala Sekolah' , 'Rusmiansyah, S.Pd', 'Martapura', '1969-10-29', 'Laki - Laki', ''),
+('197610132005011010', 'Guru' , 'Zakaria, S.E', 'Martapura', '1976-10-13', 'Laki - Laki', ''),
+('197207132006041003', 'Guru' , 'Agung Basuki, S.Pd', 'Martapura', '1972-07-13', 'Laki - Laki', ''),
+('196209102006041007', 'Guru' , 'Drs.Mulyani', 'Martapura', '1962-09-10', 'Laki - Laki', ''),
+('197602272006041015', 'Guru' , 'Nurkhabib, S.Ag', 'Martapura', '1976-02-27', 'Laki - Laki', ''),
+('198011142008021001', 'Guru' , 'Suradi,S.Pd', 'Martapura', '1980-11-14', 'Laki - Laki', ''),
+('197909202009032002', 'Guru' , 'Sri Pujiastuti, S.Pd', 'Martapura', '1979-09-20', 'Perempuan', ''),
+('198304212009032005', 'Guru' , 'Sisetyowati, S.Pd', 'Martapura', '1983-04-21', 'Perempuan', ''),
+('198308282009032005', 'Guru' , 'Noorafni, S.Pd', 'Martapura', '1983-08-28', 'Perempuan', ''),
+('198405152009031003', 'Guru' , 'M. Muammar,SP', 'Martapura', '1984-05-15', 'Laki - Laki', '');
 
 INSERT INTO `kelas` (
     nama,

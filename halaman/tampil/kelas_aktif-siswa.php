@@ -82,7 +82,7 @@ foreach ($semester as $value) {
                 <?php if (empty($siswa_kelas) && $i < (count($data) - 1)) : ?>
                     <?php continue; ?>
                 <?php endif; ?>
-                <div class="col-12 col-md-6">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h5 class="card-title mb-0 align-self-center">Semester <?= $semester[$i]['nama']; ?></h5>
