@@ -42,7 +42,7 @@
         <span>: <?= $kelas_aktif['nip'] ?>/<?= $kelas_aktif['wali_kelas'] ?></span>
         <br>
         <span style="width: 150px; display: inline-block;">Kelas</span>
-        <span>: Kelas <?= $kelas_aktif['kelas'] ?> <?= $kelas_aktif['nama'] ?></span>
+        <span>: <?= $kelas_aktif['kelas'] ?> <?= $kelas_aktif['nama'] ?></span>
         <br>
         <span style="width: 150px; display: inline-block;">Tahun Pelajaran</span>
         <span>: <?= $kelas_aktif['tahun_pelajaran']; ?></span>

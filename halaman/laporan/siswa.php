@@ -6,7 +6,51 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h5 class="card-title mb-0">Filter</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Status Siswa</label>
+                                <select class="form-control" name="status" required>
+                                    <option value="" selected disabled>Semua</option>
+                                    <option value="Aktif" <?= ($_POST['status'] ?? '') == 'Aktif' ? 'selected' : ''; ?>>Aktif</option>
+                                    <option value="Alumni" <?= ($_POST['status'] ?? '') == 'Alumni' ? 'selected' : ''; ?>>Telah Lulus</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-end gap-1">
+                                <a href="" class="btn btn-secondary">Reset Filter</a>
+                                <button type="submit" name="submit" class="btn btn-info">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h5 class="card-title mb-0">Hasil Filter</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label d-block">Status Siswa:</label>
+                            <input type="text" disabled class="form-control" value="<?= empty($_POST['status'] ?? '') ? 'Semua' : $_POST['status']; ?>">
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <form action="halaman/cetak/siswa.php" method="POST" target="_blank">
+                                <?php if (isset($_POST['submit'])) : ?>
+                                    <input type="text" hidden name="status" value="<?= $_POST['status']; ?>">
+                                <?php endif; ?>
+                                <button type="submit" class="btn btn-success">Cetak</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-striped" style="width:100%">
@@ -51,40 +95,6 @@
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Filter</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label class="form-label">Status Siswa</label>
-                                <select class="form-control" name="status" required>
-                                    <option value="" selected disabled>Semua</option>
-                                    <option value="Aktif" <?= ($_POST['status'] ?? '') == 'Aktif' ? 'selected' : ''; ?>>Aktif</option>
-                                    <option value="Alumni" <?= ($_POST['status'] ?? '') == 'Alumni' ? 'selected' : ''; ?>>Telah Lulus</option>
-                                </select>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="" class="btn btn-secondary">Reset Filter</a>
-                                <div class="d-flex gap-1">
-                                    <button type="submit" name="submit" class="btn btn-info">Filter</button>
-                                    <button id="cetak" type="button" class="btn btn-success">Cetak</button>
-                                </div>
-                            </div>
-                        </form>
-                        <form id="form-cetak" action="halaman/cetak/siswa.php" method="POST" target="_blank">
-                            <?php if (isset($_POST['submit'])) : ?>
-                                <input type="text" hidden name="status" value="<?= $_POST['status']; ?>">
-                            <?php endif; ?>
-                        </form>
-                        <script>
-                            document.querySelector('#cetak').addEventListener('click', () => document.querySelector('#form-cetak').submit());
-                        </script>
                     </div>
                 </div>
             </div>

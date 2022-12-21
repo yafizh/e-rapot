@@ -6,7 +6,71 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-md-8">
+        <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h5 class="card-title mb-0">Filter</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            <div class="mb-3">
+                                <?php $result = $mysqli->query("SELECT * FROM kelas"); ?>
+                                <label class="form-label">Kelas</label>
+                                <select class="form-control" name="kelas">
+                                    <option value="" selected disabled>Semua Kelas</option>
+                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                        <option value="<?= $row['id']; ?>" <?= ($_POST['kelas'] ?? '') == $row['id'] ? 'selected' : ''; ?>>Kelas <?= $row['nama']; ?></option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <?php $result = $mysqli->query("SELECT DISTINCT tahun_pelajaran FROM kelas_aktif WHERE status='Selesai'"); ?>
+                                <label class="form-label">Tahun Pelajaran</label>
+                                <select class="form-control" name="tahun_pelajaran">
+                                    <option value="" selected disabled>Semua Tahun Pelajaran</option>
+                                    <?php while ($row = $result->fetch_assoc()) : ?>
+                                        <option value="<?= $row['tahun_pelajaran']; ?>" <?= ($_POST['tahun_pelajaran'] ?? '') == $row['tahun_pelajaran'] ? 'selected' : ''; ?>><?= $row['tahun_pelajaran']; ?></option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-end gap-1">
+                                <a href="" class="btn btn-secondary">Reset Filter</a>
+                                <button type="submit" name="submit" class="btn btn-info">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h5 class="card-title mb-0">Hasil Filter</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label d-block">Kelas:</label>
+                            <?php $kelas = $mysqli->query("SELECT nama FROM kelas WHERE id=" . (empty($_POST['kelas'] ?? '') ? 0 : $_POST['kelas']))->fetch_assoc(); ?>
+                            <input type="text" disabled class="form-control" value="<?= empty($_POST['kelas'] ?? '') ? 'Semua Kelas' : $kelas['nama']; ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-block">Tahun Pelajaran:</label>
+                            <input type="text" disabled class="form-control" value="<?= empty($_POST['tahun_pelajaran'] ?? '') ? 'Semua Tahun Pelajaran' : $_POST['tahun_pelajaran']; ?>">
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <form action="halaman/cetak/kelas.php?status=Selesai" method="POST" target="_blank">
+                                <?php if (!empty($_POST['kelas'] ?? '')) : ?>
+                                    <input type="text" hidden name="kelas" value="<?= $_POST['kelas']; ?>">
+                                <?php endif; ?>
+                                <?php if (!empty($_POST['tahun_pelajaran'] ?? '')) : ?>
+                                    <input type="text" hidden name="tahun_pelajaran" value="<?= $_POST['tahun_pelajaran']; ?>">
+                                <?php endif; ?>
+                                <button type="submit" class="btn btn-success">Cetak</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-striped" style="width:100%">
@@ -60,7 +124,7 @@
                                         <tr>
                                             <td class="text-center td-fit"><?= $no++; ?></td>
                                             <td class="text-center td-fit"><?= $row['tahun_pelajaran']; ?></td>
-                                            <td class="text-center td-fit">Kelas <?= $row['kelas']; ?> <?= $row['nama']; ?></td>
+                                            <td class="text-center td-fit"><?= $row['kelas']; ?> <?= $row['nama']; ?></td>
                                             <td class="text-center td-fit"><?= $row['nip']; ?></td>
                                             <td><?= $row['wali_kelas']; ?></td>
                                             <td class="text-center td-fit"><?= $row['jumlah_siswa']; ?></td>
@@ -78,55 +142,6 @@
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Filter</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <?php $result = $mysqli->query("SELECT * FROM kelas"); ?>
-                                <label class="form-label">Kelas</label>
-                                <select class="form-control" name="kelas">
-                                    <option value="" selected disabled>Semua Kelas</option>
-                                    <?php while ($row = $result->fetch_assoc()) : ?>
-                                        <option value="<?= $row['id']; ?>" <?= ($_POST['kelas'] ?? '') == $row['id'] ? 'selected' : ''; ?>>Kelas <?= $row['nama']; ?></option>
-                                    <?php endwhile; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <?php $result = $mysqli->query("SELECT DISTINCT tahun_pelajaran FROM kelas_aktif WHERE status='Selesai'"); ?>
-                                <label class="form-label">Tahun Pelajaran</label>
-                                <select class="form-control" name="tahun_pelajaran">
-                                    <option value="" selected disabled>Semua Tahun Pelajaran</option>
-                                    <?php while ($row = $result->fetch_assoc()) : ?>
-                                        <option value="<?= $row['tahun_pelajaran']; ?>" <?= ($_POST['tahun_pelajaran'] ?? '') == $row['tahun_pelajaran'] ? 'selected' : ''; ?>><?= $row['tahun_pelajaran']; ?></option>
-                                    <?php endwhile; ?>
-                                </select>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="" class="btn btn-secondary">Reset Filter</a>
-                                <div class="d-flex gap-1">
-                                    <button type="submit" name="submit" class="btn btn-info">Filter</button>
-                                    <button id="cetak" type="button" class="btn btn-success">Cetak</button>
-                                </div>
-                            </div>
-                        </form>
-                        <form id="form-cetak" action="halaman/cetak/kelas_aktif.php" method="POST" target="_blank">
-                            <?php if (!empty($_POST['kelas'] ?? '')) : ?>
-                                <input type="text" hidden name="kelas" value="<?= $_POST['kelas']; ?>">
-                            <?php endif; ?>
-                            <?php if (!empty($_POST['tahun_pelajaran'] ?? '')) : ?>
-                                <input type="text" hidden name="tahun_pelajaran" value="<?= $_POST['tahun_pelajaran']; ?>">
-                            <?php endif; ?>
-                        </form>
-                        <script>
-                            document.querySelector('#cetak').addEventListener('click', () => document.querySelector('#form-cetak').submit());
-                        </script>
                     </div>
                 </div>
             </div>

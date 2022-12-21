@@ -17,44 +17,27 @@
             <span style="width: 150px; display: inline-block;">Filter</span>
         </strong>
         <br>
-        <span style="width: 150px; display: inline-block;">Status</span>
-        <span>: <?= $_POST['status'] ?? 'Semua Status'; ?></span>
+        <span style="width: 150px; display: inline-block;">Jabatan</span>
+        <span>: <?= $_POST['jabatan'] ?? 'Semua Jabatan'; ?></span>
     </section>
     <main class="p-3">
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th class="text-center align-middle no-td">No</th>
                     <th class="text-center align-middle">NIP</th>
                     <th class="text-center align-middle">Nama</th>
+                    <th class="text-center align-middle">Jabatan</th>
                     <th class="text-center align-middle">Tempat Lahir</th>
                     <th class="text-center align-middle">Tanggal Lahir</th>
                     <th class="text-center align-middle">Jenis Kelamin</th>
-                    <th class="text-center align-middle">Status</th>
                 </tr>
             </thead>
             <?php
-            $q = "
-                SELECT 
-                    *,
-                    IF(
-                        (SELECT id_guru FROM kelas_aktif ka WHERE ka.id_guru=g.id AND ka.status='Aktif'),
-                        'Wali Kelas',
-                        'Guru'
-                    ) status
-                FROM 
-                    guru g
-            ";
-            if (isset($_POST['status'])) {
-                $q .= "
-                    WHERE 
-                        IF(
-                            (SELECT id_guru FROM kelas_aktif ka WHERE ka.id_guru=g.id AND ka.status='Aktif'),
-                            'Wali Kelas',
-                            'Guru'
-                        ) = '" . $_POST['status'] . "'
-                ";
-            }
+            $q = "SELECT * FROM guru";
+            if (isset($_POST['jabatan']))
+                $q .= " WHERE jabatan= '" . $_POST['jabatan'] . "'";
+
             $result = $mysqli->query($q);
             $no = 1;
             ?>
@@ -65,10 +48,10 @@
                             <td class="text-center align-middle td-fit"><?= $no++; ?></td>
                             <td class="text-center align-middle"><?= $row['nip']; ?></td>
                             <td class="text-center align-middle"><?= $row['nama']; ?></td>
+                            <td class="text-center align-middle"><?= $row['jabatan']; ?></td>
                             <td class="text-center align-middle"><?= $row['tempat_lahir']; ?></td>
                             <td class="text-center align-middle"><?= indonesiaDate($row['tanggal_lahir']); ?></td>
                             <td class="text-center align-middle"><?= $row['jenis_kelamin']; ?></td>
-                            <td class="text-center align-middle"><?= $row['status']; ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else : ?>

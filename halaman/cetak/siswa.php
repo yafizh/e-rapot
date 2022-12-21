@@ -21,7 +21,7 @@
         <span>: <?= isset($_POST['status']) ? ($_POST['status'] == 'Alumni' ? 'Telah Lulus' : $_POST['status']) : 'Semua Status'; ?></span>
     </section>
     <main class="p-3">
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th class="align-middle text-center td-fit">No</th>
@@ -35,9 +35,8 @@
             </thead>
             <?php
             $q = "SELECT * FROM siswa";
-            if (isset($_POST['status'])) {
+            if (isset($_POST['status'])) 
                 $q .= " WHERE status = '" . $_POST['status'] . "'";
-            }
 
             $q .= " ORDER BY nama";
             $result = $mysqli->query($q);
