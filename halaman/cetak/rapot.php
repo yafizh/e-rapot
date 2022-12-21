@@ -27,6 +27,7 @@
     <?php include_once('../../functions/number.php'); ?>
     <?php date_default_timezone_set('Asia/Kuala_Lumpur'); ?>
     <?php
+    $semester = $mysqli->query("SELECT * FROM semester ORDER BY tingkat")->fetch_assoc();
     $q = "
         SELECT 
             g.nip AS nip_wali_kelas, 
@@ -37,6 +38,7 @@
             s.nama AS nama_siswa,
             k.nama AS kelas, 
             ka.nama AS nama_kelas, 
+            semester.id AS id_semester,
             semester.nama AS semester,
             ka.tahun_pelajaran,
             sk.sakit,
@@ -256,16 +258,18 @@
             <div class="col-6 text-center"></div>
             <div class="col-6 text-center">NIP. <?= $data['nip_wali_kelas']; ?></div>
         </div>
-        <br><br><br><br><br>
-        <div class="row">
-            <div class="col-12 text-center">Kepala Sekolah</div>
-        </div>
-        <br><br><br><br><br>
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">Martaniah, S.Pd.I.</div>
-            <div class="col-3 border border-dark"></div>
-            <div class="col-12 text-center">NIP. 197303232000032003</div>
-        </div>
+        <?php if (!($semester['id'] == $data['id_semester'])) : ?>
+            <br><br><br><br><br>
+            <div class="row">
+                <div class="col-12 text-center">Kepala Sekolah</div>
+            </div>
+            <br><br><br><br><br>
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">Martaniah, S.Pd.I.</div>
+                <div class="col-3 border border-dark"></div>
+                <div class="col-12 text-center">NIP. 197303232000032003</div>
+            </div>
+        <?php endif; ?>
 
     </section>
     <script>

@@ -1,35 +1,4 @@
 <?php
-$q = "
-    SELECT 
-        s.nisn,
-        s.nis,
-        s.nama,
-        s.foto,
-        sk.*, 
-        se.nama AS semester,
-        ka.id AS id_kelas_aktif  
-    FROM 
-        semester_kelas AS sk 
-    INNER JOIN 
-        semester AS se 
-    ON 
-        se.id=sk.id_semester  
-    INNER JOIN 
-        kelas_siswa AS ks 
-    ON 
-        ks.id=sk.id_kelas_siswa 
-    INNER JOIN 
-        kelas_aktif AS ka 
-    ON 
-        ka.id=ks.id_kelas_aktif 
-    INNER JOIN 
-        siswa AS s 
-    ON 
-        s.id=ks.id_siswa 
-    WHERE 
-        sk.id=" . $_GET['id_semester_kelas'] . " 
-";
-$data = $mysqli->query($q)->fetch_assoc();
 if (isset($_POST['submit'])) {
     $mata_pelajaran_kelas = $_POST['mata_pelajaran_kelas'] ?? [];
     $nilai = $_POST['nilai'] ?? [];
@@ -75,6 +44,37 @@ if (isset($_POST['submit'])) {
         throw $e;
     };
 }
+$q = "
+    SELECT 
+        s.nisn,
+        s.nis,
+        s.nama,
+        s.foto,
+        sk.*, 
+        se.nama AS semester,
+        ka.id AS id_kelas_aktif  
+    FROM 
+        semester_kelas AS sk 
+    INNER JOIN 
+        semester AS se 
+    ON 
+        se.id=sk.id_semester  
+    INNER JOIN 
+        kelas_siswa AS ks 
+    ON 
+        ks.id=sk.id_kelas_siswa 
+    INNER JOIN 
+        kelas_aktif AS ka 
+    ON 
+        ka.id=ks.id_kelas_aktif 
+    INNER JOIN 
+        siswa AS s 
+    ON 
+        s.id=ks.id_siswa 
+    WHERE 
+        sk.id=" . $_GET['id_semester_kelas'] . " 
+";
+$data = $mysqli->query($q)->fetch_assoc();
 ?>
 <main class="content">
     <div class="container-fluid p-0">
