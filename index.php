@@ -13,11 +13,11 @@ $_SESSION['old'] = [];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Aplikasi E-Rapot</title>
-    <link rel="shortcut icon" href="../../assets/img/icons/kemenag.svg" />
+    <link rel="shortcut icon" href="assets/img/icons/kemenag.svg" />
 
     <link rel="stylesheet" href="assets/css/light.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link href="assets/css/font.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
     <style>
         .td-fit {
             width: 1%;

@@ -47,11 +47,10 @@ if (isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="canonical" href="https://demo.adminkit.io/pages-sign-in.html" />
-
     <title>LOGIN</title>
+    <link rel="shortcut icon" href="../../assets/img/icons/kemenag.svg" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="../../assets/css/font.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/light.css">
     <style>
         body {
