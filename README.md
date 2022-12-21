@@ -1,5 +1,5 @@
 # Cara Install Aplikasi
-1. Download ZIP *source code*__
+1. Download ZIP *source code*<br />
 ![Cara Download](/assets/img/readme/download.png)
 2. Import Database
 3. Import Data Awal
