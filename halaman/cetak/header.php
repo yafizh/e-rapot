@@ -5,8 +5,10 @@
 <?php date_default_timezone_set('Asia/Kuala_Lumpur'); ?>
 <header class="text-center p-4">
     <img src="../../assets/img/icons/kemenag.svg" alt="Logo" width="110" style="position: absolute; left: 30px;">
-    <h4>MADRASAH ALIYAH AMPAH</h4>
-    Jl.Kapten Raden Soesilo RT.03, Ampah Kota, Kalimantan Tengah 73652
+    <h4>MTSS ISLAMIYAH AMPAH</h4>
+    Jl. Ampah-Muara Teweh Km.7, Puri, Kota Raren Batuan,
+    <br>
+    Kabupaten Barito Timur, Kalimantan Tengah.
     <br>
     Email: ma.ampah@yahoo.com
 </header>
