@@ -1,10 +1,10 @@
-INSERT INTO `user` (
+INSERT INTO `db_e_rapot`.`user` (
     username,
     password
 ) VALUES 
 ('admin', 'admin');
 
-INSERT INTO `guru` (
+INSERT INTO `db_e_rapot`.`guru` (
     nip,
     nama,
     jabatan,
@@ -24,7 +24,7 @@ INSERT INTO `guru` (
 ('198308282009032005', 'Noorafni, S.Pd', 'Guru', 'Martapura', '1983-08-28', 'Perempuan', ''),
 ('198405152009031003', 'M. Muammar,SP', 'Guru', 'Martapura', '1984-05-15', 'Laki - Laki', '');
 
-INSERT INTO `kelas` (
+INSERT INTO `db_e_rapot`.`kelas` (
     nama,
     tingkat
 ) VALUES 
@@ -32,14 +32,14 @@ INSERT INTO `kelas` (
 ('VIII', 2),
 ('IX', 3);
 
-INSERT INTO `semester` (
+INSERT INTO `db_e_rapot`.`semester` (
     nama,
     tingkat
 ) VALUES 
 ('1', 1),
 ('2', 2);
 
-INSERT INTO `mata_pelajaran` (
+INSERT INTO `db_e_rapot`.`mata_pelajaran` (
     id, 
     nama, 
     kkm
@@ -64,7 +64,7 @@ INSERT INTO `mata_pelajaran` (
 (18, 'Kimia', 65),
 (19, 'Informatika', 65);
 
-INSERT INTO `siswa` (
+INSERT INTO `db_e_rapot`.`siswa` (
     nis,
     nisn,
     nama,

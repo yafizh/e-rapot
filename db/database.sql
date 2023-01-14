@@ -2,14 +2,14 @@ DROP DATABASE IF EXISTS `db_e_rapot`;
 CREATE DATABASE `db_e_rapot`;
 USE `db_e_rapot`;
 
-CREATE TABLE `user` (
+CREATE TABLE `db_e_rapot`.`user` (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE `guru` (
+CREATE TABLE `db_e_rapot`.`guru` (
     id INT NOT NULL AUTO_INCREMENT,
     nip VARCHAR(255) NOT NULL UNIQUE,
     nama VARCHAR(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE `guru` (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE `user_guru` (
+CREATE TABLE `db_e_rapot`.`user_guru` (
     id INT NOT NULL AUTO_INCREMENT,
     id_user INT NOT NULL,
     id_guru INT NOT NULL,
@@ -31,28 +31,28 @@ CREATE TABLE `user_guru` (
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `kelas` (
+CREATE TABLE `db_e_rapot`.`kelas` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
     tingkat INT NOT NULL,
     PRIMARY KEY (id) 
 );
 
-CREATE TABLE `semester` (
+CREATE TABLE `db_e_rapot`.`semester` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
     tingkat INT NOT NULL,
     PRIMARY KEY (id) 
 );
 
-CREATE TABLE `mata_pelajaran` (
+CREATE TABLE `db_e_rapot`.`mata_pelajaran` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
     kkm INT NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE `kelas_aktif` (
+CREATE TABLE `db_e_rapot`.`kelas_aktif` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas INT NOT NULL,
     id_guru INT NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `kelas_aktif` (
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `siswa` (
+CREATE TABLE `db_e_rapot`.`siswa` (
     id INT NOT NULL AUTO_INCREMENT,
     nis VARCHAR(255) NOT NULL,
     nisn VARCHAR(255) NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `siswa` (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE `kelas_siswa` (
+CREATE TABLE `db_e_rapot`.`kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas_aktif INT NOT NULL,
     id_siswa INT NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `kelas_siswa` (
     FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `semester_kelas` (
+CREATE TABLE `db_e_rapot`.`semester_kelas` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas_siswa INT NOT NULL,
     id_semester INT NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE `semester_kelas` (
     FOREIGN KEY (id_semester) REFERENCES semester (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `mata_pelajaran_kelas` (
+CREATE TABLE `db_e_rapot`.`mata_pelajaran_kelas` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas_aktif INT NOT NULL,
     id_mata_pelajaran INT NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE `mata_pelajaran_kelas` (
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `nilai_siswa` (
+CREATE TABLE `db_e_rapot`.`nilai_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
     id_semester_kelas INT NOT NULL,
     id_mata_pelajaran_kelas INT NOT NULL,
