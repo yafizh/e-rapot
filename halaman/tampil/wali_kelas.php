@@ -53,7 +53,9 @@
                                 INNER JOIN 
                                     kelas AS k   
                                 ON 
-                                    k.id=ka.id_kelas";
+                                    k.id=ka.id_kelas 
+                                WHERE 
+                                    ka.status='Aktif'";
                             $result = $mysqli->query($q);
                             $no = 1;
                             ?>
