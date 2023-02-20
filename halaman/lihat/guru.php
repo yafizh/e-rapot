@@ -41,7 +41,7 @@ $mata_pelajaran_yang_dipegang = $mysqli->query($query);
                     <div class="card-header">
                     </div>
                     <div class="card-body text-center">
-                        <img src="../assets/img/avatars/avatar-4.jpg" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                        <img src="<?= $data['foto']; ?>" alt="Christina Mason" class="img-fluid rounded-circle mb-2" style="width: 128px; height: 128px; object-fit: cover;" />
                         <h5 class="card-title mb-0"><?= $data['nama']; ?></h5>
                         <div class="text-muted mb-2"><?= $data['wali_kelas'] ? 'Wali Kelas' : 'Guru'; ?></div>
                     </div>

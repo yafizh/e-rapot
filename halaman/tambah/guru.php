@@ -26,10 +26,10 @@ if (isset($_POST['submit'])) {
         $uploadOk = 0;
     }
 
-    if ($foto["size"] > 500000) {
-        $_SESSION['error'][] = "Gambar terlalu besar!";
-        $uploadOk = 0;
-    }
+    // if ($foto["size"] > 500000) {
+    //     $_SESSION['error'][] = "Gambar terlalu besar!";
+    //     $uploadOk = 0;
+    // }
 
     if (
         $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"

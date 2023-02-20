@@ -42,10 +42,10 @@ if (isset($_POST['submit'])) {
             $uploadOk = 0;
         }
 
-        if ($foto["size"] > 500000) {
-            $_SESSION['error'][] = "Gambar terlalu besar!";
-            $uploadOk = 0;
-        }
+        // if ($foto["size"] > 500000) {
+        //     $_SESSION['error'][] = "Gambar terlalu besar!";
+        //     $uploadOk = 0;
+        // }
 
         if (
             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -61,11 +61,11 @@ if (isset($_POST['submit'])) {
         }
     } else $target_file = $data['foto'];
 
-    $cek_nis = $mysqli->query("SELECT nis FROM siswa WHERE nis='$nis'");
+    $cek_nis = $mysqli->query("SELECT nis FROM siswa WHERE nis='$nis' AND id !=" . $_GET['id']);
     if ($cek_nis->num_rows)
         $_SESSION['error'][] = "NIS $nis telah digunakan, NIS tidak dapat sama dengan siswa yang lain.";
 
-    $cek_nisn = $mysqli->query("SELECT nisn FROM siswa WHERE nisn='$nisn'");
+    $cek_nisn = $mysqli->query("SELECT nisn FROM siswa WHERE nisn='$nisn' AND id !=" . $_GET['id']);
     if ($cek_nisn->num_rows)
         $_SESSION['error'][] = "NISN $nisn telah digunakan, NISN tidak dapat sama dengan siswa yang lain.";
 

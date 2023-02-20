@@ -12,7 +12,7 @@
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                     <?php if (!is_null($_SESSION['user']['id_guru'])) : ?>
-                        <img src="<?= $_SESSION['user']['foto']; ?>" onerror="imageError(this)" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+                        <img src="<?= $_SESSION['user']['foto']; ?>" onerror="imageError(this)" style="object-fit: cover;" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
                     <?php endif; ?>
                     <span class="text-dark"><?= is_null($_SESSION['user']['id_guru']) ? 'ADMIN' : $_SESSION['user']['nama']; ?></span>
                 </a>

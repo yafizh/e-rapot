@@ -87,7 +87,7 @@ $data = $mysqli->query($q)->fetch_assoc();
         <div class="col-12 col-sm-6 col-md-5 col-xl-3">
                 <div class="card mb-3">
                     <div class="card-body text-center">
-                        <img src="<?= $data['foto']; ?>" onerror="imageError(this)" class="img-fluid rounded-circle mb-2" width="254" height="254">
+                        <img src="<?= $data['foto']; ?>" onerror="imageError(this)" class="img-fluid rounded-circle mb-2" style="width: 254px; height: 254px; object-fit: cover;">
                         <h5 class="card-title mb-0 mt-3"><?= $data['nama']; ?></h5>
                         <div class="text-muted mb-2"><?= $data['nis']; ?>/<?= $data['nisn']; ?></div>
                     </div>

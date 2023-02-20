@@ -70,7 +70,7 @@ foreach ($semester as $value) {
             <div class="col-12 col-sm-6 col-md-5 col-xl-3">
                 <div class="card mb-3">
                     <div class="card-body text-center">
-                        <img src="<?= $guru['foto']; ?>" onerror="imageError(this)" class="img-fluid rounded-circle mb-2" width="180" height="180">
+                        <img src="<?= $guru['foto']; ?>" onerror="imageError(this)" class="img-fluid rounded-circle mb-2"  style="width: 180px; height: 180px; object-fit: cover;">
                         <h5 class="card-title mb-0"><?= $guru['nama']; ?></h5>
                         <div class="text-muted mb-2">Wali Kelas</div>
                     </div>
