@@ -10,7 +10,7 @@
     <br>
     Kabupaten Barito Timur, Kalimantan Tengah.
     <br>
-    Email: mts.ampah@yahoo.com
+    Email: mts.ampah@gmail.com
 </header>
 <div class="d-flex flex-column justify-content-center w-100">
     <div style="width: 100%; border-top: 3px solid black;"></div>
