@@ -62,6 +62,9 @@ $_SESSION['old'] = [];
                             case "mata_pelajaran":
                                 include_once "halaman/tampil/mata_pelajaran.php";
                                 break;
+                            case "buku_digital":
+                                include_once "halaman/tampil/buku_digital.php";
+                                break;
                             case "guru":
                                 include_once "halaman/tampil/guru.php";
                                 break;
@@ -84,6 +87,9 @@ $_SESSION['old'] = [];
                             case "lihat_guru":
                                 include_once "halaman/lihat/guru.php";
                                 break;
+                            case "lihat_buku_digital":
+                                include_once "halaman/lihat/buku_digital.php";
+                                break;
                             case "lihat_siswa":
                                 include_once "halaman/lihat/siswa.php";
                                 break;
@@ -99,6 +105,9 @@ $_SESSION['old'] = [];
                                 // Tambah
                             case "tambah_kelas":
                                 include_once "halaman/tambah/kelas.php";
+                                break;
+                            case "tambah_buku_digital":
+                                include_once "halaman/tambah/buku_digital.php";
                                 break;
                             case "tambah_semester":
                                 include_once "halaman/tambah/semester.php";
@@ -134,6 +143,9 @@ $_SESSION['old'] = [];
                             case "edit_kelas":
                                 include_once "halaman/edit/kelas.php";
                                 break;
+                            case "edit_buku_digital":
+                                include_once "halaman/edit/buku_digital.php";
+                                break;
                             case "edit_semester":
                                 include_once "halaman/edit/semester.php";
                                 break;
@@ -155,6 +167,9 @@ $_SESSION['old'] = [];
                                 // Hapus
                             case "hapus_kelas":
                                 include_once "halaman/hapus/kelas.php";
+                                break;
+                            case "hapus_buku_digital":
+                                include_once "halaman/hapus/buku_digital.php";
                                 break;
                             case "hapus_semester":
                                 include_once "halaman/hapus/semester.php";

@@ -67,6 +67,17 @@
                     <i class="fa-solid fa-book"></i> <span class="align-middle">Mata Pelajaran</span>
                 </a>
             </li>
+            <li class="sidebar-item <?php
+                                    if (isset($_GET['h'])) {
+                                        if ($_GET['h'] == "buku_digital") echo "active";
+                                        else if ($_GET['h'] == "tambah_buku_digital") echo "active";
+                                        else if ($_GET['h'] == "edit_buku_digital") echo "active";
+                                    }
+                                    ?>">
+                <a class="sidebar-link" href="?h=buku_digital">
+                    <i class="fa-solid fa-book"></i> <span class="align-middle">Buku Digital</span>
+                </a>
+            </li>
 
             <li class="sidebar-header">
                 Data Sekolah
