@@ -6,6 +6,8 @@ CREATE TABLE `db_e_rapot`.`user` (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    status_login BOOLEAN NULL,
+    terakhir_login DATETIME NULL,
     PRIMARY KEY (id)
 );
 
@@ -81,6 +83,15 @@ CREATE TABLE `db_e_rapot`.`siswa` (
     foto VARCHAR(255) NOT NULL,
     status VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE `db_e_rapot`.`user_siswa` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    id_siswa INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE,
+    FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE
 );
 
 CREATE TABLE `db_e_rapot`.`user_siswa` (
@@ -180,3 +191,14 @@ CREATE TABLE `db_e_rapot`.`tugas_siswa` (
     FOREIGN KEY (id_semester_kelas) REFERENCES semester_kelas (id) ON DELETE CASCADE,
     FOREIGN KEY (id_tugas_mata_pelajaran_kelas) REFERENCES tugas_mata_pelajaran_kelas (id) ON DELETE CASCADE
 );
+
+CREATE TABLE `db_e_rapot`.`buku_digital` (
+    id INT NOT NULL AUTO_INCREMENT,
+    judul VARCHAR(255) NOT NULL,
+    pengarang VARCHAR(255) NOT NULL,
+    tahun_terbit TINYINT UNSIGNED NOT NULL,
+    jumlah_halaman TINYINT UNSIGNED NOT NULL,
+    file VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
