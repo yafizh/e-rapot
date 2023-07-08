@@ -12,9 +12,14 @@ if (isset($_POST['submit'])) {
             u.username, 
             u.password,
             ug.id_guru,
+            us.id_siswa,
             g.nip,
             g.nama,
             g.foto,
+            s.nis,
+            s.nisn,
+            s.nama,
+            s.foto,
             ug.status 
         FROM 
             user AS u 
@@ -26,6 +31,14 @@ if (isset($_POST['submit'])) {
             guru AS g 
         ON 
             g.id=ug.id_guru 
+        LEFT JOIN 
+            user_siswa AS us 
+        ON 
+            u.id=us.id_user 
+        LEFT JOIN 
+            siswa AS s 
+        ON 
+            s.id=us.id_siswa 
         WHERE 
             u.username='$username' 
             AND 
