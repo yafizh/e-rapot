@@ -14,12 +14,12 @@ if (isset($_POST['submit'])) {
             ug.id_guru,
             us.id_siswa,
             g.nip,
-            g.nama,
-            g.foto,
+            g.nama nama_guru,
+            g.foto foto_guru,
             s.nis,
             s.nisn,
-            s.nama,
-            s.foto,
+            s.nama nama_siswa,
+            s.foto foto_siswa,
             ug.status 
         FROM 
             user AS u 

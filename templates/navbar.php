@@ -13,10 +13,17 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <?php if (!is_null($_SESSION['user']['id_guru']) || !is_null($_SESSION['user']['id_siswa'])) : ?>
-                        <img src="<?= $_SESSION['user']['foto']; ?>" onerror="imageError(this)" style="object-fit: cover;" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+                    <?php if (!is_null($_SESSION['user']['id_guru'])) : ?>
+                        <img src="<?= $_SESSION['user']['foto_guru']; ?>" onerror="imageError(this)" style="object-fit: cover;" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+                        <span class="text-dark"><?= $_SESSION['user']['nama_guru']; ?></span>
                     <?php endif; ?>
-                    <span class="text-dark"><?= is_null($_SESSION['user']['id_guru']) && is_null($_SESSION['user']['id_siswa']) ? 'ADMIN' : $_SESSION['user']['nama']; ?></span>
+                    <?php if (!is_null($_SESSION['user']['id_siswa'])) : ?>
+                        <img src="<?= $_SESSION['user']['foto_siswa']; ?>" onerror="imageError(this)" style="object-fit: cover;" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+                        <span class="text-dark"><?= $_SESSION['user']['nama_siswa']; ?></span>
+                    <?php endif; ?>
+                    <?php if (is_null($_SESSION['user']['id_guru']) && is_null($_SESSION['user']['id_siswa'])) : ?>
+                        <span class="text-dark"><?= 'ADMIN'; ?></span>
+                    <?php endif; ?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <?php if (!is_null($_SESSION['user']['id_guru']) || !is_null($_SESSION['user']['id_siswa'])) : ?>
