@@ -25,27 +25,27 @@ if (isset($_POST['submit'])) {
         )";
         $mysqli->query($q);
 
-        $q = "
-        INSERT INTO user (
-            username, 
-            password 
-        ) VALUES (
-            '" . $guru['nip'] . "', 
-            '" . $guru['nip'] . "' 
-        )";
-        $mysqli->query($q);
+        // $q = "
+        // INSERT INTO user (
+        //     username, 
+        //     password 
+        // ) VALUES (
+        //     '" . $guru['nip'] . "', 
+        //     '" . $guru['nip'] . "' 
+        // )";
+        // $mysqli->query($q);
 
-        $q = "
-        INSERT INTO user_guru (
-            id_user, 
-            id_guru,
-            status  
-        ) VALUES (
-            '" . $mysqli->insert_id . "', 
-            '$id_guru',
-            'Wali Kelas'  
-        )";
-        $mysqli->query($q);
+        // $q = "
+        // INSERT INTO user_guru (
+        //     id_user, 
+        //     id_guru,
+        //     status  
+        // ) VALUES (
+        //     '" . $mysqli->insert_id . "', 
+        //     '$id_guru',
+        //     'Wali Kelas'  
+        // )";
+        // $mysqli->query($q);
 
         $mysqli->commit();
 
