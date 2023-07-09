@@ -36,12 +36,14 @@ $_SESSION['old'] = [];
     <script>
         const imageError = (elm) => elm.setAttribute('src', 'assets/img/photos/no-product-image-400x400.png');
     </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
         <?php if (isset($_SESSION['user'])) : ?>
-            <?php if (is_null($_SESSION['user']['id_guru'])) : ?>
+            <?php if (is_null($_SESSION['user']['id_guru']) && is_null($_SESSION['user']['id_siswa'])) : ?>
                 <?php include_once('templates/sidebar.php'); ?>
             <?php endif; ?>
         <?php endif; ?>
@@ -49,7 +51,7 @@ $_SESSION['old'] = [];
             <?php include_once('templates/navbar.php'); ?>
             <?php
             if (isset($_SESSION['user'])) {
-                if (is_null($_SESSION['user']['id_guru'])) {
+                if (is_null($_SESSION['user']['id_guru']) && is_null($_SESSION['user']['id_siswa'])) {
                     if (isset($_GET['h'])) {
                         switch ($_GET['h']) {
                                 // Tampil
@@ -220,18 +222,49 @@ $_SESSION['old'] = [];
                         }
                     } else include_once "beranda.php";
                 } else {
-                    if (isset($_GET['h'])) {
-                        switch ($_GET['h']) {
-                            case "input_nilai":
-                                include_once "halaman/wali_kelas/input_nilai.php";
-                                break;
-                            case "ganti_password":
-                                include_once "halaman/auth/ganti_password.php";
-                                break;
-                            default:
-                                include_once "halaman/wali_kelas/beranda.php";
-                        }
-                    } else include_once "halaman/wali_kelas/beranda.php";
+                    // Guru
+                    if (!is_null($_SESSION['user']['id_guru'])) {
+                        if (isset($_GET['h'])) {
+                            switch ($_GET['h']) {
+                                    // case "input_nilai":
+                                    //     include_once "halaman/wali_kelas/input_nilai.php";
+                                    //     break;
+                                case "mata_pelajaran":
+                                    include_once "halaman/guru/mata_pelajaran.php";
+                                    break;
+                                case "lihat_presensi":
+                                    include_once "halaman/guru/presensi/lihat.php";
+                                    break;
+                                case "tambah_presensi":
+                                    include_once "halaman/guru/presensi/tambah.php";
+                                    break;
+                                case "edit_presensi":
+                                    include_once "halaman/guru/presensi/edit.php";
+                                    break;
+                                case "hapus_presensi":
+                                    include_once "halaman/guru/presensi/hapus.php";
+                                    break;
+                                case "ganti_password":
+                                    include_once "halaman/auth/ganti_password.php";
+                                    break;
+                                default:
+                                    include_once "halaman/guru/kelas_aktif.php";
+                            }
+                        } else include_once "halaman/guru/kelas_aktif.php";
+                    }
+
+                    // Siswa
+                    if (!is_null($_SESSION['user']['id_siswa'])) {
+                        if (isset($_GET['h'])) {
+                            switch ($_GET['h']) {
+                                case "mata_pelajaran":
+                                    include_once "halaman/siswa/mata_pelajaran.php";
+                                    break;
+                                default:
+                                    include_once "halaman/siswa/kelas_aktif.php";
+                            }
+                        } else include_once "halaman/siswa/kelas_aktif.php";
+                    }
                 }
             } else
                 echo "<script>location.href = 'halaman/auth/login.php'</script>";
