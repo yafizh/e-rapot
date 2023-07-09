@@ -199,3 +199,15 @@ CREATE TABLE `db_e_rapot`.`buku_digital` (
     PRIMARY KEY (id)
 );
 
+
+CREATE TABLE `db_e_rapot`.`forum_diskusi` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    id_mata_pelajaran_kelas INT NOT NULL,
+    tanggal_waktu DATETIME,
+    pesan TEXT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE,
+    FOREIGN KEY (id_mata_pelajaran_kelas) REFERENCES mata_pelajaran_kelas (id) ON DELETE CASCADE
+);
+
