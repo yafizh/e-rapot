@@ -58,9 +58,9 @@ $data = $mysqli->query($query)->fetch_assoc(); ?>
 
             <div class="col-md-8 col-xl-9">
                 <div class="card">
-                    <div class="card-header">
-
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Data Diri</h5>
+                        <a href="halaman/cetak/detail_siswa.php?id=<?= $data['id']; ?>" target="_blank" class="btn btn-info">Cetak</a>
                     </div>
                     <div class="card-body h-100">
                         <div class="row">
