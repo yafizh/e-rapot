@@ -45,7 +45,10 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h3>Presensi Siswa</h3>
-                        <a href="?h=mata_pelajaran&id=<?= $_GET['id']; ?>" class="btn btn-secondary">Kembali</a>
+                        <div>
+                            <a href="halaman/cetak/presensi.php?id=<?= $_GET['id']; ?>&idd=<?= $_GET['idd']; ?>" target="_blank" class="btn btn-info">Cetak</a>
+                            <a href="?h=mata_pelajaran&id=<?= $_GET['id']; ?>" class="btn btn-secondary">Kembali</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
