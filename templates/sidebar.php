@@ -157,6 +157,11 @@
                     <i class="fas fa-file-pdf"></i> <span class="align-middle">Kelas Selesai</span>
                 </a>
             </li>
+            <li class="sidebar-item <?= ($_GET['h'] ?? '') == 'laporan_grafik_jenis_kelamin_siswa' ? 'active' : ''; ?>">
+                <a class="sidebar-link" href="?h=laporan_grafik_jenis_kelamin_siswa">
+                    <i class="fas fa-file-pdf"></i> <span class="align-middle">Grafik Jenis Kelamin Siswa</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
