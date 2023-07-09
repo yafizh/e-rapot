@@ -17,6 +17,10 @@
             .pagebreak {
                 page-break-before: always;
             }
+
+            @page {
+                size: potrait;
+            }
         }
     </style>
 </head>

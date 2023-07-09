@@ -7,6 +7,13 @@
     <title>Laporan Guru</title>
     <link rel="shortcut icon" href="../../assets/img/icons/kemenag.svg" />
     <link href="../../assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+        @media print {
+            @page {
+                size: landscape
+            }
+        }
+    </style>
 </head>
 
 <body>
