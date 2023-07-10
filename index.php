@@ -230,9 +230,12 @@ $_SESSION['old']    = [];
                     if (!is_null($_SESSION['user']['id_guru'])) {
                         if (isset($_GET['h'])) {
                             switch ($_GET['h']) {
-                                    // case "input_nilai":
-                                    //     include_once "halaman/wali_kelas/input_nilai.php";
-                                    //     break;
+                                case "input_nilai":
+                                    include_once "halaman/guru/input_nilai.php";
+                                    break;
+                                case "wali_kelas":
+                                    include_once "halaman/guru/wali_kelas.php";
+                                    break;
                                 case "mata_pelajaran":
                                     include_once "halaman/guru/mata_pelajaran.php";
                                     break;

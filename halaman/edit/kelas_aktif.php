@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     try {
         $mysqli->begin_transaction();
         $guru = $mysqli->query("SELECT * FROM guru WHERE id=$id_guru")->fetch_assoc();
-        $user_guru = $mysqli->query("SELECT * FROM user_guru WHERE id_guru=" . $data['id_guru'])->fetch_assoc();
+        // $user_guru = $mysqli->query("SELECT * FROM user_guru WHERE id_guru=" . $data['id_guru'])->fetch_assoc();
 
         $q = "
         UPDATE kelas_aktif SET 
@@ -20,29 +20,29 @@ if (isset($_POST['submit'])) {
             id=" . $_GET['id_kelas_aktif'];
         $mysqli->query($q);
 
-        $mysqli->query("DELETE FROM user WHERE id=" . $user_guru['id_user']);
+        // $mysqli->query("DELETE FROM user WHERE id=" . $user_guru['id_user']);
 
-        $q = "
-        INSERT INTO user (
-            username, 
-            password 
-        ) VALUES (
-            '" . $guru['nip'] . "', 
-            '" . $guru['nip'] . "' 
-        )";
-        $mysqli->query($q);
+        // $q = "
+        // INSERT INTO user (
+        //     username, 
+        //     password 
+        // ) VALUES (
+        //     '" . $guru['nip'] . "', 
+        //     '" . $guru['nip'] . "' 
+        // )";
+        // $mysqli->query($q);
 
-        $q = "
-        INSERT INTO user_guru (
-            id_user, 
-            id_guru,
-            status  
-        ) VALUES (
-            '" . $mysqli->insert_id . "', 
-            '$id_guru',
-            'Wali Kelas'  
-        )";
-        $mysqli->query($q);
+        // $q = "
+        // INSERT INTO user_guru (
+        //     id_user, 
+        //     id_guru,
+        //     status  
+        // ) VALUES (
+        //     '" . $mysqli->insert_id . "', 
+        //     '$id_guru',
+        //     'Wali Kelas'  
+        // )";
+        // $mysqli->query($q);
 
         $mysqli->commit();
 

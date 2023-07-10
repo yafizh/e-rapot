@@ -48,16 +48,22 @@
                                     $no = 1;
                                     ?>
                                     <tbody>
-                                        <?php while ($row = $kelas_siswa->fetch_assoc()) : ?>
+                                        <?php if ($kelas_siswa->num_rows) : ?>
+                                            <?php while ($row = $kelas_siswa->fetch_assoc()) : ?>
+                                                <tr>
+                                                    <td class="text-center td-fit"><?= $no++; ?></td>
+                                                    <td class="text-center"><?= $row['kelas']; ?></td>
+                                                    <td class="text-center"><?= $row['mata_pelajaran']; ?></td>
+                                                    <td class="text-center td-fit">
+                                                        <a href="?h=mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Lihat</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile; ?>
+                                        <?php else : ?>
                                             <tr>
-                                                <td class="text-center td-fit"><?= $no++; ?></td>
-                                                <td class="text-center"><?= $row['kelas']; ?></td>
-                                                <td class="text-center"><?= $row['mata_pelajaran']; ?></td>
-                                                <td class="text-center td-fit">
-                                                    <a href="?h=mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Lihat</a>
-                                                </td>
+                                                <td colspan="4" class="text-center">Tidak Sedang Mengajar</td>
                                             </tr>
-                                        <?php endwhile; ?>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>
