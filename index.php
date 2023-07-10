@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
-$_SESSION['error'] = [];
-$_SESSION['old'] = [];
+$_SESSION['error']  = [];
+$_SESSION['old']    = [];
 
 ?>
 <?php require_once('functions/date.php'); ?>
@@ -217,9 +217,9 @@ $_SESSION['old'] = [];
                             case "laporan_kelas_selesai":
                                 include_once "halaman/laporan/kelas_selesai.php";
                                 break;
-                                case "laporan_grafik_jenis_kelamin_siswa":
-                                    include_once "halaman/laporan/grafik_jenis_kelamin_siswa.php";
-                                    break;
+                            case "laporan_grafik_jenis_kelamin_siswa":
+                                include_once "halaman/laporan/grafik_jenis_kelamin_siswa.php";
+                                break;
                             default:
                                 include_once "beranda.php";
                         }
@@ -250,6 +250,9 @@ $_SESSION['old'] = [];
                                 case "ganti_password":
                                     include_once "halaman/auth/ganti_password.php";
                                     break;
+                                case "buku_digital":
+                                    include_once "halaman/guru/buku_digital.php";
+                                    break;
                                 default:
                                     include_once "halaman/guru/kelas_aktif.php";
                             }
@@ -262,6 +265,9 @@ $_SESSION['old'] = [];
                             switch ($_GET['h']) {
                                 case "mata_pelajaran":
                                     include_once "halaman/siswa/mata_pelajaran.php";
+                                    break;
+                                case "buku_digital":
+                                    include_once "halaman/siswa/buku_digital.php";
                                     break;
                                 default:
                                     include_once "halaman/siswa/kelas_aktif.php";
