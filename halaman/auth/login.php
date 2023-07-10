@@ -1,5 +1,7 @@
-<?php 
+<?php
 session_start();
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
 $_SESSION['error'] = [];
 require_once('../../db/koneksi.php');
 if (isset($_POST['submit'])) {
@@ -47,6 +49,7 @@ if (isset($_POST['submit'])) {
     $data = $mysqli->query($q);
     if ($data->num_rows) {
         $_SESSION['user'] =  $data->fetch_assoc();
+        $mysqli->query("UPDATE user SET terakhir_login='" . Date("Y-m-d H:i:s") . "' WHERE id=" . $_SESSION['user']['id_user']);
         echo "<script>location.href = '../../index.php';</script>";
     } else
         $_SESSION['error'][] = "Username atau Password Salah!";
