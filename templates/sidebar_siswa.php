@@ -31,7 +31,7 @@ $q = "
     WHERE 
         ks.id_siswa=" . $siswa['id'] . " 
         AND 
-        ks.status='aktif'
+        ks.status='Aktif'
     ";
 $kelas = $mysqli->query($q)->fetch_assoc();
 ?>

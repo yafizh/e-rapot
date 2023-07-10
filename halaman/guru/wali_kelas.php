@@ -20,7 +20,7 @@
         WHERE 
             ka.id_guru=" . $_SESSION['user']['id_guru'] . " 
             AND 
-            ka.status='aktif'
+            ka.status='Aktif'
     ";
                 $kelas_aktif = $mysqli->query($q)->fetch_assoc();
 

@@ -7,7 +7,7 @@ $q = "
     WHERE 
         id_guru=" . $_SESSION['user']['id_guru'] . " 
         AND 
-        status='aktif'
+        status='Aktif'
 ";
 $wali_kelas = $mysqli->query($q)->fetch_assoc();
 ?>

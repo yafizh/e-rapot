@@ -39,7 +39,7 @@
                                         ON 
                                             ka.id_kelas=k.id 
                                         WHERE 
-                                            ka.status='aktif' 
+                                            ka.status='Aktif' 
                                             AND 
                                             mpk.id_guru=" . $_SESSION['user']['id_guru'] . "
                                     ";
