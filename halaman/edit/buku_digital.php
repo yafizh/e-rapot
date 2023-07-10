@@ -6,12 +6,13 @@ if (isset($_POST['submit'])) {
     $tahun_terbit = $mysqli->real_escape_string($_POST['tahun_terbit']);
     $jumlah_halaman = $mysqli->real_escape_string($_POST['jumlah_halaman']);
 
-    $foto = $_FILES['file'];
+    $file = $_FILES['file'];
+    $foto = $_FILES['foto'];
     $uploadOk = 1;
-    if ($foto['error'] != 4) {
+    if ($file['error'] != 4) {
         // File
         $target_dir = "uploads/buku-digital";
-        $imageFileType = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         $target_file = $target_dir . Date("YmdHis") . '.' . $imageFileType;
 
         if ($imageFileType != "pdf") {
@@ -20,10 +21,27 @@ if (isset($_POST['submit'])) {
         }
 
         if (!is_dir($target_dir)) mkdir($target_dir, 0700, true);
-        if (!move_uploaded_file($foto["tmp_name"], $target_file)) {
+        if (!move_uploaded_file($file["tmp_name"], $target_file)) {
             echo "Sorry, there was an error uploading your file.";
         }
-    } else $target_file = $data['file'];
+    } else {
+        $target_file = $data['file'];
+    }
+
+    if ($foto['error'] != 4) {
+        // File
+        $target_dir_foto = "uploads/foto-buku-digital";
+        $imageFileTypeFoto = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
+        $target_file_foto = $target_dir_foto . Date("YmdHis") . '.' . $imageFileTypeFoto;
+
+
+        if (!is_dir($target_dir_foto)) mkdir($target_dir_foto, 0700, true);
+        if (!move_uploaded_file($foto["tmp_name"], $target_file_foto)) {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    } else {
+        $target_file_foto = $data['foto'];
+    }
 
 
     if ($uploadOk) {
@@ -33,7 +51,8 @@ if (isset($_POST['submit'])) {
             pengarang='$pengarang', 
             tahun_terbit='$tahun_terbit', 
             jumlah_halaman='$jumlah_halaman',
-            file='$target_file' 
+            file='$target_file',
+            foto='$target_file_foto'
         WHERE
             id=" . $data['id'] . "
         ";
@@ -89,6 +108,10 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3">
                                 <label class="form-label w-100">File Buku Digital</label>
                                 <input type="file" name="file">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label w-100">Foto Buku Digital</label>
+                                <input type="file" name="foto">
                             </div>
                             <a href="?h=buku_digital" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Perbaharui</button>

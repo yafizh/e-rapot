@@ -196,6 +196,7 @@ CREATE TABLE `db_e_rapot`.`buku_digital` (
     tahun_terbit TINYINT UNSIGNED NOT NULL,
     jumlah_halaman TINYINT UNSIGNED NOT NULL,
     file VARCHAR(255) NOT NULL,
+    foto VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 

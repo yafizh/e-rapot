@@ -9,13 +9,12 @@ $data = $mysqli->query($query)->fetch_assoc();
 
         <div class="row">
             <div class="col-12 col-md-6">
-                <object class="w-100" data="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210101201653/PDF.pdf" width="800" height="500">
-                </object>
-            </div>
-
-            <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-body h-100">
+                        <div class="mb-3">
+                            <label class="form-label d-block">Foto</label>
+                            <img src="<?= $data['foto']; ?>" style="width: 10rem;height: 14rem; object-fit: cover;">
+                        </div>
                         <div class="mb-3">
                             <label class="form-label">Judul Buku</label>
                             <input type="text" class="form-control" value="<?= $data['judul']; ?>" disabled>
@@ -39,6 +38,10 @@ $data = $mysqli->query($query)->fetch_assoc();
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <object class="w-100" data="<?= $data['file']; ?>" width="800" height="500">
+                </object>
             </div>
         </div>
 

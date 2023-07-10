@@ -7,9 +7,13 @@ if (isset($_POST['submit'])) {
 
     // File
     $target_dir = "uploads/buku-digital/";
+    $target_dir_foto = "uploads/foto-buku-digital/";
     $file = $_FILES['file'];
+    $foto = $_FILES['foto'];
     $imageFileType = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $imageFileTypeFoto = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
     $target_file = $target_dir . Date("YmdHis") . '.' . $imageFileType;
+    $target_file_foto = $target_dir_foto . Date("YmdHis") . '.' . $imageFileTypeFoto;
     $uploadOk = 1;
 
     if ($imageFileType != "pdf") {
@@ -19,20 +23,23 @@ if (isset($_POST['submit'])) {
 
     if ($uploadOk) {
         if (!is_dir($target_dir)) mkdir($target_dir, 0700, true);
-        if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        if (!is_dir($target_dir_foto)) mkdir($target_dir_foto, 0700, true);
+        if (move_uploaded_file($file["tmp_name"], $target_file) && move_uploaded_file($foto["tmp_name"], $target_file_foto)) {
             $q = "
                 INSERT INTO buku_digital (
                     judul, 
                     pengarang, 
                     tahun_terbit, 
                     jumlah_halaman,
-                    file 
+                    file,
+                    foto 
                 ) VALUES (
                     '$judul', 
                     '$pengarang', 
                     '$tahun_terbit', 
                     '$jumlah_halaman',
-                    '$file'
+                    '$target_file',
+                    '$target_file_foto'
                 )";
 
             if ($mysqli->query($q)) {
@@ -88,6 +95,10 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3">
                                 <label class="form-label w-100">File Buku Digital</label>
                                 <input type="file" name="file" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label w-100">Foto</label>
+                                <input type="file" name="foto" required>
                             </div>
                             <a href="?h=buku_digital" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>
