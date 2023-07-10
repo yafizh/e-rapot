@@ -61,7 +61,7 @@
                                     <th class="text-center td-fit">No</th>
                                     <th class="text-center">NIP</th>
                                     <th class="text-center">Nama</th>
-                                    <th class="text-center">Jabatan</th>
+                                    <!-- <th class="text-center">Jabatan</th> -->
                                     <th class="text-center">Tempat Lahir</th>
                                     <th class="text-center">Tanggal Lahir</th>
                                     <th class="text-center">Jenis Kelamin</th>
@@ -78,7 +78,7 @@
                                         <td class="text-center td-fit"><?= $no++; ?></td>
                                         <td class="text-center"><?= $row['nip']; ?></td>
                                         <td><?= $row['nama']; ?></td>
-                                        <td class="text-center"><?= $row['jabatan']; ?></td>
+                                        <!-- <td class="text-center"><?= $row['jabatan']; ?></td> -->
                                         <td class="text-center"><?= $row['tempat_lahir']; ?></td>
                                         <td class="text-center"><?= indonesiaDate($row['tanggal_lahir']); ?></td>
                                         <td class="text-center"><?= $row['jenis_kelamin']; ?></td>

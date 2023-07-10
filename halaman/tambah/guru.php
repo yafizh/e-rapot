@@ -2,7 +2,7 @@
 if (isset($_POST['submit'])) {
     $nip = $mysqli->real_escape_string($_POST['nip']);
     $nama = $mysqli->real_escape_string($_POST['nama']);
-    $jabatan = $mysqli->real_escape_string($_POST['jabatan']);
+    $jabatan = $mysqli->real_escape_string($_POST['jabatan'] ?? '');
     $tempat_lahir = $mysqli->real_escape_string($_POST['tempat_lahir']);
     $tanggal_lahir = $mysqli->real_escape_string($_POST['tanggal_lahir']);
     $jenis_kelamin = $mysqli->real_escape_string($_POST['jenis_kelamin']);
@@ -109,7 +109,7 @@ if (isset($_POST['submit'])) {
                                 <label class="form-label">Nama</label>
                                 <input type="text" class="form-control" name="nama" required autocomplete="off" value="<?= $_SESSION['old']['nama'] ?? ''; ?>">
                             </div>
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label class="form-label">Jabatan</label>
                                 <select name="jabatan" class="form-control" required>
                                     <option value="Guru" <?= ($_SESSION['old']['nama'] ?? '') == 'Guru' ? 'selected' : ''; ?>>Guru</option>
@@ -119,7 +119,7 @@ if (isset($_POST['submit'])) {
                                     <?php endif; ?>
                                     <option value="Wali Kelas" <?= ($_SESSION['old']['nama'] ?? '') == 'Wali Kelas' ? 'selected' : ''; ?>>Wali Kelas</option>
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="mb-3">
                                 <label class="form-label">Tempat Lahir</label>
                                 <input type="text" class="form-control" name="tempat_lahir" required autocomplete="off" value="<?= $_SESSION['old']['tempat_lahir'] ?? ''; ?>">

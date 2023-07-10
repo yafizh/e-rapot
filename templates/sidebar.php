@@ -25,11 +25,11 @@
                     <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Admin</span>
                 </a>
             </li>
-            <li class="sidebar-item <?= (($_GET['h'] ?? '') == "wali_kelas") ? "active" : ''; ?>">
+            <!-- <li class="sidebar-item <?= (($_GET['h'] ?? '') == "wali_kelas") ? "active" : ''; ?>">
                 <a class="sidebar-link" href="?h=wali_kelas">
                     <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Wali Kelas</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="sidebar-header">
                 Data Master
