@@ -4,7 +4,7 @@
 </div>
 
 <div class="flex-grow-0 py-3 px-4 border-top">
-    <form action="">
+    <form id="chat-form" action="">
         <div class="input-group">
             <input type="text" id="pesan" class="form-control" placeholder="Type your message">
             <button type="submit" class="btn btn-primary" id="kirim-pesan">Send</button>
@@ -38,12 +38,16 @@
         const data = await response.json();
         chatMessages.innerHTML = '';
         console.log(data)
-        data.forEach(datum => {
-            chatMessages.insertAdjacentHTML('beforeend', chatMessage(datum));
-        });
+        if (data.length) {
+            data.forEach(datum => {
+                chatMessages.insertAdjacentHTML('beforeend', chatMessage(datum));
+            });
+        }else{
+            chatMessages.innerHTML = "<div class='text-center'>Tidak Ada Pesan</div>"
+        }
     }
     updateChat();
-    document.querySelector('form').addEventListener('submit', async (e) => {
+    document.querySelector('#chat-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         if (pesan.value) {
             const response = await fetch(`ajax/send_message.php?id=${urlParams.get('id')}&pesan=${pesan.value}&id_user=${id_user}`);

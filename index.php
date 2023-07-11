@@ -13,7 +13,7 @@ $_SESSION['old']    = [];
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Aplikasi E-Rapot</title>
+    <title>Aplikasi E-Learning</title>
     <link rel="shortcut icon" href="assets/img/icons/kemenag.svg" />
 
     <link rel="stylesheet" href="assets/css/light.css">

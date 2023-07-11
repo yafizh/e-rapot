@@ -77,13 +77,13 @@
                 s.nama,
                 (
                     SELECT 
-                        COUNT(id) 
+                        ps.id 
                     FROM 
-                        presensi_siswa 
+                        presensi_siswa ps
                     WHERE 
-                        id_siswa=s.id 
+                        ps.id_siswa=s.id 
                         AND 
-                        id_presensi_mata_pelajaran_kelas=" . $_GET['idd'] . "
+                        ps.id_presensi_mata_pelajaran_kelas=" . $_GET['idd'] . "
                 ) as status
             FROM 
                 mata_pelajaran_kelas mpk  

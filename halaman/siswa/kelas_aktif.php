@@ -37,7 +37,9 @@
                                         ON 
                                             mp.id=mpk.id_mata_pelajaran 
                                         WHERE 
-                                            ks.status='Aktif'
+                                            ks.status='Aktif' 
+                                            AND 
+                                            ks.id_siswa=" . $_SESSION['user']['id_siswa'] . "
                                     ";
 
                                     $kelas_siswa = $mysqli->query($q);

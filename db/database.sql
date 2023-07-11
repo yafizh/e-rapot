@@ -94,14 +94,6 @@ CREATE TABLE `db_e_rapot`.`user_siswa` (
     FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `db_e_rapot`.`user_siswa` (
-    id INT NOT NULL AUTO_INCREMENT,
-    id_user INT NOT NULL,
-    id_siswa INT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE,
-    FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE
-);
 
 CREATE TABLE `db_e_rapot`.`kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
@@ -161,7 +153,7 @@ CREATE TABLE `db_e_rapot`.`presensi_mata_pelajaran_kelas` (
 CREATE TABLE `db_e_rapot`.`presensi_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
     id_siswa INT NOT NULL,
-    id_presensi_mata_pelajaran_kelas INT NOT NULL
+    id_presensi_mata_pelajaran_kelas INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE,
     FOREIGN KEY (id_presensi_mata_pelajaran_kelas) REFERENCES presensi_mata_pelajaran_kelas (id) ON DELETE CASCADE

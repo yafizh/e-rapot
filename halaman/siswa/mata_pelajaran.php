@@ -1,13 +1,14 @@
 <?php
 
 if (isset($_POST['absen'])) {
+    $id_pmpk = $_POST['id_pmpk'];
     $q = "
         INSERT INTO presensi_siswa (
             id_siswa, 
             id_presensi_mata_pelajaran_kelas
         ) VALUES (
             " . $_SESSION['user']['id_siswa'] . ", 
-            " . $_GET['id'] . "
+            " . $id_pmpk . "
         )";
     if ($mysqli->query($q)) {
         echo "<script>alert('Berhasil mengisi presensi')</script>";
@@ -23,6 +24,7 @@ if (isset($_POST['absen'])) {
                 <?php
                 $q = "
                     SELECT
+                        pmpk.id,
                         pmpk.tanggal,
                         (
                             SELECT 
@@ -32,7 +34,7 @@ if (isset($_POST['absen'])) {
                             WHERE 
                                 ps.id_siswa=" . $_SESSION['user']['id_siswa'] . "  
                                 AND 
-                                ps.id_presensi_mata_pelajaran_kelas=" . $_GET['id'] . " 
+                                ps.id_presensi_mata_pelajaran_kelas=pmpk.id 
                         ) status  
                     FROM 
                         presensi_mata_pelajaran_kelas pmpk 
@@ -65,6 +67,7 @@ if (isset($_POST['absen'])) {
                                         <td class="text-center">
                                             <?php if (is_null($row['status'])) : ?>
                                                 <form action="" method="POST">
+                                                    <input type="text" name="id_pmpk" value="<?= $row['id']; ?>" hidden>
                                                     <button type="submit" name="absen" class="btn btn-sm btn-primary">Isi Presensi</button>
                                                 </form>
                                             <?php else : ?>
