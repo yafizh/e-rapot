@@ -18,6 +18,7 @@ $wali_kelas = $mysqli->query($q)->fetch_assoc();
         <?php if ($wali_kelas) : ?>
             <a href="?h=wali_kelas" class="btn <?= ($_GET['h'] ?? '') == 'wali_kelas' ? 'btn-primary' : 'btn-light bg-white'; ?>">Wali Kelas</a>
         <?php endif; ?>
+        <a href="?h=presensi" class="btn <?= ($_GET['h'] ?? '') == 'presensi' ? 'btn-primary' : 'btn-light bg-white'; ?>">Presensi</a>
         <!-- <a href="?h=kelas_selesai" class="btn <?= ($_GET['h'] ?? '') == 'buku_digital' ? 'btn-primary' : 'btn-light bg-white'; ?>">Kelas Selesai</a> -->
     </div>
 </div>

@@ -230,6 +230,9 @@ $_SESSION['old']    = [];
                     if (!is_null($_SESSION['user']['id_guru'])) {
                         if (isset($_GET['h'])) {
                             switch ($_GET['h']) {
+                                case "presensi":
+                                    include_once "halaman/guru/presensi.php";
+                                    break;
                                 case "input_nilai":
                                     include_once "halaman/guru/input_nilai.php";
                                     break;

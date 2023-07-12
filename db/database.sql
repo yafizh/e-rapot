@@ -1,5 +1,7 @@
 DROP DATABASE IF EXISTS `db_e_rapot`;
+
 CREATE DATABASE `db_e_rapot`;
+
 USE `db_e_rapot`;
 
 CREATE TABLE `db_e_rapot`.`user` (
@@ -37,14 +39,14 @@ CREATE TABLE `db_e_rapot`.`kelas` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
     tingkat INT NOT NULL,
-    PRIMARY KEY (id) 
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE `db_e_rapot`.`semester` (
     id INT NOT NULL AUTO_INCREMENT,
     nama VARCHAR(255) NOT NULL,
     tingkat INT NOT NULL,
-    PRIMARY KEY (id) 
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE `db_e_rapot`.`mata_pelajaran` (
@@ -94,7 +96,6 @@ CREATE TABLE `db_e_rapot`.`user_siswa` (
     FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE `db_e_rapot`.`kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas_aktif INT NOT NULL,
@@ -110,8 +111,8 @@ CREATE TABLE `db_e_rapot`.`semester_kelas` (
     id_kelas_siswa INT NOT NULL,
     id_semester INT NOT NULL,
     sakit INT NULL,
-    izin INT NULL, 
-    tanpa_keterangan INT NULL, 
+    izin INT NULL,
+    tanpa_keterangan INT NULL,
     catatan_wali_kelas TEXT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_kelas_siswa) REFERENCES kelas_siswa (id) ON DELETE CASCADE,
@@ -192,7 +193,6 @@ CREATE TABLE `db_e_rapot`.`buku_digital` (
     PRIMARY KEY (id)
 );
 
-
 CREATE TABLE `db_e_rapot`.`forum_diskusi` (
     id INT NOT NULL AUTO_INCREMENT,
     id_user INT NOT NULL,
@@ -204,3 +204,12 @@ CREATE TABLE `db_e_rapot`.`forum_diskusi` (
     FOREIGN KEY (id_mata_pelajaran_kelas) REFERENCES mata_pelajaran_kelas (id) ON DELETE CASCADE
 );
 
+CREATE TABLE `db_e_rapot`.`presensi_guru` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_guru INT NOT NULL,
+    tanggal DATE NOT NULL,
+    masuk TIME NOT NULL,
+    keluar TIME NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
+);
