@@ -88,15 +88,20 @@ if (isset($_POST['submit'])) {
             WHERE 
                 id=" . $_GET['id'] . "
             ";
+        $mysqli->query($q);
 
-        if ($mysqli->query($q)) {
-            $_SESSION['edit_data']['id'] =  $data['id'];
-            $_SESSION['edit_data']['nama'] =  $data['nama'];
-            echo "<script>location.href = '?h=siswa';</script>";
-        } else {
-            echo "<script>alert('Edit Data Gagal!')</script>";
-            die($mysqli->error);
-        }
+        $q = "
+            UPDATE user SET 
+                username='$nis',
+                password='$nis' 
+            WHERE 
+                username='" . $data['nis'] . "' 
+        ";
+        $mysqli->query($q);
+
+        $_SESSION['edit_data']['id'] =  $data['id'];
+        $_SESSION['edit_data']['nama'] =  $data['nama'];
+        echo "<script>location.href = '?h=siswa';</script>";
     }
 }
 ?>

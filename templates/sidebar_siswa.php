@@ -39,9 +39,10 @@ $kelas = $mysqli->query($q)->fetch_assoc();
     <div class="card mb-3">
         <div class="card-body text-center">
             <img src="<?= $siswa['foto']; ?>" onerror="imageError(this)" class="img-fluid rounded-circle mb-2" style="width: 180px; height: 180px; object-fit: cover;">
+            <h5 class="card-title mb-0 mt-3"><?= $siswa['nis']; ?>/<?= $siswa['nisn']; ?></h5>
             <h5 class="card-title mb-2"><?= $siswa['nama']; ?></h5>
-            <div class="text-muted mb-0"><?= is_null($kelas['kelas']) ? '' : ('Kelas ' . $kelas['kelas']); ?></div>
-            <div class="text-muted mb-2"><?= is_null($kelas['semester']) ? '' : ('Semester ' . $kelas['semester']); ?></div>
+            <div class="text-muted mb-0"><?= empty($kelas['kelas'] ?? '') ? '' : ('Kelas ' . $kelas['kelas']); ?></div>
+            <div class="text-muted mb-2"><?= empty($kelas['semester'] ?? '') ? '' : ('Semester ' . $kelas['semester']); ?></div>
         </div>
     </div>
     <?php
