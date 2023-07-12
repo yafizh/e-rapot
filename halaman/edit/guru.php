@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
                 $mysqli->begin_transaction();
                 $user_guru = $mysqli->query("SELECT * FROM user_guru WHERE id_guru=" . $_GET['id']);
                 if ($user_guru->num_rows)
-                    $mysqli->query("UPDATE user SET username='$nip' WHERE id=" . $user_guru->fetch_assoc()['id_user']);
+                    $mysqli->query("UPDATE user SET username='$nip', password='$nip' WHERE id=" . $user_guru->fetch_assoc()['id_user']);
 
                 $q = "
                 UPDATE guru SET

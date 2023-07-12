@@ -46,6 +46,18 @@ if (isset($_POST['submit'])) {
             if (!is_dir($target_dir)) mkdir($target_dir, 0700, true);
             if (move_uploaded_file($foto["tmp_name"], $target_file)) {
                 $q = "
+                    INSERT INTO user (
+                        username,
+                        password 
+                    ) VALUES (
+                        '$nip',
+                        '$nip' 
+                    )
+                ";
+                $mysqli->query($q);
+                $id_user = $mysqli->insert_id;
+
+                $q = "
                 INSERT INTO guru (
                     nip,
                     nama,
@@ -63,15 +75,25 @@ if (isset($_POST['submit'])) {
                     '$jenis_kelamin',
                     '$target_file'
                 )";
+                $mysqli->query($q);
+                $id_guru = $mysqli->insert_id;
 
-                if ($mysqli->query($q)) {
-                    $_SESSION['tambah_data']['id'] = $mysqli->insert_id;
-                    $_SESSION['tambah_data']['nama'] = $nama;
-                    echo "<script>location.href = '?h=guru';</script>";
-                } else {
-                    echo "<script>alert('Tambah Data Gagal!')</script>";
-                    die($mysqli->error);
-                }
+                $q = "
+                    INSERT INTO user_guru (
+                        id_user,
+                        id_guru,
+                        status 
+                    ) VALUES (
+                        '$id_user',
+                        '$id_guru',
+                        'Guru' 
+                    )
+                ";
+                $mysqli->query($q);
+
+                $_SESSION['tambah_data']['id'] = $mysqli->insert_id;
+                $_SESSION['tambah_data']['nama'] = $nama;
+                echo "<script>location.href = '?h=guru';</script>";
             } else
                 echo "Sorry, there was an error uploading your file.";
         } else
