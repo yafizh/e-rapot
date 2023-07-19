@@ -221,6 +221,9 @@ $_SESSION['old']    = [];
                             case "laporan_grafik_jenis_kelamin_siswa":
                                 include_once "halaman/laporan/grafik_jenis_kelamin_siswa.php";
                                 break;
+                            case "laporan_presensi_guru":
+                                include_once "halaman/laporan/presensi_guru.php";
+                                break;
                             default:
                                 include_once "beranda.php";
                         }

@@ -162,6 +162,11 @@
                     <i class="fas fa-file-pdf"></i> <span class="align-middle">Grafik Jenis Kelamin Siswa</span>
                 </a>
             </li>
+            <li class="sidebar-item <?= ($_GET['h'] ?? '') == 'presensi_guru' ? 'active' : ''; ?>">
+                <a class="sidebar-link" href="?h=laporan_presensi_guru">
+                    <i class="fas fa-file-pdf"></i> <span class="align-middle">Presensi Guru</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
