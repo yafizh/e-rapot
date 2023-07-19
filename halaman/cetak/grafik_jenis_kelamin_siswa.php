@@ -7,7 +7,6 @@
     <title>Laporan Grafik Jenis Kelamin Siswa</title>
     <link rel="shortcut icon" href="../../assets/img/icons/kemenag.svg" />
     <link href="../../assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/app.css">
     <style>
         @media print {
             @page {
@@ -91,7 +90,7 @@
         $data = $result->fetch_all(MYSQLI_ASSOC);
         $no = 1;
         ?>
-        <canvas style="height: 20rem;" id="chartjs-bar"></canvas>
+        <canvas style="height: 16rem;" id="chartjs-bar"></canvas>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const chartData = JSON.parse('<?= json_encode($data); ?>');
@@ -105,6 +104,7 @@
                                 "Perempuan"
                             ],
                             datasets: [{
+                                label: 'Jumlah',
                                 backgroundColor: [
                                     'rgb(1,163,229)', 'rgb(255,99,190)'
                                 ],
@@ -135,9 +135,9 @@
                                 }, ],
                                 xAxes: [{
                                     stacked: false,
-                                    gridLines: {
-                                        color: "transparent",
-                                    },
+                                    // gridLines: {
+                                    //     color: "transparent",
+                                    // },
                                 }, ],
                             },
                         },

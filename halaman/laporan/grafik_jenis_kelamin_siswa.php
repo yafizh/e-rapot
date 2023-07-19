@@ -151,6 +151,7 @@
                         "Perempuan"
                     ],
                     datasets: [{
+                        label: 'Jumlah',
                         backgroundColor: [
                             'rgb(1,163,229)', 'rgb(255,99,190)'
                         ],
@@ -178,9 +179,9 @@
                         }, ],
                         xAxes: [{
                             stacked: false,
-                            gridLines: {
-                                color: "transparent",
-                            },
+                            // gridLines: {
+                            //     color: "transparent",
+                            // },
                         }, ],
                     },
                 },

@@ -42,7 +42,7 @@
     ";
     $report = $mysqli->query($q)->fetch_assoc();
 
-    $report2 = $mysqli->query("SELECT tanggal FROM presensi_mata_pelajaran_kelas WHERE id=".$_GET['idd'])->fetch_assoc();
+    $report2 = $mysqli->query("SELECT tanggal FROM presensi_mata_pelajaran_kelas WHERE id=" . $_GET['idd'])->fetch_assoc();
     ?>
     <h4 class="text-center my-3">Laporan Presensi</h4>
     <section class="p-3">
@@ -124,7 +124,35 @@
             </tbody>
         </table>
     </main>
-    <?php include_once('footer.php'); ?>
+    <?php
+    $q = "
+            SELECT 
+                g.nip,
+                g.nama
+            FROM 
+                mata_pelajaran_kelas mpk 
+            INNER JOIN 
+                guru g 
+            ON 
+                g.id=mpk.id_guru 
+            WHERE 
+                mpk.id=" . $_GET['id'] . "
+        ";
+    $guru = $mysqli->query($q)->fetch_assoc();
+    ?>
+    <footer class="d-flex justify-content-end p-3">
+        <div class="text-center">
+            <h6>Ampah, <?= indonesiaDate(Date('Y-m-d')); ?></h6>
+            <br><br><br><br><br>
+            <h6 class="mb-0"><?= $guru['nama']; ?></h6>
+            <div style="border: 1px solid black; width: 16rem;"></div>
+            <h6><?= $guru['nip']; ?></h6>
+        </div>
+    </footer>
+    <script src="../../assets/js/bootstrap.js"></script>
+    <script>
+        window.print();
+    </script>
 </body>
 
 </html>
