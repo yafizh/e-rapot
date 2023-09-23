@@ -51,6 +51,49 @@
                 </div>
                 <?php include_once('templates/forum_diskusi.php') ?>
             </div>
+            <div class="col-12 col-md-5">
+                <?php
+                $q = "
+                    SELECT  
+                        *
+                    FROM 
+                        tugas_mata_pelajaran_kelas pmpk 
+                    WHERE 
+                        pmpk.id_mata_pelajaran_kelas=" . $_GET['id'] . " 
+                    ORDER BY 
+                        pmpk.tanggal_mulai DESC 
+                ";
+                $result = $mysqli->query($q);
+                ?>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h3>Tugas</h3>
+                        <a href="?h=tambah_tugas&id=<?= $_GET['id']; ?>" class="btn btn-primary">Tambah Tugas</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Nama Tugas</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = $result->fetch_assoc()) : ?>
+                                    <tr>
+                                        <td class="text-center"><?= $row['nama']; ?></td>
+                                        <td class="text-center">
+                                            <a href="?h=lihat_tugas&id=<?= $_GET['id'] ?>&idd=<?= $row['id'] ?>" class="btn btn-info btn-sm">Lihat</a>
+                                            <a href="?h=edit_tugas&id=<?= $_GET['id'] ?>&idd=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="?h=hapus_tugas&id=<?= $_GET['id'] ?>&idd=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

@@ -131,6 +131,30 @@ CREATE TABLE `db_e_rapot`.`mata_pelajaran_kelas` (
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
 );
 
+CREATE TABLE `db_e_rapot`.`tugas_mata_pelajaran_kelas` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_mata_pelajaran_kelas INT NOT NULL,
+    nama VARCHAR(255) NOT NULL,
+    tanggal_mulai DATE NOT NULL,
+    tanggal_selesai DATE NOT NULL,
+    file VARCHAR(255) NOT NULL,
+    keterangan TEXT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_mata_pelajaran_kelas) REFERENCES mata_pelajaran_kelas (id) ON DELETE CASCADE
+);
+
+CREATE TABLE `db_e_rapot`.`tugas_siswa` (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_siswa INT NOT NULL,
+    id_tugas_mata_pelajaran_kelas INT NULL,
+    tanggal_waktu DATETIME NULL,
+    file VARCHAR(255) NULL,
+    nilai INT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_tugas_mata_pelajaran_kelas) REFERENCES tugas_mata_pelajaran_kelas (id) ON DELETE CASCADE,
+    FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE
+);
+
 CREATE TABLE `db_e_rapot`.`nilai_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
     id_semester_kelas INT NOT NULL,
@@ -158,28 +182,6 @@ CREATE TABLE `db_e_rapot`.`presensi_siswa` (
     PRIMARY KEY (id),
     FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE,
     FOREIGN KEY (id_presensi_mata_pelajaran_kelas) REFERENCES presensi_mata_pelajaran_kelas (id) ON DELETE CASCADE
-);
-
-CREATE TABLE `db_e_rapot`.`tugas_mata_pelajaran_kelas` (
-    id INT NOT NULL AUTO_INCREMENT,
-    id_mata_pelajaran_kelas INT NOT NULL,
-    tanggal DATE NOT NULL,
-    file VARCHAR(255) NOT NULL,
-    keterangan TEXT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_mata_pelajaran_kelas) REFERENCES mata_pelajaran_kelas (id) ON DELETE CASCADE
-);
-
-CREATE TABLE `db_e_rapot`.`tugas_siswa` (
-    id INT NOT NULL AUTO_INCREMENT,
-    id_semester_kelas INT NOT NULL,
-    id_tugas_mata_pelajaran_kelas INT NOT NULL,
-    waktu TIME NOT NULL,
-    file VARCHAR(255) NOT NULL,
-    nilai INT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_semester_kelas) REFERENCES semester_kelas (id) ON DELETE CASCADE,
-    FOREIGN KEY (id_tugas_mata_pelajaran_kelas) REFERENCES tugas_mata_pelajaran_kelas (id) ON DELETE CASCADE
 );
 
 CREATE TABLE `db_e_rapot`.`buku_digital` (

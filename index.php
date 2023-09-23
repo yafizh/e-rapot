@@ -257,6 +257,18 @@ $_SESSION['old']    = [];
                                 case "hapus_presensi":
                                     include_once "halaman/guru/presensi/hapus.php";
                                     break;
+                                case "lihat_tugas":
+                                    include_once "halaman/guru/tugas/lihat.php";
+                                    break;
+                                case "tambah_tugas":
+                                    include_once "halaman/guru/tugas/tambah.php";
+                                    break;
+                                case "edit_tugas":
+                                    include_once "halaman/guru/tugas/edit.php";
+                                    break;
+                                case "hapus_tugas":
+                                    include_once "halaman/guru/tugas/hapus.php";
+                                    break;
                                 case "ganti_password":
                                     include_once "halaman/auth/ganti_password.php";
                                     break;
@@ -273,8 +285,17 @@ $_SESSION['old']    = [];
                     if (!is_null($_SESSION['user']['id_siswa'])) {
                         if (isset($_GET['h'])) {
                             switch ($_GET['h']) {
-                                case "mata_pelajaran":
-                                    include_once "halaman/siswa/mata_pelajaran.php";
+                                case "forum_diskusi":
+                                    include_once "halaman/siswa/forum_diskusi.php";
+                                    break;
+                                case "presensi":
+                                    include_once "halaman/siswa/presensi.php";
+                                    break;
+                                case "lihat_tugas":
+                                    include_once "halaman/siswa/tugas/lihat.php";
+                                    break;
+                                case "perbaharui_tugas":
+                                    include_once "halaman/siswa/tugas/perbaharui.php";
                                     break;
                                 case "buku_digital":
                                     include_once "halaman/siswa/buku_digital.php";

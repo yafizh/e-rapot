@@ -51,7 +51,9 @@
                                                 <td class="text-center td-fit"><?= $no++; ?></td>
                                                 <td class="text-center"><?= $row['nama']; ?></td>
                                                 <td class="text-center td-fit">
-                                                    <a href="?h=mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Lihat</a>
+                                                    <a href="?h=presensi&id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Presensi</a>
+                                                    <a href="?h=forum_diskusi&id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Forum Diskusi</a>
+                                                    <a href="?h=lihat_tugas&id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Tugas</a>
                                                 </td>
                                             </tr>
                                         <?php endwhile; ?>
