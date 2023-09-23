@@ -22,6 +22,7 @@
                                     $q = "
                                         SELECT 
                                             mpk.id,
+                                            mpk.rps,
                                             mp.nama as mata_pelajaran,
                                             k.nama as kelas
                                         FROM 
@@ -55,6 +56,7 @@
                                                     <td class="text-center"><?= $row['kelas']; ?></td>
                                                     <td class="text-center"><?= $row['mata_pelajaran']; ?></td>
                                                     <td class="text-center td-fit">
+                                                        <a href="<?= $row['rps']; ?>" target="_blank" class="btn btn-info btn-sm">RPS</a>
                                                         <a href="?h=mata_pelajaran&id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Lihat</a>
                                                     </td>
                                                 </tr>

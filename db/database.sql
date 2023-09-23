@@ -125,6 +125,7 @@ CREATE TABLE `db_e_rapot`.`mata_pelajaran_kelas` (
     id_mata_pelajaran INT NOT NULL,
     id_guru INT NOT NULL,
     kkm INT NOT NULL,
+    rps VARCHAR(255),
     PRIMARY KEY (id),
     FOREIGN KEY (id_kelas_aktif) REFERENCES kelas_aktif (id) ON DELETE CASCADE,
     FOREIGN KEY (id_mata_pelajaran) REFERENCES mata_pelajaran (id) ON DELETE CASCADE,

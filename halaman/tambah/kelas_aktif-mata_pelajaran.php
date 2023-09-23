@@ -36,17 +36,29 @@ if (isset($_POST['submit'])) {
             break;
         }
     }
+
+    // RPS
+    $target_dir = "uploads/rps/";
+    $rps = $_FILES['rps'];
+    $imageFileType = strtolower(pathinfo($rps['name'], PATHINFO_EXTENSION));
+    $target_file = $target_dir . Date("YmdHis") . '.' . $imageFileType;
+
+    if (!is_dir($target_dir)) mkdir($target_dir, 0700, true);
+    move_uploaded_file($rps["tmp_name"], $target_file);
+
     $q = "
         INSERT INTO mata_pelajaran_kelas (
             id_kelas_aktif,
             id_mata_pelajaran,
             id_guru,
-            kkm 
+            kkm,
+            rps
         ) VALUES (
             '" . $kelas_aktif['id'] . "',
             '$id_mata_pelajaran',
             '$id_guru', 
-            '$kkm_mata_pelajaran' 
+            '$kkm_mata_pelajaran',
+            '$target_file'
         )";
 
     if ($mysqli->query($q)) {
@@ -69,7 +81,7 @@ if (isset($_POST['submit'])) {
             <div class="col-12 col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="form-label">Kelas</label>
                                 <input type="text" disabled class="form-control" value="<?= $kelas['nama']; ?> <?= $kelas_aktif['nama']; ?>">
@@ -96,6 +108,10 @@ if (isset($_POST['submit'])) {
                                         <option value="<?= $row['id']; ?>"><?= $row['nama'] ?></option>
                                     <?php endwhile; ?>
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">RPS</label>
+                                <input type="file" class="form-control" name="rps" required autocomplete="off">
                             </div>
                             <a href="?h=lihat_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>" class="btn btn-secondary float-start">Kembali</a>
                             <button type="submit" name="submit" class="btn btn-primary float-end">Tambah</button>

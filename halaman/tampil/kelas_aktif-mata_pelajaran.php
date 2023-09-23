@@ -62,6 +62,7 @@
                                 SELECT 
                                     mpk.id,
                                     mpk.kkm,
+                                    mpk.rps,
                                     mp.nama mata_pelajaran,
                                     g.nama pengajar,
                                     g.nip 
@@ -93,6 +94,7 @@
                                             <td class="text-center"><?= $row['mata_pelajaran']; ?></td>
                                             <td class="text-center"><?= $row['kkm']; ?></td>
                                             <td class="text-center td-fit">
+                                                <a href="<?= $row['rps'] ?>" target="_blank" class="btn btn-sm btn-info">RPS</a>
                                                 <a href="?h=hapus_kelas_aktif-mata_pelajaran&id_kelas=<?= $_GET['id_kelas'] ?>&id_kelas_aktif=<?= $_GET['id_kelas_aktif'] ?>&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                             </td>
                                         </tr>
