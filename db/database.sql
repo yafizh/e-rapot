@@ -6,7 +6,7 @@ USE `db_e_rapot`;
 
 CREATE TABLE `db_e_rapot`.`user` (
     id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     status_login BOOLEAN NULL,
     terakhir_login DATETIME NULL,
@@ -15,12 +15,12 @@ CREATE TABLE `db_e_rapot`.`user` (
 
 CREATE TABLE `db_e_rapot`.`guru` (
     id INT NOT NULL AUTO_INCREMENT,
-    nip VARCHAR(255) NOT NULL UNIQUE,
-    nama VARCHAR(255) NOT NULL,
-    jabatan VARCHAR(255) NULL,
-    tempat_lahir VARCHAR(255) NOT NULL,
+    nip VARCHAR(30) NOT NULL UNIQUE,
+    nama VARCHAR(100) NOT NULL,
+    jabatan VARCHAR(100) NULL,
+    tempat_lahir VARCHAR(100) NOT NULL,
     tanggal_lahir DATE NOT NULL,
-    jenis_kelamin VARCHAR(255) NOT NULL,
+    jenis_kelamin VARCHAR(30) NOT NULL,
     foto VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -29,7 +29,7 @@ CREATE TABLE `db_e_rapot`.`user_guru` (
     id INT NOT NULL AUTO_INCREMENT,
     id_user INT NOT NULL,
     id_guru INT NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    status VARCHAR(30) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_user) REFERENCES user (id) ON DELETE CASCADE,
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
@@ -37,21 +37,21 @@ CREATE TABLE `db_e_rapot`.`user_guru` (
 
 CREATE TABLE `db_e_rapot`.`kelas` (
     id INT NOT NULL AUTO_INCREMENT,
-    nama VARCHAR(255) NOT NULL,
+    nama VARCHAR(20) NOT NULL,
     tingkat INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE `db_e_rapot`.`semester` (
     id INT NOT NULL AUTO_INCREMENT,
-    nama VARCHAR(255) NOT NULL,
+    nama VARCHAR(20) NOT NULL,
     tingkat INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE `db_e_rapot`.`mata_pelajaran` (
     id INT NOT NULL AUTO_INCREMENT,
-    nama VARCHAR(255) NOT NULL,
+    nama VARCHAR(50) NOT NULL,
     kkm INT NOT NULL,
     PRIMARY KEY (id)
 );
@@ -60,9 +60,9 @@ CREATE TABLE `db_e_rapot`.`kelas_aktif` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas INT NOT NULL,
     id_guru INT NOT NULL,
-    nama VARCHAR(255),
-    tahun_pelajaran VARCHAR(255),
-    status VARCHAR(255),
+    nama VARCHAR(30),
+    tahun_pelajaran VARCHAR(20),
+    status VARCHAR(20),
     PRIMARY KEY (id),
     FOREIGN KEY (id_kelas) REFERENCES kelas (id) ON DELETE CASCADE,
     FOREIGN KEY (id_guru) REFERENCES guru (id) ON DELETE CASCADE
@@ -70,20 +70,20 @@ CREATE TABLE `db_e_rapot`.`kelas_aktif` (
 
 CREATE TABLE `db_e_rapot`.`siswa` (
     id INT NOT NULL AUTO_INCREMENT,
-    nis VARCHAR(255) NOT NULL,
-    nisn VARCHAR(255) NOT NULL,
-    nama VARCHAR(255) NOT NULL,
-    tempat_lahir VARCHAR(255) NOT NULL,
-    tanggal_lahir VARCHAR(255) NOT NULL,
-    jenis_kelamin VARCHAR(255) NOT NULL,
-    agama VARCHAR(255) NOT NULL,
+    nis VARCHAR(30) NOT NULL,
+    nisn VARCHAR(30) NOT NULL,
+    nama VARCHAR(100) NOT NULL,
+    tempat_lahir VARCHAR(100) NOT NULL,
+    tanggal_lahir DATE NOT NULL,
+    jenis_kelamin VARCHAR(20) NOT NULL,
+    agama VARCHAR(30) NOT NULL,
     alamat TEXT NOT NULL,
-    nama_ayah VARCHAR(255),
-    pekerjaan_ayah VARCHAR(255),
-    nama_ibu VARCHAR(255),
-    pekerjaan_ibu VARCHAR(255),
+    nama_ayah VARCHAR(100),
+    pekerjaan_ayah VARCHAR(50),
+    nama_ibu VARCHAR(100),
+    pekerjaan_ibu VARCHAR(50),
     foto VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    status VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -100,7 +100,7 @@ CREATE TABLE `db_e_rapot`.`kelas_siswa` (
     id INT NOT NULL AUTO_INCREMENT,
     id_kelas_aktif INT NOT NULL,
     id_siswa INT NOT NULL,
-    status VARCHAR(255) NULL,
+    status VARCHAR(20) NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_kelas_aktif) REFERENCES kelas_aktif (id) ON DELETE CASCADE,
     FOREIGN KEY (id_siswa) REFERENCES siswa (id) ON DELETE CASCADE
@@ -135,7 +135,7 @@ CREATE TABLE `db_e_rapot`.`mata_pelajaran_kelas` (
 CREATE TABLE `db_e_rapot`.`tugas_mata_pelajaran_kelas` (
     id INT NOT NULL AUTO_INCREMENT,
     id_mata_pelajaran_kelas INT NOT NULL,
-    nama VARCHAR(255) NOT NULL,
+    nama VARCHAR(50) NOT NULL,
     tanggal_mulai DATE NOT NULL,
     tanggal_selesai DATE NOT NULL,
     file VARCHAR(255) NOT NULL,
@@ -187,8 +187,8 @@ CREATE TABLE `db_e_rapot`.`presensi_siswa` (
 
 CREATE TABLE `db_e_rapot`.`buku_digital` (
     id INT NOT NULL AUTO_INCREMENT,
-    judul VARCHAR(255) NOT NULL,
-    pengarang VARCHAR(255) NOT NULL,
+    judul VARCHAR(100) NOT NULL,
+    pengarang VARCHAR(50) NOT NULL,
     tahun_terbit TINYINT UNSIGNED NOT NULL,
     jumlah_halaman TINYINT UNSIGNED NOT NULL,
     file VARCHAR(255) NOT NULL,
