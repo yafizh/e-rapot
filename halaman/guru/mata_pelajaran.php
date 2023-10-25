@@ -44,14 +44,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md bg-white">
-                <div class="py-3 px-4 border-bottom">
-                    <h4 class="mb-0">Forum Diskusi Kelas</h4>
-                </div>
-                <?php include_once('templates/forum_diskusi.php') ?>
-            </div>
-            <div class="col-12 col-md-5">
                 <?php
                 $q = "
                     SELECT  
@@ -93,6 +85,12 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-md bg-white">
+                <div class="py-3 px-4 border-bottom">
+                    <h4 class="mb-0">Forum Diskusi Kelas</h4>
+                </div>
+                <?php include_once('templates/forum_diskusi.php') ?>
             </div>
         </div>
     </div>

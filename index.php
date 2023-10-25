@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <?php
+// session_destroy();
 date_default_timezone_set('Asia/Kuala_Lumpur');
 $_SESSION['error']  = [];
 $_SESSION['old']    = [];

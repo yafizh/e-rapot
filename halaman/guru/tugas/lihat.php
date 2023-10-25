@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) {
                     ON 
                         mpk.id_kelas_aktif=ka.id 
                     INNER JOIN 
-                        presensi_mata_pelajaran_kelas pmpk 
+                        tugas_mata_pelajaran_kelas pmpk 
                     ON 
                         pmpk.id_mata_pelajaran_kelas=mpk.id 
                     WHERE 
