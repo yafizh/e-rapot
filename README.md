@@ -1,4 +1,4 @@
-# E-Rapot (Electronic Report Card System)
+# E-Rapot: Digital School Management & Grading System
 
 A web-based E-Learning and digital report card management system built with PHP and MySQL. Designed to streamline administrative tasks for admins, teachers, and students.
 
